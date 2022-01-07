@@ -235,6 +235,8 @@
     <ClInclude Include="GraphicsObject_TextureLight.h" />
     <ClInclude Include="GraphicsObject_Wireframe.h" />
     <ClInclude Include="GraphicsObject_WireframeConstantColor.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mesh.h" />
@@ -256,6 +258,7 @@
     <ClInclude Include="Proto\textureData.pb.h" />
     <ClInclude Include="Proto\vboData.h" />
     <ClInclude Include="Proto\vboData.pb.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="RenderMaterial.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderObject.h" />
@@ -324,6 +327,8 @@
     <ClCompile Include="GraphicsObject_TextureLight.cpp" />
     <ClCompile Include="GraphicsObject_Wireframe.cpp" />
     <ClCompile Include="GraphicsObject_WireframeConstantColor.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
@@ -346,6 +351,7 @@
     <ClCompile Include="Proto\textureData.pb.cc" />
     <ClCompile Include="Proto\vboData.cpp" />
     <ClCompile Include="Proto\vboData.pb.cc" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="Skeleton.cpp" />

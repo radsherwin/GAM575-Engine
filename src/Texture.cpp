@@ -14,13 +14,17 @@ Texture::Texture()
 	minFilter(0),
 	magFilter(0),
 	wrapModeS(0),
-	wrapModeT(0)
+	wrapModeT(0),
+	width(0),
+	height(0)
 {
 	this->assetName.resize(1);
 	minFilter.push_back((GLenum)GL_LINEAR);
 	magFilter.push_back((GLenum)GL_LINEAR);
 	wrapModeS.push_back((GLenum)GL_CLAMP_TO_EDGE);
-	wrapModeT.push_back((GLenum)GL_CLAMP_TO_EDGE);
+	wrapModeT.push_back((GLenum)GL_CLAMP_TO_EDGE); //why am I initializing?
+	width.push_back(0);
+	height.push_back(0);
 }
 
 
@@ -36,7 +40,9 @@ void Texture::Set(const char* const _assetName,
 	GLenum _minFilter,
 	GLenum _magFilter,
 	GLenum _wrapModeS,
-	GLenum _wrapModeT)
+	GLenum _wrapModeT,
+	unsigned int _width,
+	unsigned int _height)
 {
 	
 	this->name = _name;
@@ -44,6 +50,8 @@ void Texture::Set(const char* const _assetName,
 	this->minFilter.push_back(_minFilter);
 	this->wrapModeS.push_back(_wrapModeS);
 	this->wrapModeT.push_back(_wrapModeT);
+	this->width.push_back(_width);
+	this->height.push_back(_height);
 	this->textureID = _TextureID;
 	this->assetName.resize(this->magFilter.size());
 	memcpy(this->assetName.at(this->magFilter.size()-1).data(), _assetName, TEXTURE_ASSET_NAME_SIZE - 1);

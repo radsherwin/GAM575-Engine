@@ -49,12 +49,14 @@ public:
 	virtual ~Texture() override;
 
 	void Set(const char* const _assetName,
-		Name _name,
-		GLuint* _TextureID,
-		GLenum minFilter,
-		GLenum magFilter,
-		GLenum wrapModeS,
-		GLenum wrapModeT);
+		Name		 _name,
+		GLuint		 *_TextureID,
+		GLenum		 minFilter,
+		GLenum		 magFilter,
+		GLenum		 wrapModeS,
+		GLenum		 wrapModeT,
+		unsigned int width,
+		unsigned int height);
 
 
 	virtual char* GetName() override;
@@ -67,12 +69,14 @@ private:
 	std::vector<std::array<char, TEXTURE_ASSET_NAME_SIZE>> assetName;
 
 public:
-	Name name;
-	GLuint* textureID;
-	std::vector<GLenum> minFilter;
-	std::vector<GLenum> magFilter;
-	std::vector<GLenum> wrapModeS;
-	std::vector<GLenum> wrapModeT;
+	Name						name;
+	GLuint						*textureID;
+	std::vector<GLenum>			minFilter;
+	std::vector<GLenum>			magFilter;
+	std::vector<GLenum>			wrapModeS;
+	std::vector<GLenum>			wrapModeT;
+	std::vector<unsigned int>	width;
+	std::vector<unsigned int>	height;
 };
 
 #endif

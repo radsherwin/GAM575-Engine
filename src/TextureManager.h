@@ -46,11 +46,11 @@ private:
     static TextureManager* privGetInstance();
 
 
-    void privLoadTexture(const char* const pName, GLuint*& textureID);
+    void privLoadTexture(const char* const pName, GLuint*& textureID, int &width, int &height);
     void privLoadTexture(meshData& mB, GLuint*& textureID);
     void privLoadTexture(textureData& mB, GLuint*& textureID);
     bool privLoadRawTexture(textureData& tD, GLuint textures);
-    bool privLoadTGATexture(const char* szFileName, GLint minFilter, GLint magFilter, GLint wrapMode);
+    bool privLoadTGATexture(const char* szFileName, GLint minFilter, GLint magFilter, GLint wrapMode, int &width, int &height);
     GLbyte* gltReadTGABits(const char* szFileName, GLint* iWidth, GLint* iHeight, GLint* iComponents, GLenum* eFormat);
 
     GLenum privGetOpenGLValue(textureData::TEXTURE_EFORMAT eFormat) const;

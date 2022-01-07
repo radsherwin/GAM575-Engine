@@ -88,15 +88,18 @@ Texture* TextureManager::Add(const char* const pName, Texture::Name name)
 
     GLuint* pTextureID = new GLuint;
 
+    int nWidth;
+    int nHeight;
+
     // Load the texture and get the textureID
     assert(pName);
-    pMan->privLoadTexture(pName, pTextureID);
+    pMan->privLoadTexture(pName, pTextureID, nWidth, nHeight);
 
     Texture* pNode = (Texture*)pMan->baseAddToFront();
     assert(pNode != nullptr);
 
     // Initialize the date
-    pNode->Set(pName, name, pTextureID, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+    pNode->Set(pName, name, pTextureID, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, nWidth, nHeight);
 
     return pNode;
 }
@@ -123,7 +126,9 @@ Texture* TextureManager::Add(meshData& mB, Texture::Name _name)
             textureDataHelper::Get(mB.text_color[i].minFilter),
             textureDataHelper::Get(mB.text_color[i].magFilter),
             textureDataHelper::Get(mB.text_color[i].wrapS),
-            textureDataHelper::Get(mB.text_color[i].wrapT)
+            textureDataHelper::Get(mB.text_color[i].wrapT),
+            mB.text_color->width,
+            mB.text_color->height
         );
     }
 
@@ -151,7 +156,9 @@ Texture* TextureManager::Add(textureData& tB, Texture::Name _name)
         textureDataHelper::Get(tB.minFilter),
         textureDataHelper::Get(tB.magFilter),
         textureDataHelper::Get(tB.wrapS),
-        textureDataHelper::Get(tB.wrapT)
+        textureDataHelper::Get(tB.wrapT),
+        tB.width,
+        tB.height
     );
 
 
@@ -238,7 +245,7 @@ DLink* TextureManager::derivedCreateNode()
 
 
 
-void TextureManager::privLoadTexture(const char* const _assetName, GLuint*& textureID)
+void TextureManager::privLoadTexture(const char* const _assetName, GLuint*& textureID, int &width, int &height)
 {
     // Get an ID, for textures (OpenGL poor man's handle)
     glGenTextures(1, textureID);
@@ -247,7 +254,7 @@ void TextureManager::privLoadTexture(const char* const _assetName, GLuint*& text
     glBindTexture(GL_TEXTURE_2D, *textureID);
 
     // Loat the texture
-    this->privLoadTGATexture(_assetName, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+    this->privLoadTGATexture(_assetName, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, width, height);
 }
 
 void TextureManager::privLoadTexture(meshData& mB, GLuint*& textureID)
@@ -307,10 +314,10 @@ bool TextureManager::privLoadRawTexture(textureData& tD, GLuint texture)
 }
 
 // Load a TGA as a 2D Texture. Completely initialize the state
-bool TextureManager::privLoadTGATexture(const char* szFileName, GLint minFilter, GLint magFilter, GLint wrapMode)
+bool TextureManager::privLoadTGATexture(const char* szFileName, GLint minFilter, GLint magFilter, GLint wrapMode, int &nWidth, int &nHeight)
 {
     GLbyte* pBits;
-    int nWidth, nHeight, nComponents;
+    int nComponents;
     GLenum eFormat;
 
     // Read the texture bits

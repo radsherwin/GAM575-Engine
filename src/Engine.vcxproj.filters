@@ -104,6 +104,9 @@
     <Filter Include="Source Files\GameObject\Animation">
       <UniqueIdentifier>{55fd1550-1090-4a2e-8dc2-43ba8f5f4a8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Image">
+      <UniqueIdentifier>{8562067e-e1cb-43f9-bb70-1b85cb00e5a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Framework\__DO NOT MODIFY__">
@@ -870,6 +873,15 @@
     <ClInclude Include="GameObjectNull.h">
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Source Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Source Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Source Files\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1069,6 +1081,15 @@
     </ClCompile>
     <ClCompile Include="GameObjectNull.cpp">
       <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files\Image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
