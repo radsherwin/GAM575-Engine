@@ -6,6 +6,7 @@
 
 #include "GameObject.h"
 #include "GameObjectRigid.h"
+#include "GameObjectNull.h"
 #include "GameObjectManager.h"
 #include "PCSTreeForwardIterator.h"
 
@@ -173,8 +174,10 @@ namespace Azul
 
 		ShaderObject* pShader = ShaderManager::Add(ShaderObject::Name::NULL_SHADER, "../src/GLSL/nullRender");
 		GraphicsObjectHdr* pGraphicsObjectHdr = new GraphicsObjectHdr(pMesh, pShader);
-		GameObjectRigid* pGameRoot = new GameObjectRigid(pGraphicsObjectHdr);
-		pGameRoot->SetName("GameObject_Root");
+		//GameObjectRigid* pGameRoot = new GameObjectRigid(pGraphicsObjectHdr);
+
+		GameObjectNull *pGameRoot = new GameObjectNull(pGraphicsObjectHdr);
+		pGameRoot->SetName("GameObjectNull_Root");
 
 		// Create the tree
 		this->poRootTree = new PCSTree();
