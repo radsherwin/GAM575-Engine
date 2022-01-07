@@ -223,6 +223,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GameObjectNull.h" />
     <ClInclude Include="GameObjectRigid.h" />
     <ClInclude Include="GraphicsObject.h" />
     <ClInclude Include="GraphicsObjectHdr.h" />
@@ -311,6 +312,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameObjectNull.cpp" />
     <ClCompile Include="GameObjectRigid.cpp" />
     <ClCompile Include="GraphicsObject.cpp" />
     <ClCompile Include="GraphicsObjectHdr.cpp" />

@@ -213,7 +213,7 @@ namespace Azul
 
 	//-----------------------------------------------------------------------------
 	// Game::Update()
-	//      Called once per frame, update data, tranformations, etc
+	//      Called once per frame, update data, transformations, etc
 	//      Use this function to control process order
 	//      Input, AI, Physics, Animation, and Graphics
 	//-----------------------------------------------------------------------------

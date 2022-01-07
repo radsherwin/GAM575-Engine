@@ -867,6 +867,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Source Files\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectNull.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1063,6 +1066,9 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectNull.cpp">
+      <Filter>Source Files\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
