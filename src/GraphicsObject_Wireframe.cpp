@@ -38,7 +38,7 @@ void GraphicsObject_Wireframe::SetDataGPU()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDisable(GL_CULL_FACE);
 
-	Camera* pCam = CameraManager::CurrentCamera();
+	Camera* pCam = CameraManager::GetCurrent(Camera::Type::PERSPECTIVE_3D);
 
 	Matrix world = this->GetWorld();
 	Matrix view = pCam->getViewMatrix();

@@ -49,7 +49,7 @@ void GraphicsObject_TextureLight::SetDataGPU()
 	// set the vao
 	glBindVertexArray(this->GetMesh()->vao);
 
-	Camera* pCam = CameraManager::CurrentCamera();
+	Camera* pCam = CameraManager::GetCurrent(Camera::Type::PERSPECTIVE_3D);
 
 	Matrix world = this->GetWorld();
 	Matrix view = pCam->getViewMatrix();

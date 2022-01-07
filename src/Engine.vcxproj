@@ -207,6 +207,7 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="Clip.h" />
+    <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GameObjectAnim.h" />
     <ClInclude Include="GameObjectAnimSkeleton.h" />
     <ClInclude Include="GameObjectAnimSkin.h" />
@@ -232,6 +233,7 @@
     <ClInclude Include="GraphicsObject_ConstColor.h" />
     <ClInclude Include="GraphicsObject_FlatTexture.h" />
     <ClInclude Include="GraphicsObject_Null.h" />
+    <ClInclude Include="GraphicsObject_Sprite.h" />
     <ClInclude Include="GraphicsObject_TextureLight.h" />
     <ClInclude Include="GraphicsObject_Wireframe.h" />
     <ClInclude Include="GraphicsObject_WireframeConstantColor.h" />
@@ -299,6 +301,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="Clip.cpp" />
+    <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObjectAnim.cpp" />
     <ClCompile Include="GameObjectAnimSkeleton.cpp" />
     <ClCompile Include="GameObjectAnimSkin.cpp" />
@@ -324,6 +327,7 @@
     <ClCompile Include="GraphicsObject_ConstColor.cpp" />
     <ClCompile Include="GraphicsObject_FlatTexture.cpp" />
     <ClCompile Include="GraphicsObject_Null.cpp" />
+    <ClCompile Include="GraphicsObject_Sprite.cpp" />
     <ClCompile Include="GraphicsObject_TextureLight.cpp" />
     <ClCompile Include="GraphicsObject_Wireframe.cpp" />
     <ClCompile Include="GraphicsObject_WireframeConstantColor.cpp" />

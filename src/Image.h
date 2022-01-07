@@ -1,9 +1,8 @@
-#ifndef IMAGE_H
-#define IMAGE_H
+#ifndef IMAGE_2D_H
+#define IMAGE_2D_H
 
-#include "Texture.h"
-#include "DLink.h"
 #include "Rect.h"
+#include "Texture.h"
 
 namespace Azul
 {

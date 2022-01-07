@@ -42,7 +42,7 @@ void GraphicsObject_FlatTexture::SetDataGPU()
 	//turn to loop
 	glBindVertexArray(this->GetMesh()->vao);
 
-	Camera* pCam = CameraManager::CurrentCamera();
+	Camera* pCam = CameraManager::GetCurrent(Camera::Type::PERSPECTIVE_3D);
 
 	Matrix world = this->GetWorld();
 	Matrix view = pCam->getViewMatrix();

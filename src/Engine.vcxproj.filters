@@ -882,6 +882,12 @@
     <ClInclude Include="Rect.h">
       <Filter>Source Files\Image</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject2D.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsObject_Sprite.h">
+      <Filter>Source Files\GraphicsObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1090,6 +1096,12 @@
     </ClCompile>
     <ClCompile Include="Rect.cpp">
       <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject2D.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsObject_Sprite.cpp">
+      <Filter>Source Files\GraphicsObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

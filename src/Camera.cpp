@@ -9,197 +9,216 @@
 
 namespace Azul
 {
+Camera::Camera(Camera::Type _camType)
+	:pad{ 0 }
+{
+	this->cameraID = Camera::ID::NOT_INITIALIZED;
+	this->camType = _camType;
+}
 
-	// default constructor
-	Camera::Camera()
-		:cameraID(Camera::ID::NOT_INITIALIZED)
-	{
-		//out("Camera(): ---------\n");
-	}
+Camera::~Camera()
+{
+}
 
-	Camera::~Camera()
-	{
+void Camera::Set(Camera::ID _camID, const float fovDeg, const float nearCamDist, const float farCamDist, const int width, const int height)
+{
+	this->nextCam = nullptr;
+	this->prevCam = nullptr;
+	this->cameraID = _camID;
+	this->viewport_x = 0;
+	this->viewport_y = 0;
+	this->viewport_width = width;
+	this->viewport_height = height;
 
-	}
+	this->privSetViewState();
 
+	this->aspectRatio = float(width) / float(height);
+	this->fovy = fovDeg;
+	this->nearDist = nearCamDist;
+	this->farDist = farCamDist;
 
-	void Camera::Set(Camera::ID _camID, const float fovDeg, const float nearCamDist, const float farCamDist, const int width, const int height)
-	{
-		this->nextCam = nullptr;
-		this->prevCam = nullptr;
-		this->cameraID = _camID;
-		this->viewport_x = 0;
-		this->viewport_y = 0;
-		this->viewport_width = width;
-		this->viewport_height = height;
+	//Save original
+	GetHelper(this->origUp, this->origTar, this->origPos, this->origUpNorm, this->origForwardNorm, this->origRightNorm);
+}
 
-		this->privSetViewState();
+void Camera::GetHelper(Vect &up, Vect &tar, Vect &pos, Vect &upNorm, Vect &forwardNorm, Vect &pRightNorm)
+{
+	this->getPos(pos);
+	this->getLookAt(tar);
+	this->getUp(upNorm);
+	up = pos + upNorm;
 
-		this->aspectRatio = float(width) / float(height);
-		this->fovy = fovDeg;
-		this->nearDist = nearCamDist;
-		this->farDist = farCamDist;
+	forwardNorm = tar - pos;
+	forwardNorm.norm();
 
-		//Save original
-		GetHelper(this->origUp, this->origTar, this->origPos, this->origUpNorm, this->origForwardNorm, this->origRightNorm);
-	}
+	this->getRight(pRightNorm);
+}
 
-	void Camera::GetHelper(Vect& up, Vect& tar, Vect& pos, Vect& upNorm, Vect& forwardNorm, Vect& pRightNorm)
-	{
-		this->getPos(pos);
-		this->getLookAt(tar);
-		this->getUp(upNorm);
-		up = pos + upNorm;
+void Camera::SetHelper(Vect &up, Vect &tar, Vect &pos)
+{
+	Vect upVect = up - pos;
+	this->setOrientAndPosition(upVect, tar, pos);
+}
 
-		forwardNorm = tar - pos;
-		forwardNorm.norm();
+void Camera::GetOriginal()
+{
+	Vect upVect = this->origUp - this->origPos;
+	this->setOrientAndPosition(upVect, this->origTar, this->origPos);
+}
 
-		this->getRight(pRightNorm);
-	}
+Camera::Type Camera::GetType() const
+{
+	return this->camType;
+}
 
-	void Camera::SetHelper(Vect& up, Vect& tar, Vect& pos)
-	{
-		Vect upVect = up - pos;
-		this->setOrientAndPosition(upVect, tar, pos);
-	}
+Camera::ID Camera::GetCameraID() const
+{
+	return this->cameraID;
+}
 
-	void Camera::GetOriginal()
-	{
-		Vect upVect = this->origUp - this->origPos;
-		this->setOrientAndPosition(upVect, this->origTar, this->origPos);
-	}
+void Camera::SetCameraID(Camera::ID _camID)
+{
+	this->cameraID = _camID;
+}
 
-	Camera::ID Camera::GetCameraID() const
-	{
-		return this->cameraID;
-	}
+void Camera::setOrthographic(const float _xMin, const float _xMax, const float _yMin, const float _yMax, const float _zMin, const float _zMax)
+{
+	assert(this->camType == Camera::Type::ORTHOGRAPHIC_2D);
 
-	void Camera::SetCameraID(Camera::ID _camID)
-	{
-		this->cameraID = _camID;
-	}
+	this->xMin = _xMin;
+	this->yMin = _yMin;
+	this->zMin = _zMin;
 
+	this->xMax = _xMax;
+	this->yMax = _yMax;
+	this->zMax = _zMax;
 
-	// critical informational knobs for the perspective matrix
-	// Field of View Y is in degrees (copying lame OpenGL)
-	void Camera::setPerspective(const float Fovy, const float Aspect, const float NearDist, const float FarDist)
-	{
-		this->aspectRatio = Aspect;
-		this->fovy = Fovy;
-		this->nearDist = NearDist;
-		this->farDist = FarDist;
-	}
+	this->far_height = this->yMax - this->yMin;
+	this->far_width = this->xMax - this->xMin;
+	this->near_width = this->yMax - this->yMin;
+	this->nearDist = this->zMin;
+	this->farDist = this->zMax;
+}
 
-	int Camera::getScreenWidth() const
-	{
-		return this->viewport_width;
-	}
+// critical informational knobs for the perspective matrix
+// Field of View Y is in degrees (copying lame OpenGL)
+void Camera::setPerspective(const float Fovy, const float Aspect, const float NearDist, const float FarDist)
+{
+	this->aspectRatio = Aspect;
+	this->fovy = Fovy;
+	this->nearDist = NearDist;
+	this->farDist = FarDist;
+}
 
-	int Camera::getScreenHeight() const
-	{
-		return this->viewport_height;
-	}
+int Camera::getScreenWidth() const
+{
+	return this->viewport_width;
+}
 
-	// Just a pass through to setup the view port screen sub window
-	void Camera::setViewport(const int inX, const int inY, const int width, const int height)
-	{
-		this->viewport_x = inX;
-		this->viewport_y = inY;
-		this->viewport_width = width;
-		this->viewport_height = height;
+int Camera::getScreenHeight() const
+{
+	return this->viewport_height;
+}
 
-		this->privSetViewState();
-	};
+// Just a pass through to setup the view port screen sub window
+void Camera::setViewport(const int inX, const int inY, const int width, const int height)
+{
+	this->viewport_x = inX;
+	this->viewport_y = inY;
+	this->viewport_width = width;
+	this->viewport_height = height;
 
-	// Simple wrapper
-	void Camera::privSetViewState(void)
-	{
-		glViewport(this->viewport_x, this->viewport_y, this->viewport_width, this->viewport_height);
-	};
+	this->privSetViewState();
+};
 
-	// Goal, calculate the near height / width, same for far plane 
-	void Camera::privCalcPlaneHeightWidth(void)
-	{
+// Simple wrapper
+void Camera::privSetViewState(void)
+{
+	glViewport(this->viewport_x, this->viewport_y, this->viewport_width, this->viewport_height);
+};
 
-		this->near_height = 2.0f * tanf((this->fovy * MATH_PI / 180.0f) * .5f) * this->nearDist;
-		this->near_width = this->near_height * this->aspectRatio;
+// Goal, calculate the near height / width, same for far plane
+void Camera::privCalcPlaneHeightWidth(void)
+{
+	this->near_height = 2.0f * tanf((this->fovy * MATH_PI / 180.0f) * .5f) * this->nearDist;
+	this->near_width = this->near_height * this->aspectRatio;
 
-		this->far_height = 2.0f * tanf((this->fovy * MATH_PI / 180.0f) * .5f) * this->farDist;
-		this->far_width = this->far_height * this->aspectRatio;
+	this->far_height = 2.0f * tanf((this->fovy * MATH_PI / 180.0f) * .5f) * this->farDist;
+	this->far_width = this->far_height * this->aspectRatio;
+};
 
-	};
+void Camera::setOrientAndPosition(const Vect &inUp, const Vect &inLookAt, const Vect &inPos)
+{
+	// Remember the up, lookAt and right are unit, and are perpendicular.
+	// Treat lookAt as king, find Right vect, then correct Up to insure perpendicular.
+	// Make sure that all vectors are unit vectors.
 
-	void Camera::setOrientAndPosition(const Vect& inUp, const Vect& inLookAt, const Vect& inPos)
-	{
-		// Remember the up, lookAt and right are unit, and are perpendicular.
-		// Treat lookAt as king, find Right vect, then correct Up to insure perpendicular.
-		// Make sure that all vectors are unit vectors.
+	this->vLookAt = inLookAt;
 
-		this->vLookAt = inLookAt;
+	// Point out of the screen into your EYE
+	this->vDir = inPos - inLookAt;
+	this->vDir.norm();
 
-		// Point out of the screen into your EYE
-		this->vDir = inPos - inLookAt;
-		this->vDir.norm();
+	// Clean up the vectors (Right hand rule)
+	this->vRight = inUp.cross(this->vDir);
+	this->vRight.norm();
 
-		// Clean up the vectors (Right hand rule)
-		this->vRight = inUp.cross(this->vDir);
-		this->vRight.norm();
+	this->vUp = this->vDir.cross(this->vRight);
+	this->vUp.norm();
 
-		this->vUp = this->vDir.cross(this->vRight);
-		this->vUp.norm();
+	this->vPos = inPos;
+};
 
-		this->vPos = inPos;
-	};
+void Camera::privCalcFrustumVerts(void)
+{
+	// Top Left corner and so forth.  In this form to see the pattern
+	// Might be confusing (remember the picture) vDir goes from screen into your EYE
+	// so distance from the eye is "negative" vDir
+	this->nearTopLeft = this->vPos - this->vDir * this->nearDist + this->vUp * this->near_height * 0.5f - this->vRight * this->near_width * 0.5f;
+	this->nearTopRight = this->vPos - this->vDir * this->nearDist + this->vUp * this->near_height * 0.5f + this->vRight * this->near_width * 0.5f;
+	this->nearBottomLeft = this->vPos - this->vDir * this->nearDist - this->vUp * this->near_height * 0.5f - this->vRight * this->near_width * 0.5f;
+	this->nearBottomRight = this->vPos - this->vDir * this->nearDist - this->vUp * this->near_height * 0.5f + this->vRight * this->near_width * 0.5f;
+	this->farTopLeft = this->vPos - this->vDir * this->farDist + this->vUp * this->far_height * 0.5f - this->vRight * this->far_width * 0.5f;
+	this->farTopRight = this->vPos - this->vDir * this->farDist + this->vUp * this->far_height * 0.5f + this->vRight * this->far_width * 0.5f;
+	this->farBottomLeft = this->vPos - this->vDir * this->farDist - this->vUp * this->far_height * 0.5f - this->vRight * this->far_width * 0.5f;
+	this->farBottomRight = this->vPos - this->vDir * this->farDist - this->vUp * this->far_height * 0.5f + this->vRight * this->far_width * 0.5f;
+};
 
-	void Camera::privCalcFrustumVerts(void)
-	{
-		// Top Left corner and so forth.  In this form to see the pattern
-		// Might be confusing (remember the picture) vDir goes from screen into your EYE
-		// so distance from the eye is "negative" vDir
-		this->nearTopLeft = this->vPos - this->vDir * this->nearDist + this->vUp * this->near_height * 0.5f - this->vRight * this->near_width * 0.5f;
-		this->nearTopRight = this->vPos - this->vDir * this->nearDist + this->vUp * this->near_height * 0.5f + this->vRight * this->near_width * 0.5f;
-		this->nearBottomLeft = this->vPos - this->vDir * this->nearDist - this->vUp * this->near_height * 0.5f - this->vRight * this->near_width * 0.5f;
-		this->nearBottomRight = this->vPos - this->vDir * this->nearDist - this->vUp * this->near_height * 0.5f + this->vRight * this->near_width * 0.5f;
-		this->farTopLeft = this->vPos - this->vDir * this->farDist + this->vUp * this->far_height * 0.5f - this->vRight * this->far_width * 0.5f;
-		this->farTopRight = this->vPos - this->vDir * this->farDist + this->vUp * this->far_height * 0.5f + this->vRight * this->far_width * 0.5f;
-		this->farBottomLeft = this->vPos - this->vDir * this->farDist - this->vUp * this->far_height * 0.5f - this->vRight * this->far_width * 0.5f;
-		this->farBottomRight = this->vPos - this->vDir * this->farDist - this->vUp * this->far_height * 0.5f + this->vRight * this->far_width * 0.5f;
-	};
+void Camera::privCalcFrustumCollisionNormals(void)
+{
+	// Normals of the frustum around nearTopLeft
+	Vect A = this->nearBottomLeft - this->nearTopLeft;
+	Vect B = this->nearTopRight - this->nearTopLeft;
+	Vect C = this->farTopLeft - this->nearTopLeft;
 
-	void Camera::privCalcFrustumCollisionNormals(void)
-	{
-		// Normals of the frustum around nearTopLeft
-		Vect A = this->nearBottomLeft - this->nearTopLeft;
-		Vect B = this->nearTopRight - this->nearTopLeft;
-		Vect C = this->farTopLeft - this->nearTopLeft;
+	this->frontNorm = A.cross(B);
+	this->frontNorm.norm();
 
-		this->frontNorm = A.cross(B);
-		this->frontNorm.norm();
+	this->leftNorm = C.cross(A);
+	this->leftNorm.norm();
 
-		this->leftNorm = C.cross(A);
-		this->leftNorm.norm();
+	this->topNorm = B.cross(C);
+	this->topNorm.norm();
 
-		this->topNorm = B.cross(C);
-		this->topNorm.norm();
+	// Normals of the frustum around farBottomRight
+	A = this->farBottomLeft - this->farBottomRight;
+	B = this->farTopRight - this->farBottomRight;
+	C = this->nearBottomRight - this->farBottomRight;
 
-		// Normals of the frustum around farBottomRight
-		A = this->farBottomLeft - this->farBottomRight;
-		B = this->farTopRight - this->farBottomRight;
-		C = this->nearBottomRight - this->farBottomRight;
+	this->backNorm = A.cross(B);
+	this->backNorm.norm();
 
-		this->backNorm = A.cross(B);
-		this->backNorm.norm();
+	this->rightNorm = B.cross(C);
+	this->rightNorm.norm();
 
-		this->rightNorm = B.cross(C);
-		this->rightNorm.norm();
+	this->bottomNorm = C.cross(A);
+	this->bottomNorm.norm();
+};
 
-		this->bottomNorm = C.cross(A);
-		this->bottomNorm.norm();
-	};
-
-
-	// The projection matrix (note it's invertable)
-	void Camera::privUpdateProjectionMatrix(void)
+// The projection matrix (note it's invertable)
+void Camera::privUpdateProjectionMatrix(void)
+{
+	if (this->camType == Camera::Type::PERSPECTIVE_3D)
 	{
 		this->projMatrix[m0] = 2.0f * this->nearDist / this->near_width;
 		this->projMatrix[m1] = 0.0f;
@@ -220,171 +239,191 @@ namespace Azul
 		this->projMatrix[m13] = 0.0f;
 		this->projMatrix[m14] = (2.0f * this->farDist * this->nearDist) / (this->nearDist - this->farDist);
 		this->projMatrix[m15] = 0.0f;
-	};
-
-	void Camera::privUpdateViewMatrix(void)
-	{
-		// This functions assumes the your vUp, vRight, vDir are still unit
-		// And perpendicular to each other
-		//  view = Rot(orient) * trans(-(eye.basis) )
-
-		this->viewMatrix[m0] = this->vRight[x];
-		this->viewMatrix[m1] = this->vUp[x];
-		this->viewMatrix[m2] = this->vDir[x];
-		this->viewMatrix[m3] = 0.0f;
-
-		this->viewMatrix[m4] = this->vRight[y];
-		this->viewMatrix[m5] = this->vUp[y];
-		this->viewMatrix[m6] = this->vDir[y];
-		this->viewMatrix[m7] = 0.0f;
-
-		this->viewMatrix[m8] = this->vRight[z];
-		this->viewMatrix[m9] = this->vUp[z];
-		this->viewMatrix[m10] = this->vDir[z];
-		this->viewMatrix[m11] = 0.0f;
-
-		// Change of basis (dot with the basis vectors)
-		this->viewMatrix[m12] = -vPos.dot(vRight);
-		this->viewMatrix[m13] = -vPos.dot(vUp);
-		this->viewMatrix[m14] = -vPos.dot(vDir);
-		this->viewMatrix[m15] = 1.0f;
-	};
-
-
-	// Update everything (make sure it's consistent)
-	void Camera::updateCamera(void)
-	{
-		// First find the near height/width, far height/width
-		this->privCalcPlaneHeightWidth();
-
-		// Find the frustum physical verts
-		this->privCalcFrustumVerts();
-
-		// find the frustum collision normals
-		this->privCalcFrustumCollisionNormals();
-
-		// update the projection matrix
-		this->privUpdateProjectionMatrix();
-
-		// update the view matrix
-		this->privUpdateViewMatrix();
 	}
+	else
+	{
+		this->projMatrix[m0] = 2.0f / (xMax - xMin);
+		this->projMatrix[m1] = 0.0f;
+		this->projMatrix[m2] = 0.0f;
+		this->projMatrix[m3] = 0.0f;
 
+		this->projMatrix[m4] = 0.0f;
+		this->projMatrix[m5] = 2.0f / (yMax - yMin);
+		this->projMatrix[m6] = 0.0f;
+		this->projMatrix[m7] = 0.0f;
 
-	// Accessor mess:
-	Matrix& Camera::getViewMatrix(void)
-	{
-		return this->viewMatrix;
-	}
+		this->projMatrix[m8] = 0.0f;
+		this->projMatrix[m9] = 0.0f;
+		this->projMatrix[m10] = -2.0f / (zMax - zMin);
+		this->projMatrix[m11] = 0.0f;
 
-	Matrix& Camera::getProjMatrix(void)
-	{
-		return this->projMatrix;
+		this->projMatrix[m12] = 0;
+		this->projMatrix[m13] = 0;
+		this->projMatrix[m14] = -(zMax + zMin) / (zMax - zMin);
+		this->projMatrix[m15] = 1.0f;
 	}
+};
 
-	void Camera::getPos(Vect& outPos) const
-	{
-		outPos = this->vPos;
-	}
+void Camera::privUpdateViewMatrix(void)
+{
+	// This functions assumes the your vUp, vRight, vDir are still unit
+	// And perpendicular to each other
+	//  view = Rot(orient) * trans(-(eye.basis) )
 
-	void  Camera::getDir(Vect& outDir) const
-	{
-		outDir = this->vDir;
-	}
+	this->viewMatrix[m0] = this->vRight[x];
+	this->viewMatrix[m1] = this->vUp[x];
+	this->viewMatrix[m2] = this->vDir[x];
+	this->viewMatrix[m3] = 0.0f;
 
-	void  Camera::getUp(Vect& outUp) const
-	{
-		outUp = this->vUp;
-	}
+	this->viewMatrix[m4] = this->vRight[y];
+	this->viewMatrix[m5] = this->vUp[y];
+	this->viewMatrix[m6] = this->vDir[y];
+	this->viewMatrix[m7] = 0.0f;
 
-	void Camera::getLookAt(Vect& outLookAt) const
-	{
-		outLookAt = this->vLookAt;
-	}
+	this->viewMatrix[m8] = this->vRight[z];
+	this->viewMatrix[m9] = this->vUp[z];
+	this->viewMatrix[m10] = this->vDir[z];
+	this->viewMatrix[m11] = 0.0f;
 
-	void Camera::getRight(Vect& outRight) const
-	{
-		outRight = this->vRight;
-	}
+	// Change of basis (dot with the basis vectors)
+	this->viewMatrix[m12] = -vPos.dot(vRight);
+	this->viewMatrix[m13] = -vPos.dot(vUp);
+	this->viewMatrix[m14] = -vPos.dot(vDir);
+	this->viewMatrix[m15] = 1.0f;
+};
 
-	void Camera::getFieldOfView(float& Value) const
-	{
-		Value = this->aspectRatio;
-	};
+// Update everything (make sure it's consistent)
+void Camera::updateCamera(void)
+{
+	// First find the near height/width, far height/width
+	this->privCalcPlaneHeightWidth();
 
-	void Camera::setFieldOfView(const float Value)
-	{
-		this->aspectRatio = Value;
-	};
+	// Find the frustum physical verts
+	this->privCalcFrustumVerts();
 
-	void Camera::getNearDist(float& Value) const
-	{
-		Value = this->nearDist;
-	}
+	// find the frustum collision normals
+	this->privCalcFrustumCollisionNormals();
 
-	void Camera::setNearDist(const float Value)
-	{
-		this->nearDist = Value;
-	}
+	// update the projection matrix
+	this->privUpdateProjectionMatrix();
 
-	void Camera::getNearTopLeft(Vect& vOut) const
-	{
-		vOut = this->nearTopLeft;
-	}
-	void Camera::getNearTopRight(Vect& vOut) const
-	{
-		vOut = this->nearTopRight;
-	}
-	void Camera::getNearBottomLeft(Vect& vOut)const
-	{
-		vOut = this->nearBottomLeft;
-	}
-	void Camera::getNearBottomRight(Vect& vOut) const
-	{
-		vOut = this->nearBottomRight;
-	}
-	void Camera::getFarTopLeft(Vect& vOut) const
-	{
-		vOut = this->farTopLeft;
-	}
-	void Camera::getFarTopRight(Vect& vOut) const
-	{
-		vOut = this->farTopRight;
-	}
-	void Camera::getFarBottomLeft(Vect& vOut) const
-	{
-		vOut = this->farBottomLeft;
-	}
-	void Camera::getFarBottomRight(Vect& vOut)const
-	{
-		vOut = this->farBottomRight;
-	}
+	// update the view matrix
+	this->privUpdateViewMatrix();
+}
 
-	Camera::CullResult Camera::CullTest(const Sphere& sphere)
+// Accessor mess:
+Matrix &Camera::getViewMatrix(void)
+{
+	return this->viewMatrix;
+}
+
+Matrix &Camera::getProjMatrix(void)
+{
+	return this->projMatrix;
+}
+
+void Camera::getPos(Vect &outPos) const
+{
+	outPos = this->vPos;
+}
+
+void  Camera::getDir(Vect &outDir) const
+{
+	outDir = this->vDir;
+}
+
+void  Camera::getUp(Vect &outUp) const
+{
+	outUp = this->vUp;
+}
+
+void Camera::getLookAt(Vect &outLookAt) const
+{
+	outLookAt = this->vLookAt;
+}
+
+void Camera::getRight(Vect &outRight) const
+{
+	outRight = this->vRight;
+}
+
+void Camera::getFieldOfView(float &Value) const
+{
+	Value = this->aspectRatio;
+};
+
+void Camera::setFieldOfView(const float Value)
+{
+	this->aspectRatio = Value;
+};
+
+void Camera::getNearDist(float &Value) const
+{
+	Value = this->nearDist;
+}
+
+void Camera::setNearDist(const float Value)
+{
+	this->nearDist = Value;
+}
+
+void Camera::getNearTopLeft(Vect &vOut) const
+{
+	vOut = this->nearTopLeft;
+}
+void Camera::getNearTopRight(Vect &vOut) const
+{
+	vOut = this->nearTopRight;
+}
+void Camera::getNearBottomLeft(Vect &vOut)const
+{
+	vOut = this->nearBottomLeft;
+}
+void Camera::getNearBottomRight(Vect &vOut) const
+{
+	vOut = this->nearBottomRight;
+}
+void Camera::getFarTopLeft(Vect &vOut) const
+{
+	vOut = this->farTopLeft;
+}
+void Camera::getFarTopRight(Vect &vOut) const
+{
+	vOut = this->farTopRight;
+}
+void Camera::getFarBottomLeft(Vect &vOut) const
+{
+	vOut = this->farBottomLeft;
+}
+void Camera::getFarBottomRight(Vect &vOut)const
+{
+	vOut = this->farBottomRight;
+}
+
+Camera::CullResult Camera::CullTest(const Sphere &sphere)
+{
+	CullResult result = Camera::CullResult::CULL_INSIDE;
+	//first test
+	Vect A = sphere.cntr - this->nearTopLeft;
+	if ((A.dot(this->topNorm) > sphere.rad) ||
+		(A.dot(this->leftNorm) > sphere.rad) ||
+		(A.dot(this->frontNorm) > sphere.rad))
 	{
-		CullResult result = Camera::CullResult::CULL_INSIDE;
-		//first test
-		Vect A = sphere.cntr - this->nearTopLeft;
-		if((A.dot(this->topNorm) > sphere.rad) ||
-			(A.dot(this->leftNorm) > sphere.rad) ||
-			(A.dot(this->frontNorm) > sphere.rad))
+		result = Camera::CullResult::CULL_OUTSIDE;
+	}
+	else
+	{
+		Vect B = sphere.cntr - this->farBottomRight;
+		if ((B.dot(this->backNorm) > sphere.rad) ||
+			(B.dot(this->rightNorm) > sphere.rad) ||
+			(B.dot(this->bottomNorm) > sphere.rad))
 		{
 			result = Camera::CullResult::CULL_OUTSIDE;
 		}
-		else
-		{
-			Vect B = sphere.cntr - this->farBottomRight;
-			if((B.dot(this->backNorm) > sphere.rad) ||
-				(B.dot(this->rightNorm) > sphere.rad) ||
-				(B.dot(this->bottomNorm) > sphere.rad))
-			{
-				result = Camera::CullResult::CULL_OUTSIDE;
-			}
-		}
-
-		return result;
-
 	}
+
+	return result;
+}
 }
 
 // --- End of File ---

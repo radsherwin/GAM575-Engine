@@ -8,6 +8,7 @@
 
 #include "StringThis.h"
 
+
 Texture::Texture()
 	: name(Name::NOT_INITIALIZED),
 	textureID(0),

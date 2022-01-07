@@ -15,60 +15,7 @@ CameraInput::CameraInput(GLFWwindow* _window)
 
 void CameraInput::SwitchCamera(Keyboard* pKey)
 {
-	//Main camera
-	static bool keyState1 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_A) && !keyState1)
-	{
-		keyState1 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_A) && keyState1)
-	{
-		CameraManager::MainCamera();
-		glfwSetWindowTitle(this->pWindow, "Press A: Main, S: Side, D: Top, F: Forward ---- CURRENTLY: Main");
-		keyState1 = false;
-	}
-	//Side
-	static bool keyState2 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_S) && !keyState2)
-	{
-		keyState2 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_S) && keyState2)
-	{
-		CameraManager::SideCamera();
-		glfwSetWindowTitle(this->pWindow, "Press A: Main, S: Side, D: Top, F: Forward ---- CURRENTLY: Side");
-		keyState2 = false;
-	}
-
-	//Top
-	static bool keyState3 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_D) && !keyState3)
-	{
-		keyState3 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_D) && keyState3)
-	{
-		CameraManager::TopCamera();
-		glfwSetWindowTitle(this->pWindow, "Press A: Main, S: Side, D: Top, F: Forward ---- CURRENTLY: Top");
-		keyState3 = false;
-	}
-
-	//Forward
-	static bool keyState4 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_F) && !keyState4)
-	{
-		keyState4 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_F) && keyState4)
-	{
-		CameraManager::ForwardCamera();
-		glfwSetWindowTitle(this->pWindow, "Press A: Main, S: Side, D: Top, F: Forward ---- CURRENTLY: Forward");
-		keyState4 = false;
-	}
+	
 }
 
 void CameraInput::PlayDemo(Keyboard* pKey)
@@ -256,7 +203,7 @@ CameraInput* CameraInput::privGetInstance()
 void CameraInput::Update()
 {
 	CameraInput* pMan = CameraInput::privGetInstance();
-    Camera* pCam = CameraManager::CurrentCamera();
+    Camera* pCam = CameraManager::GetCurrent(Camera::Type::PERSPECTIVE_3D);
 	Keyboard* pKey = InputManager::GetKeyboard();
 
 	pMan->PlayDemo(pKey);

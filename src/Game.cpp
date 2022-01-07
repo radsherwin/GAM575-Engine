@@ -88,11 +88,13 @@ namespace Azul
 		AnimationManager::Create();
 
 		//Camera setup
-		CameraManager::Add(Camera::ID::MAIN, 50.0f, 0.10f, 1000.0f, this->info.windowWidth, this->info.windowHeight);
-		CameraManager::Add(Camera::ID::TOP, 30.0f, 0.10f, 1000.0f, this->info.windowWidth, this->info.windowHeight);
-		CameraManager::Add(Camera::ID::SIDE, 30.0f, 0.10f, 1000.0f, this->info.windowWidth, this->info.windowHeight);
-		CameraManager::Add(Camera::ID::FORWARD, 30.0f, 0.10f, 1000.0f, this->info.windowWidth, this->info.windowHeight);
-		CameraManager::SetCurrent(Camera::ID::MAIN);
+		Camera *pCam0 = new Camera(Camera::Type::PERSPECTIVE_3D);
+		pCam0->setViewport(0,0, this->info.windowWidth, this->info.windowHeight);
+		pCam0->setPerspective(35.0f, float(pCam0->getScreenWidth()) / float(pCam0->getScreenHeight()), 1.f, 10000.f);
+		pCam0->setOrientAndPosition(Vect(1.0f, 0.0f, 0.0f), Vect(-1.0f, 0.0f, 0.0f), Vect(-1.0f, 12.0f, 0.0f));
+		pCam0->updateCamera();
+		CameraManager::Add(Camera::ID::MAIN, pCam0);
+		CameraManager::SetCurrent(Camera::ID::MAIN, Camera::Type::PERSPECTIVE_3D);
 
 		//-----------------------------------------------------------------------------
 		//	    Load Camera and Sphere Mesh
@@ -200,7 +202,7 @@ namespace Azul
 
 		//pSkel2->Hide();
 
-		CameraManager::Update();
+		CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
 
 		Trace::out("Z - Reset ,  I,O - Zoom In/Out\n");
 		Trace::out("ASDF - Switch Cameras\n");
@@ -225,7 +227,7 @@ namespace Azul
 		// ------------------------------------
 		// Camera update
 		// ------------------------------------
-		CameraManager::Update();
+		CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
 		CameraInput::Update();
 
 		// ------------------------------------
