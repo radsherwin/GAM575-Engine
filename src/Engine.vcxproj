@@ -266,6 +266,8 @@
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SphereMesh.h" />
+    <ClInclude Include="SpriteMesh.h" />
+    <ClInclude Include="SpriteVBO.h" />
     <ClInclude Include="StringThis.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="textureDataHelper.h" />
@@ -360,6 +362,7 @@
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SphereMesh.cpp" />
+    <ClCompile Include="SpriteMesh.cpp" />
     <ClCompile Include="StringThis.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="textureDataHelper.cpp" />

@@ -21,6 +21,7 @@ public:
 	{
 		NOT_INITIALIZED,
 		STONES,
+		INVADERS,
 		BONE_2,
 		RED_BRICK,
 		CHICKEN_BOT,

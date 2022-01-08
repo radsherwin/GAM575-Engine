@@ -107,6 +107,9 @@
     <Filter Include="Source Files\Image">
       <UniqueIdentifier>{8562067e-e1cb-43f9-bb70-1b85cb00e5a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Mesh\Sprites">
+      <UniqueIdentifier>{9a6a21c3-a87a-4b4a-ac6d-9d60407e6177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Framework\__DO NOT MODIFY__">
@@ -888,6 +891,12 @@
     <ClInclude Include="GraphicsObject_Sprite.h">
       <Filter>Source Files\GraphicsObject</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteVBO.h">
+      <Filter>Source Files\Mesh\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteMesh.h">
+      <Filter>Source Files\Mesh\Sprites</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1102,6 +1111,9 @@
     </ClCompile>
     <ClCompile Include="GraphicsObject_Sprite.cpp">
       <Filter>Source Files\GraphicsObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteMesh.cpp">
+      <Filter>Source Files\Mesh\Sprites</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

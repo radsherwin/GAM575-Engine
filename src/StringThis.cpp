@@ -14,6 +14,10 @@ StringThis::StringThis(Texture::Name status)
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Texture::STONES));
 		break;
 
+	case Texture::Name::INVADERS:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Texture::INVADERS));
+		break;
+
 	case Texture::Name::BONE_2:
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Texture::STONES));
 		break;
@@ -116,6 +120,10 @@ StringThis::StringThis(Mesh::Name status)
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::PYRAMID));
 		break;
 
+	case Mesh::Name::SPRITE:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::SPRITE));
+		break;
+
 	case Mesh::Name::CHICKEN_BOT:
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::CHICKEN_BOT));
 		break;
@@ -209,6 +217,10 @@ StringThis::StringThis(ShaderObject::Name status)
 
 	case ShaderObject::Name::TEXTURE_SIMPLE:
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(ShaderObject::TEXTURE_SIMPLE));
+		break;
+
+	case ShaderObject::Name::SPRITE:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(ShaderObject::SPRITE));
 		break;
 
 	case ShaderObject::Name::TEXTURE_POINT_LIGHT:
