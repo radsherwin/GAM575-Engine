@@ -41,5 +41,6 @@ message meshData_proto
 			 uint32			    texCount			= 16;
 			 uint32			    nameCount			= 17;
 			 uint32				animCount			= 18;
+			 uint32				hasSkin				= 19;
 }													 
 // -- End of File ---

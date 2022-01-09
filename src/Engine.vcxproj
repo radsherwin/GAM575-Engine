@@ -41,6 +41,8 @@
     <None Include="Proto\meshData.proto" />
     <None Include="Proto\textureData.proto" />
     <None Include="Proto\vboData.proto" />
+    <None Include="spriteRender.fs.glsl" />
+    <None Include="spriteRender.vs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Framework\Framework.h" />

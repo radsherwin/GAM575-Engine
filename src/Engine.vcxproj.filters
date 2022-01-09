@@ -202,6 +202,12 @@
     <None Include="Proto\boneData.proto">
       <Filter>Source Files\ProtoBuff\animData\boneData</Filter>
     </None>
+    <None Include="spriteRender.fs.glsl">
+      <Filter>Source Files\Shaders\GLSL</Filter>
+    </None>
+    <None Include="spriteRender.vs.glsl">
+      <Filter>Source Files\Shaders\GLSL</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Framework\Framework.h">

@@ -12,6 +12,8 @@ GameObject2D::GameObject2D(GraphicsObjectHdr *pGraphicsObjHdr)
 	assert(pGraphicsObjHdr != 0);
 
 	this->angle = 0.f;
+	//If the GraphicsObject is note _Sprite then this will fail. 
+	//Maybe to a special graphics object header?
 	this->posX = ((GraphicsObject_Sprite*)pGraphicsObjHdr->poGraphicsObject)->origPosX;
 	this->posY = ((GraphicsObject_Sprite*)pGraphicsObjHdr->poGraphicsObject)->origPosY;
 	this->scaleX = 1.f;

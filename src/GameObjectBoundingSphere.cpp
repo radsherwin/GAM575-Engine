@@ -47,7 +47,7 @@ namespace Azul
 
 
 		// Flip the color based on camera_0
-		Camera *pCam = CameraManager::Find(Camera::ID::MAIN);
+		Camera *pCam = CameraManager::Find(Camera::ID::CAMERA_0);
 		Sphere *pCurrSphere = this->poGraphicsObjHdr->poGraphicsObject->poCurrSphere;
 
 		// Architecture issue... this doesn't feel good.

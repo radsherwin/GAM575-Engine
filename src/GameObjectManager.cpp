@@ -37,6 +37,14 @@ namespace Azul
 		PCSTree* pTree = pGOM->poRootTree;
 		PCSNode* pNode = nullptr;
 
+		PCSTree::Info info;
+		pGOM->poRootTree->GetInfo(info);
+		if(info.currNumNodes <= 1) 
+		{
+			delete pTree->GetRoot();
+			return;
+		}
+
 		PCSTreeForwardIterator pForIter(pTree->GetRoot());
 		pNode = pForIter.First();
 		PCSNode* pTmp = nullptr;
@@ -58,6 +66,10 @@ namespace Azul
 		PCSNode* pRootNode = pGOM->poRootTree->GetRoot();
 		assert(pRootNode);
 
+		PCSTree::Info info;
+		pGOM->poRootTree->GetInfo(info);
+		if(info.currNumNodes <= 1) return; //for cases where the tree only has a null 
+		
 		PCSTreeForwardIterator pForwardIter(pRootNode);
 		PCSNode* pNode = pForwardIter.First();
 
@@ -149,6 +161,13 @@ namespace Azul
 
 		PCSNode* pRootNode = pGOM->poRootTree->GetRoot();
 		assert(pRootNode);
+
+		PCSTree::Info info;
+		pGOM->poRootTree->GetInfo(info);
+		if(info.currNumNodes <= 1) 
+		{
+			return;
+		}
 
 		PCSTreeForwardIterator pForwardIter(pRootNode);
 		PCSNode* pNode = pForwardIter.First();

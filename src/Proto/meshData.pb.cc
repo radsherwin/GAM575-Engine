@@ -37,7 +37,8 @@ constexpr meshData_proto::meshData_proto(
   , meshcount_(0u)
   , texcount_(0u)
   , namecount_(0u)
-  , animcount_(0u){}
+  , animcount_(0u)
+  , hasskin_(0u){}
 struct meshData_protoDefaultTypeInternal {
   constexpr meshData_protoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -202,8 +203,8 @@ meshData_proto::meshData_proto(const meshData_proto& from)
       GetArenaForAllocation());
   }
   ::memcpy(&meshcount_, &from.meshcount_,
-    static_cast<size_t>(reinterpret_cast<char*>(&animcount_) -
-    reinterpret_cast<char*>(&meshcount_)) + sizeof(animcount_));
+    static_cast<size_t>(reinterpret_cast<char*>(&hasskin_) -
+    reinterpret_cast<char*>(&meshcount_)) + sizeof(hasskin_));
   // @@protoc_insertion_point(copy_constructor:meshData_proto)
 }
 
@@ -211,8 +212,8 @@ inline void meshData_proto::SharedCtor() {
 pversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&meshcount_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&animcount_) -
-    reinterpret_cast<char*>(&meshcount_)) + sizeof(animcount_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&hasskin_) -
+    reinterpret_cast<char*>(&meshcount_)) + sizeof(hasskin_));
 }
 
 meshData_proto::~meshData_proto() {
@@ -258,8 +259,8 @@ void meshData_proto::Clear() {
   materialindex_.Clear();
   pversion_.ClearToEmpty();
   ::memset(&meshcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&animcount_) -
-      reinterpret_cast<char*>(&meshcount_)) + sizeof(animcount_));
+      reinterpret_cast<char*>(&hasskin_) -
+      reinterpret_cast<char*>(&meshcount_)) + sizeof(hasskin_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -453,6 +454,13 @@ const char* meshData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
+      // uint32 hasSkin = 19;
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
+          hasskin_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
         if ((tag == 0) || ((tag & 7) == 4)) {
@@ -617,6 +625,12 @@ failure:
   if (this->_internal_animcount() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(18, this->_internal_animcount(), target);
+  }
+
+  // uint32 hasSkin = 19;
+  if (this->_internal_hasskin() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(19, this->_internal_hasskin(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -805,6 +819,13 @@ size_t meshData_proto::ByteSizeLong() const {
         this->_internal_animcount());
   }
 
+  // uint32 hasSkin = 19;
+  if (this->_internal_hasskin() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_hasskin());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -853,6 +874,9 @@ void meshData_proto::MergeFrom(const meshData_proto& from) {
   if (from._internal_animcount() != 0) {
     _internal_set_animcount(from._internal_animcount());
   }
+  if (from._internal_hasskin() != 0) {
+    _internal_set_hasskin(from._internal_hasskin());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -889,8 +913,8 @@ void meshData_proto::InternalSwap(meshData_proto* other) {
       &other->pversion_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(meshData_proto, animcount_)
-      + sizeof(meshData_proto::animcount_)
+      PROTOBUF_FIELD_OFFSET(meshData_proto, hasskin_)
+      + sizeof(meshData_proto::hasskin_)
       - PROTOBUF_FIELD_OFFSET(meshData_proto, meshcount_)>(
           reinterpret_cast<char*>(&meshcount_),
           reinterpret_cast<char*>(&other->meshcount_));

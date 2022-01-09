@@ -243,6 +243,7 @@ class meshData_proto final :
     kTexCountFieldNumber = 16,
     kNameCountFieldNumber = 17,
     kAnimCountFieldNumber = 18,
+    kHasSkinFieldNumber = 19,
   };
   // repeated bytes pName = 2;
   int pname_size() const;
@@ -549,6 +550,15 @@ class meshData_proto final :
   void _internal_set_animcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
+  // uint32 hasSkin = 19;
+  void clear_hasskin();
+  ::PROTOBUF_NAMESPACE_ID::uint32 hasskin() const;
+  void set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_hasskin() const;
+  void _internal_set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:meshData_proto)
  private:
   class _Internal;
@@ -579,6 +589,7 @@ class meshData_proto final :
   ::PROTOBUF_NAMESPACE_ID::uint32 texcount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 namecount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 animcount_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 hasskin_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_meshData_2eproto;
 };
@@ -1282,6 +1293,26 @@ inline void meshData_proto::_internal_set_animcount(::PROTOBUF_NAMESPACE_ID::uin
 inline void meshData_proto::set_animcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_animcount(value);
   // @@protoc_insertion_point(field_set:meshData_proto.animCount)
+}
+
+// uint32 hasSkin = 19;
+inline void meshData_proto::clear_hasskin() {
+  hasskin_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_hasskin() const {
+  return hasskin_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::hasskin() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.hasSkin)
+  return _internal_hasskin();
+}
+inline void meshData_proto::_internal_set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  hasskin_ = value;
+}
+inline void meshData_proto::set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_hasskin(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.hasSkin)
 }
 
 #ifdef __GNUC__

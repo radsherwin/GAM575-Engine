@@ -103,7 +103,7 @@ namespace Azul
 
 		Vect vTmp;
 
-		Camera* pCam = CameraManager::Find(Camera::ID::MAIN);
+		Camera* pCam = CameraManager::Find(Camera::ID::CAMERA_0);
 		pCam->updateCamera();
 
 		pCam->getPos(vTmp);

@@ -226,6 +226,10 @@ void AnimationManager::Update()
 	PCSTree* pTree = pMan->poControllerTree;
 	PCSNode* pNode = nullptr;
 
+	PCSTree::Info info;
+	pTree->GetInfo(info);
+	if(info.currNumNodes <= 1) return; //for cases where the tree only has a null 
+
 	PCSTreeForwardIterator pForIter(pTree->GetRoot());
 	pNode = pForIter.First();
 	AnimController* pTmp = nullptr;
@@ -259,43 +263,72 @@ void AnimationManager::Destroy()
 	PCSTree* pTree = pMan->poClipTree;
 	PCSNode* pNode = nullptr;
 
-	PCSTreeForwardIterator pForIter(pTree->GetRoot());
-	pNode = pForIter.First();
-	PCSNode* pTmp = nullptr;
-	while (!pForIter.IsDone())
+	PCSTree::Info info;
+	pTree->GetInfo(info);
+	if(info.currNumNodes <= 1) 
 	{
-		pTmp = pForIter.CurrentItem();
-
-		pNode = pForIter.Next();
-		delete pTmp;
+		delete pTree->GetRoot();
 	}
+	else
+	{
+		PCSTreeForwardIterator pForIter(pTree->GetRoot());
+		pNode = pForIter.First();
+		PCSNode* pTmp = nullptr;
+		while (!pForIter.IsDone())
+		{
+			pTmp = pForIter.CurrentItem();
+
+			pNode = pForIter.Next();
+			delete pTmp;
+		}
+	}
+
+	
 
 	pTree = pMan->poAnimTree;
 	pNode = nullptr;
 
-	pForIter = pTree->GetRoot();
-	pNode = pForIter.First();
-	pTmp = nullptr;
-	while (!pForIter.IsDone())
+	pTree->GetInfo(info);
+	if(info.currNumNodes <= 1) 
 	{
-		pTmp = pForIter.CurrentItem();
-
-		pNode = pForIter.Next();
-		delete pTmp;
+		delete pTree->GetRoot();
 	}
+	else
+	{
+		PCSTreeForwardIterator pForIter = pTree->GetRoot();
+		pNode = pForIter.First();
+		PCSNode* pTmp = nullptr;
+		while (!pForIter.IsDone())
+		{
+			pTmp = pForIter.CurrentItem();
+
+			pNode = pForIter.Next();
+			delete pTmp;
+		}
+	}
+
+	
 
 	pTree = pMan->poControllerTree;
 	pNode = nullptr;
 
-	pForIter = pTree->GetRoot();
-	pNode = pForIter.First();
-	pTmp = nullptr;
-	while (!pForIter.IsDone())
+	pTree->GetInfo(info);
+	if(info.currNumNodes <= 1) 
 	{
-		pTmp = pForIter.CurrentItem();
+		delete pTree->GetRoot();
+	}
+	else
+	{
+		PCSTreeForwardIterator pForIter = pTree->GetRoot();
+		pNode = pForIter.First();
+		PCSNode* pTmp = nullptr;
+		while (!pForIter.IsDone())
+		{
+			pTmp = pForIter.CurrentItem();
 
-		pNode = pForIter.Next();
-		delete pTmp;
+			pNode = pForIter.Next();
+			delete pTmp;
+		}
 	}
 
 	delete AnimationManager::posInstance;

@@ -23,10 +23,10 @@ public:
 
 	enum class ID
 	{
-		MAIN,
-		SIDE,
-		TOP,
-		FORWARD,
+		CAMERA_0,
+		CAMERA_1,
+		CAMERA_2,
+		CAMERA_3,
 		NOT_INITIALIZED
 	};
 

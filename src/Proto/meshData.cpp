@@ -4,23 +4,23 @@
 #include "meshData.h"
 
 meshData::meshData()
-	:	pVersion{0},
-		mode{ nullptr },
-		nodeNumber(nullptr),
-		triCount(nullptr),
-		vertCount(nullptr),
-		vbo_vert(nullptr),
-		vbo_norm(nullptr),
-		vbo_uv(nullptr),
-		vbo_index(nullptr),
-		text_color(nullptr),
-		materialIndex(nullptr),
-		meshCount(0),
-		texCount(0),
-		nameCount(0),
-		animCount(0)
+	: pVersion{ 0 },
+	mode{ nullptr },
+	nodeNumber(nullptr),
+	triCount(nullptr),
+	vertCount(nullptr),
+	vbo_vert(nullptr),
+	vbo_norm(nullptr),
+	vbo_uv(nullptr),
+	vbo_index(nullptr),
+	text_color(nullptr),
+	materialIndex(nullptr),
+	meshCount(0),
+	texCount(0),
+	nameCount(0),
+	animCount(0),
+	hasSkin(0)
 {
-
 	strcpy_s(this->pVersion, meshData::VERSION_NUM_BYTES, meshData::PROTO_VERSION);
 	//Make sure version is within the bytes for serialization
 	assert(strlen(this->pVersion) < meshData::VERSION_NUM_BYTES);
@@ -41,7 +41,7 @@ meshData::~meshData()
 	delete[] this->materialIndex;
 	delete[] this->anim_data;
 
-	for(int i = 0; i < (int)this->nameCount;i++)
+	for (int i = 0; i < (int)this->nameCount; i++)
 	{
 		delete[] this->pName[i];
 	}
@@ -49,35 +49,33 @@ meshData::~meshData()
 	delete[] this->pName;
 }
 
-void meshData::Serialize(meshData_proto& out) const
+void meshData::Serialize(meshData_proto &out) const
 {
-	vboData_proto* pVBO_proto;
+	vboData_proto *pVBO_proto;
 
-	std::string sVersion((const char*)this->pVersion, meshData::VERSION_NUM_BYTES);
+	std::string sVersion((const char *)this->pVersion, meshData::VERSION_NUM_BYTES);
 	out.set_pversion(sVersion);
 
 	out.set_meshcount(this->meshCount);
 	out.set_texcount(this->texCount);
 	out.set_animcount(this->animCount);
 	out.set_namecount(this->nameCount);
+	out.set_hasskin(this->hasSkin);
 
-	for(int i = 0; i < (int)this->animCount; i++)
+	for (int i = 0; i < (int)this->animCount; i++)
 	{
-		animData_proto* pAnim = new animData_proto();
+		animData_proto *pAnim = new animData_proto();
 		this->anim_data[i].Serialize(*pAnim);
 		out.mutable_anim_data()->AddAllocated(pAnim);
 	}
-	
-	
 
-	if(this->pName != nullptr)
+	if (this->pName != nullptr)
 	{
-		for(int i = 0; i < (int)this->nameCount; i++)
+		for (int i = 0; i < (int)this->nameCount; i++)
 		{
-			std::string sName((const char*)this->pName[i], FILE_NAME_SIZE);
+			std::string sName((const char *)this->pName[i], FILE_NAME_SIZE);
 			out.add_pname(sName);
 		}
-		
 	}
 
 	for (unsigned int i = 0; i < this->meshCount; i++)
@@ -87,7 +85,7 @@ void meshData::Serialize(meshData_proto& out) const
 		out.add_tricount(this->triCount[i]);
 		out.add_vertcount(this->triCount[i]);
 
-		out.add_nodenumber(this->nodeNumber[i]);
+		if (this->hasSkin) out.add_nodenumber(this->nodeNumber[i]);
 
 		out.add_materialindex(this->materialIndex[i]);
 
@@ -110,20 +108,18 @@ void meshData::Serialize(meshData_proto& out) const
 		pVBO_proto = new vboData_proto();
 		this->vbo_color[i].Serialize(*pVBO_proto);
 		out.mutable_vbo_color()->AddAllocated(pVBO_proto);
-		
 	}
 
-	textureData_proto* pText_proto;
+	textureData_proto *pText_proto;
 	for (unsigned int i = 0; i < this->texCount; i++)
 	{
 		pText_proto = new textureData_proto();
 		this->text_color[i].Serialize(*pText_proto);
 		out.mutable_text_color()->AddAllocated(pText_proto);
-		
 	}
 }
 
-void meshData::Deserialize(const meshData_proto& in)
+void meshData::Deserialize(const meshData_proto &in)
 {
 	// CHECK the Version
 	memcpy_s(this->pVersion, meshData::VERSION_NUM_BYTES, in.pversion().data(), meshData::VERSION_NUM_BYTES);
@@ -135,8 +131,13 @@ void meshData::Deserialize(const meshData_proto& in)
 
 	this->nameCount = in.namecount();
 	this->animCount = in.animcount();
+	this->hasSkin = in.hasskin();
 
-	if(in.meshcount() == 0)
+	//If mesh hasSkin -> set nodeNumber.
+	if (!this->hasSkin) this->nodeNumber = nullptr;
+	else if (in.meshcount() > 0) this->nodeNumber = new unsigned int[in.animcount()];
+
+	if (in.meshcount() == 0)
 	{
 		this->materialIndex = nullptr;
 		this->mode = nullptr;
@@ -160,7 +161,6 @@ void meshData::Deserialize(const meshData_proto& in)
 		this->vbo_index = new vboData[in.meshcount()];
 		this->vbo_color = new vboData[in.meshcount()];
 		this->materialIndex = new unsigned int[in.meshcount()];
-		this->nodeNumber = new unsigned int[in.animcount()];
 
 		for (int i = 0; i < (int)this->meshCount; i++)
 		{
@@ -173,59 +173,51 @@ void meshData::Deserialize(const meshData_proto& in)
 			this->vbo_index[i].Deserialize(in.vbo_index(i));
 			this->vbo_color[i].Deserialize(in.vbo_color(i));
 			this->materialIndex[i] = in.materialindex(i);
-			this->nodeNumber[i] = in.nodenumber(i);
+			if (this->hasSkin) this->nodeNumber[i] = in.nodenumber(i);
 		}
 	}
-	
 
 	if (in.texcount() == 0)
 	{
-		
 		this->text_color = nullptr;
 	}
 	else
 	{
-		
 		this->text_color = new textureData[in.texcount()];
 		for (int i = 0; i < (int)this->texCount; i++)
 		{
 			this->text_color[i].Deserialize(in.text_color(i));
 		}
 	}
-		
 
-	if(in.animcount() == 0)
+	if (in.animcount() == 0)
 	{
 		this->anim_data = nullptr;
 	}
-	else 
+	else
 	{
 		this->anim_data = new animData[in.animcount()];
-		
+
 		for (int i = 0; i < (int)in.animcount(); i++)
 		{
 			this->anim_data[i].Deserialize(in.anim_data(i));
 		}
-
 	}
-	if(in.namecount()==0)
+	if (in.namecount() == 0)
 	{
 		this->pName = nullptr;
 	}
 	{
-		this->pName = new char* [in.namecount()];
+		this->pName = new char *[in.namecount()];
 		for (int i = 0; i < (int)this->nameCount; i++)
 		{
 			this->pName[i] = new char[FILE_NAME_SIZE];
 			memcpy_s(this->pName[i], FILE_NAME_SIZE, in.pname(i).data(), in.pname(i).length());
-
 		}
 	}
-
-	
 }
 
-void meshData::Print(const char* const _pName) const
+void meshData::Print(const char *const _pName) const
 {
 	Trace::out("%s: \n", _pName);
 
@@ -244,8 +236,6 @@ void meshData::Print(const char* const _pName) const
 		Trace::out("\n");
 		this->vbo_color[i].Print("vbo_color", i);
 		Trace::out("\n");
-		
-
 	}
 	for (int i = 0; i < (int)this->texCount; i++)
 	{
@@ -253,14 +243,11 @@ void meshData::Print(const char* const _pName) const
 		Trace::out("\n");
 	}
 
-	for(int i = 0; i < (int)this->animCount; i++)
+	for (int i = 0; i < (int)this->animCount; i++)
 	{
 		this->anim_data[i].Print("anim_data", i);
 		Trace::out("\n");
 	}
-
 }
 
 // --- End of File ---
-
-

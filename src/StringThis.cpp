@@ -252,20 +252,20 @@ StringThis::StringThis(Camera::ID cameraID)
 {
 	switch (cameraID)
 	{
-	case Camera::ID::MAIN:
-		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::MAIN));
+	case Camera::ID::CAMERA_0:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::CAMERA_0));
 		break;
 
-	case Camera::ID::TOP:
-		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::TOP));
+	case Camera::ID::CAMERA_1:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::CAMERA_1));
 		break;
 
-	case Camera::ID::FORWARD:
-		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::FORWARD));
+	case Camera::ID::CAMERA_2:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::CAMERA_2));
 		break;
 
-	case Camera::ID::SIDE:
-		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::SIDE));
+	case Camera::ID::CAMERA_3:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Camera::CAMERA_3));
 		break;
 
 	case Camera::ID::NOT_INITIALIZED:

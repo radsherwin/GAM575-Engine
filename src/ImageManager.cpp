@@ -120,7 +120,7 @@ void ImageManager::Dump()
 ImageManager *ImageManager::privGetInstance()
 {
 	//Safety
-	assert(posInstance = nullptr);
+	assert(posInstance != nullptr);
 
 	return posInstance;
 }
