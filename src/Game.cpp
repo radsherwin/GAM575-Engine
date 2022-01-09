@@ -121,45 +121,45 @@ void Game::LoadContent()
 	//	    Load Basic Mesh
 	//-----------------------------------------------------------------------------
 
-	////Sphere
-	//Mesh *pSphereMesh = new SphereMesh("sphereModel.azul");
-	//MeshNodeManager::Add(Mesh::Name::SPHERE, pSphereMesh);
-	////Cube
-	//Mesh *pCubeMesh = new CubeMesh("./Models/cubeMEsh.azul");
-	//MeshNodeManager::Add(Mesh::Name::CUBE, pCubeMesh);
+	//Sphere
+	Mesh *pSphereMesh = new SphereMesh("sphereModel.azul");
+	MeshNodeManager::Add(Mesh::Name::SPHERE, pSphereMesh);
+	//Cube
+	Mesh *pCubeMesh = new CubeMesh("./Models/cubeMEsh.azul");
+	MeshNodeManager::Add(Mesh::Name::CUBE, pCubeMesh);
 
-	//Mesh *pNullMesh = new NullMesh(nullptr);
-	//MeshNodeManager::Add(Mesh::Name::NULL_MESH, pNullMesh);
+	Mesh *pNullMesh = new NullMesh(nullptr);
+	MeshNodeManager::Add(Mesh::Name::NULL_MESH, pNullMesh);
 
-	////Load Texture
-	//ProtoMeshFactory::LoadTexture("ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
+	//Load Texture
+	TextureManager::Add("../src/Textures/ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
 
-	////Load mesh and set the correct Name for Skeleton.find
-	//Mesh *MeshArray[8];
-	//ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
-	//MeshArray[0]->name = Mesh::Name::BONE;
-	//MeshArray[1]->name = Mesh::Name::BONE_R;
-	//MeshArray[2]->name = Mesh::Name::BONE_R_001;
-	//MeshArray[3]->name = Mesh::Name::BONE_R_002;
-	//MeshArray[4]->name = Mesh::Name::BONE_L;
-	//MeshArray[5]->name = Mesh::Name::BONE_L_001;
-	//MeshArray[6]->name = Mesh::Name::BONE_L_002;
-	//MeshArray[7]->name = Mesh::Name::BONE_01;
+	//Load mesh and set the correct Name for Skeleton.find
+	Mesh *MeshArray[8];
+	ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
+	MeshArray[0]->name = Mesh::Name::BONE;
+	MeshArray[1]->name = Mesh::Name::BONE_R;
+	MeshArray[2]->name = Mesh::Name::BONE_R_001;
+	MeshArray[3]->name = Mesh::Name::BONE_R_002;
+	MeshArray[4]->name = Mesh::Name::BONE_L;
+	MeshArray[5]->name = Mesh::Name::BONE_L_001;
+	MeshArray[6]->name = Mesh::Name::BONE_L_002;
+	MeshArray[7]->name = Mesh::Name::BONE_01;
 
-	//Animation *Anim_Die_Left[8];
-	//ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
+	Animation *Anim_Die_Left[8];
+	ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
 
-	//Animation *Anim_Walk[8];
-	//ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
+	Animation *Anim_Walk[8];
+	ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
 
-	//Animation *Anim_Shot_Down[8];
-	//ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
+	Animation *Anim_Shot_Down[8];
+	ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
 
-	//Animation *Anim_Hit_Right[8];
-	//ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
+	Animation *Anim_Hit_Right[8];
+	ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
-	//Animation *Anim_Run[8];
-	//ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
+	Animation *Anim_Run[8];
+	ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
 
 	//-----------------------------------------------------------------------------
 	//	    Load Sprites
@@ -203,38 +203,38 @@ void Game::LoadContent()
 	//TextureManager::Add("../src/Textures/Stone.tga", Texture::Name::STONES);
 	//TextureManager::Add("../src/Textures/RedBrick.tga", Texture::Name::RED_BRICK);
 	TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
-	//TextureManager::Add("../src/Textures/HotPink.tga", Texture::Name::PINK_ERROR);
+	
 
 	////-----------------------------------------------------------------------------
 	////	    Create Animation
 	////-----------------------------------------------------------------------------
 
-	//Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
-	//pSkel->SetPos(-1.3f, 0, 0);
+	Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
+	pSkel->SetPos(-1.3f, 0, 0);
 
-	//Skeleton *pSkel2 = new Skeleton(MeshArray, NUM_BONES);
-	//pSkel2->SetPos(0, 0, 0);
+	Skeleton *pSkel2 = new Skeleton(MeshArray, NUM_BONES);
+	pSkel2->SetPos(0, 0, 0);
 
-	//Skeleton *pSkel3 = new Skeleton(MeshArray, NUM_BONES);
-	//pSkel3->SetPos(1.3f, 0, 0);
+	Skeleton *pSkel3 = new Skeleton(MeshArray, NUM_BONES);
+	pSkel3->SetPos(1.3f, 0, 0);
 
-	//Skeleton *pSkel4 = new Skeleton(MeshArray, NUM_BONES);
-	//pSkel4->SetPos(0, 1.4f, 0);
+	Skeleton *pSkel4 = new Skeleton(MeshArray, NUM_BONES);
+	pSkel4->SetPos(0, 1.4f, 0);
 
-	//AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT, NUM_BONES);
-	//AnimationManager::Add(Anim_Walk, Clip::Name::WALK, NUM_BONES);
-	//AnimationManager::Add(Anim_Shot_Down, Clip::Name::SHOT_DOWN, NUM_BONES);
-	//AnimationManager::Add(Anim_Hit_Right, Clip::Name::HIT_RIGHT, NUM_BONES);
-	//AnimationManager::Add(Anim_Run, Clip::Name::RUN, NUM_BONES);
+	AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT, NUM_BONES);
+	AnimationManager::Add(Anim_Walk, Clip::Name::WALK, NUM_BONES);
+	AnimationManager::Add(Anim_Shot_Down, Clip::Name::SHOT_DOWN, NUM_BONES);
+	AnimationManager::Add(Anim_Hit_Right, Clip::Name::HIT_RIGHT, NUM_BONES);
+	AnimationManager::Add(Anim_Run, Clip::Name::RUN, NUM_BONES);
 
-	//AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
-	//AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
-	//AnimationManager::AddController(AnimController::AnimName::MESH3, pSkel3, Clip::Name::SHOT_DOWN);
-	//AnimationManager::AddController(AnimController::AnimName::MESH4, pSkel4, Clip::Name::HIT_RIGHT);
+	AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
+	AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
+	AnimationManager::AddController(AnimController::AnimName::MESH3, pSkel3, Clip::Name::SHOT_DOWN);
+	AnimationManager::AddController(AnimController::AnimName::MESH4, pSkel4, Clip::Name::HIT_RIGHT);
 
-	//AnimationManager::Demo();
+	AnimationManager::Demo();
 
-	//pSkel2->Hide();
+	pSkel2->Hide();
 
 	CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
 
