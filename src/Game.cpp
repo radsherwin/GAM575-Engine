@@ -198,16 +198,18 @@ void Game::LoadContent()
 	assert(pShaderObject_colorSingle);
 
 	// Textures
-	/*TextureManager::Add("../src/Textures/Rocks.t.proto.azul", Texture::Name::ROCKS);
-	TextureManager::Add("../src/Textures/Stones.t.proto.azul", Texture::Name::STONES);
-	TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);*/
+	TextureManager::Add("../src/Textures/HotPink.t.proto.azul", Texture::Name::PINK_ERROR);
+	TextureManager::Add("../src/Textures/Rocks.t.proto.azul", Texture::Name::ROCKS);
+	TextureManager::Add("../src/Textures/Stone.t.proto.azul", Texture::Name::STONES);
+	TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);
 	TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
 
 	////-----------------------------------------------------------------------------
 	////	    Create Image
 	////-----------------------------------------------------------------------------
 
-	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::DUCKWEED, Rect(554.f, 63.f, 98.f, 64.f));
+	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::STONES, Rect(554.f, 63.f, 98.f, 64.f));
+
 	////-----------------------------------------------------------------------------
 	////	    Sprite
 	////-----------------------------------------------------------------------------
