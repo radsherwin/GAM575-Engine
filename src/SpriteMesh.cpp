@@ -36,41 +36,59 @@ Vert_uv  SpriteData_uv[] =
 
 void SpriteMesh::privCreateVAO(const char *const modelFileName)
 {
-	//future proofing it for a file
+	// future proofing it for a file
 	AZUL_UNUSED_VAR(modelFileName);
+
 	this->numVerts = SPRITE_DATA_NUM_VERTS;
 	this->numTris = SPRITE_TRILIST_NUM_TRIANGLES;
 
-	//create a VAO
+	// Create a VAO
 	glGenVertexArrays(1, &this->vao);
 	assert(this->vao != 0);
 	glBindVertexArray(this->vao);
 
-	//Create a VBO
+	// Create a VBO
 	glGenBuffers(1, &this->vbo_verts);
 	assert(this->vbo_verts != 0);
-	//glGenBuffers(1, &this->vbo_norms);
-	//assert(this->vbo_norms != 0);
+
+	//	glGenBuffers(1, &this->vbo_norms);
+	//	assert(this->vbo_norms != 0);
+
 	glGenBuffers(1, &this->vbo_texts);
 	assert(this->vbo_texts != 0);
-	//glGenBuffers(1, &this0>vbo_color);
-	//assert(this->vbo_color != 0);
+
+	//	glGenBuffers(1, &this->vbo_color);
+	//	assert(this->vbo_color != 0);
+
 	glGenBuffers(1, &this->vbo_index);
 	assert(this->vbo_index != 0);
+
 	assert(this->numTris > 0);
 	assert(this->numVerts > 0);
-	//Load the verts data----------------------
+
+	// Load the verts data: ---------------------------------------------------------
+
 	if (true)
 	{
+		//assert(mB.vbo_vert.targetType == vboData::VBO_TARGET::ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, this->vbo_verts);
 
-		//load the data to the GPU
+		// load the data to the GPU
+		//assert(mB.vbo_vert.poData);
+		//assert(mB.vbo_vert.dataSize > 0);
+		//assert(mB.vbo_vert.count * sizeof(Vert_xyz) == mB.vbo_vert.dataSize);
 		glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(sizeof(Vert_xyz) * this->numVerts), SpriteData_xyz, GL_STATIC_DRAW);
-		//vert data location: 0
+
+		// Vert data is location: 0  (used in vertex shader)
+		//assert(0 == mB.vbo_vert.attribIndex);
+		//assert(mB.vbo_vert.vboType == vboData::VBO_TYPE::VEC3);
+		//assert(mB.vbo_vert.componentType == vboData::VBO_COMPONENT::FLOAT);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vert_xyz), 0);
 		glEnableVertexAttribArray(0);
 	}
+
 	// Load the texts data: ---------------------------------------------------------
+
 	if (true)
 	{
 		//assert(mB.vbo_uv.targetType == vboData::VBO_TARGET::ARRAY_BUFFER);

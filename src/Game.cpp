@@ -131,35 +131,35 @@ void Game::LoadContent()
 	Mesh *pNullMesh = new NullMesh(nullptr);
 	MeshNodeManager::Add(Mesh::Name::NULL_MESH, pNullMesh);
 
-	////Load Texture
-	//TextureManager::Add("../src/Textures/ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
+	//Load Texture
+	TextureManager::Add("../src/Textures/ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
 
-	////Load mesh and set the correct Name for Skeleton.find
-	//Mesh *MeshArray[8];
-	//ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
-	//MeshArray[0]->name = Mesh::Name::BONE;
-	//MeshArray[1]->name = Mesh::Name::BONE_R;
-	//MeshArray[2]->name = Mesh::Name::BONE_R_001;
-	//MeshArray[3]->name = Mesh::Name::BONE_R_002;
-	//MeshArray[4]->name = Mesh::Name::BONE_L;
-	//MeshArray[5]->name = Mesh::Name::BONE_L_001;
-	//MeshArray[6]->name = Mesh::Name::BONE_L_002;
-	//MeshArray[7]->name = Mesh::Name::BONE_01;
+	//Load mesh and set the correct Name for Skeleton.find
+	Mesh *MeshArray[8];
+	ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
+	MeshArray[0]->name = Mesh::Name::BONE;
+	MeshArray[1]->name = Mesh::Name::BONE_R;
+	MeshArray[2]->name = Mesh::Name::BONE_R_001;
+	MeshArray[3]->name = Mesh::Name::BONE_R_002;
+	MeshArray[4]->name = Mesh::Name::BONE_L;
+	MeshArray[5]->name = Mesh::Name::BONE_L_001;
+	MeshArray[6]->name = Mesh::Name::BONE_L_002;
+	MeshArray[7]->name = Mesh::Name::BONE_01;
 
-	//Animation *Anim_Die_Left[8];
-	//ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
+	Animation *Anim_Die_Left[8];
+	ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
 
-	//Animation *Anim_Walk[8];
-	//ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
+	Animation *Anim_Walk[8];
+	ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
 
-	//Animation *Anim_Shot_Down[8];
-	//ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
+	Animation *Anim_Shot_Down[8];
+	ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
 
-	//Animation *Anim_Hit_Right[8];
-	//ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
+	Animation *Anim_Hit_Right[8];
+	ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
-	//Animation *Anim_Run[8];
-	//ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
+	Animation *Anim_Run[8];
+	ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
 
 	//-----------------------------------------------------------------------------
 	//	    Load Sprites
@@ -203,12 +203,13 @@ void Game::LoadContent()
 	TextureManager::Add("../src/Textures/Stone.t.proto.azul", Texture::Name::STONES);
 	TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);
 	TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
+	TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
 
 	////-----------------------------------------------------------------------------
 	////	    Create Image
 	////-----------------------------------------------------------------------------
 
-	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::STONES, Rect(554.f, 63.f, 98.f, 64.f));
+	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::DUCKWEED, Rect(554.f, 63.f, 98.f, 64.f));
 
 	////-----------------------------------------------------------------------------
 	////	    Sprite
@@ -221,16 +222,25 @@ void Game::LoadContent()
 
 	GameObject2D *pA1 = new GameObject2D(pGraphicsHdr_Sprite);
 	GameObjectManager::Add(pA1, GameObjectManager::GetRoot());
-	pA1->posX = 900.f;
-	pA1->posY = 450.f;
+	//pA1->posX = 900.f;
+	//pA1->posY = 450.f;
 	pA1->SetName("ALIEN");
+
+	////-----------------------------------------------------------------------------
+	////	    Basic GameObjects
+	////-----------------------------------------------------------------------------
+
+	GraphicsObjectHdr *pGraphicsHdr = new GraphicsObjectHdr();
+	pGraphicsHdr->Set_FlatTexture(pCubeMesh, pShaderObject_texture, Texture::Name::RED_BRICK);
+	GameObjectBasic *pGameObject = new GameObjectBasic(pGraphicsHdr);
+	GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
 
 
 	////-----------------------------------------------------------------------------
 	////	    Create Animation
 	////-----------------------------------------------------------------------------
 
-	/*Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
+	Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
 	pSkel->SetPos(-1.3f, 0, 0);
 
 	Skeleton *pSkel2 = new Skeleton(MeshArray, NUM_BONES);
@@ -255,9 +265,10 @@ void Game::LoadContent()
 
 	AnimationManager::Demo();
 
-	pSkel2->Hide();*/
+	pSkel2->Hide();
 
 	CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
+	CameraManager::Update(Camera::Type::ORTHOGRAPHIC_2D);
 
 	Trace::out("Z - Reset ,  I,O - Zoom In/Out\n");
 	Trace::out("ASDF - Switch Cameras\n");

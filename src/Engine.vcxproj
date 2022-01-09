@@ -32,6 +32,8 @@
     <None Include="GLSL\render.vs.glsl" />
     <None Include="GLSL\specLighting.fs.glsl" />
     <None Include="GLSL\specLighting.vs.glsl" />
+    <None Include="GLSL\spriteRender.fs.glsl" />
+    <None Include="GLSL\spriteRender.vs.glsl" />
     <None Include="GLSL\texturePointLightDiff.fs.glsl" />
     <None Include="GLSL\texturePointLightDiff.vs.glsl" />
     <None Include="GLSL\textureRender.fs.glsl" />
@@ -41,8 +43,6 @@
     <None Include="Proto\meshData.proto" />
     <None Include="Proto\textureData.proto" />
     <None Include="Proto\vboData.proto" />
-    <None Include="spriteRender.fs.glsl" />
-    <None Include="spriteRender.vs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Framework\Framework.h" />

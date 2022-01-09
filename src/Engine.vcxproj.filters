@@ -202,10 +202,10 @@
     <None Include="Proto\boneData.proto">
       <Filter>Source Files\ProtoBuff\animData\boneData</Filter>
     </None>
-    <None Include="spriteRender.fs.glsl">
+    <None Include="GLSL\spriteRender.fs.glsl">
       <Filter>Source Files\Shaders\GLSL</Filter>
     </None>
-    <None Include="spriteRender.vs.glsl">
+    <None Include="GLSL\spriteRender.vs.glsl">
       <Filter>Source Files\Shaders\GLSL</Filter>
     </None>
   </ItemGroup>

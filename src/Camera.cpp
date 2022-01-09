@@ -14,6 +14,7 @@ Camera::Camera(Camera::Type _camType)
 {
 	this->cameraID = Camera::ID::NOT_INITIALIZED;
 	this->camType = _camType;
+	this->bStatic = false;
 }
 
 Camera::~Camera()
