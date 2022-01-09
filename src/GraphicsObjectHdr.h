@@ -8,7 +8,6 @@
 #include "Vect.h"
 
 using namespace Azul;
-
 class GraphicsObjectHdr
 {
 public:

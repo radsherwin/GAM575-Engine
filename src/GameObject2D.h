@@ -17,7 +17,7 @@ public:
 	GameObject2D() = delete;
 	GameObject2D(const GameObject2D &) = delete;
 	GameObject2D &operator=(const GameObject2D &) = delete;
-	virtual ~GameObject2D() override;
+	virtual ~GameObject2D();
 
 	virtual void Update(AnimTime currentTime) override;
 

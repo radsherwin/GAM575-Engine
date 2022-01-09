@@ -8,6 +8,7 @@
 #include "GraphicsObject_TextureLight.h"
 #include "GraphicsObject_Wireframe.h"
 #include "GraphicsObject_WireframeConstantColor.h"
+#include "GraphicsObject_Sprite.h"
 
 GraphicsObjectHdr::GraphicsObjectHdr(GraphicsObject* _pGraphicsObj)
 	: pNext(nullptr), poGraphicsObject(nullptr)

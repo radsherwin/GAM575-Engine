@@ -69,7 +69,20 @@ void ImageManager::Destroy()
 	ImageManager::posInstance = nullptr;
 }
 
-Image *ImageManager::Add(Image *pImage)
+//Image *ImageManager::Add(Image *pImage)
+//{
+//	ImageManager *pMan = ImageManager::privGetInstance();
+//
+//	Image *pNode = (Image *)pMan->baseAddToFront();
+//	assert(pNode != nullptr);
+//
+//	// Initialize the date
+//	pNode->Set(pImage->imageName, pImage->pText, pImage->imageRect);
+//
+//	return pNode;
+//}
+
+Image *ImageManager::Add(Image::Name imageName, Texture::Name texName, Rect rec)
 {
 	ImageManager *pMan = ImageManager::privGetInstance();
 
@@ -77,7 +90,7 @@ Image *ImageManager::Add(Image *pImage)
 	assert(pNode != nullptr);
 
 	// Initialize the date
-	pNode->Set(pImage->imageName, pImage->pText, pImage->imageRect);
+	pNode->Set(imageName, texName, rec);
 
 	return pNode;
 }

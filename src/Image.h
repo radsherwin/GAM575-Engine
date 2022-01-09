@@ -23,6 +23,7 @@ public:
 	Image();
 	Image(Image::Name imageName, Texture::Name texName, Rect rect);
 	Image(Image::Name imageName, Texture *pTexture, Rect rect);
+	virtual ~Image() override;
 
 	void Set(Image::Name imageName, Texture::Name texName, Rect rect);
 	void Set(Image::Name imageName, Texture *pTexture, Rect rect);

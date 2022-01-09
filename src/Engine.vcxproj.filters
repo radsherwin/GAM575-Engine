@@ -903,6 +903,9 @@
     <ClInclude Include="SpriteMesh.h">
       <Filter>Source Files\Mesh\Sprites</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsObjectHdr_Sprite.h">
+      <Filter>Source Files\GraphicsObject\GraphicsObjectHdr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1120,6 +1123,9 @@
     </ClCompile>
     <ClCompile Include="SpriteMesh.cpp">
       <Filter>Source Files\Mesh\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsObjectHdr_Sprite.cpp">
+      <Filter>Source Files\GraphicsObject\GraphicsObjectHdr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

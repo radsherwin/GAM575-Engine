@@ -12,7 +12,8 @@ class ImageManager : public ManBase
 public:
 	static void Create(int reserveNum = 0, int reserveGrow = 1);
 	static void Destroy();
-	static Image *Add(Image *pImage);
+	//static Image *Add(Image *pImage);
+	static Image *Add(Image::Name imageName, Texture::Name texName, Rect rec);
 	static Image *Find(Image::Name name);
 	
 	static void Remove(Image *pNode);

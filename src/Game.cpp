@@ -30,6 +30,7 @@
 #include "GameObjectBoundingSphere.h"
 #include "CameraMesh.h"
 
+#include "GraphicsObjectHdr_Sprite.h"
 #include "GraphicsObject_Sprite.h"
 #include "SpriteMesh.h"
 #include "GameObject2D.h"
@@ -113,7 +114,6 @@ void Game::LoadContent()
 							(float)-pCam2D->getScreenHeight() / 2.f, (float)pCam2D->getScreenHeight() / 2.f,
 							1.0f, 1000.f);
 	pCam2D->setOrientAndPosition(Vect(0.f, 1.f, 0.f), Vect(0.f, 0.f, -1.f), Vect(0.f, 0.f, 2.f));
-	//Holder for the current 2D cameras
 	CameraManager::Add(Camera::ID::CAMERA_1, pCam2D);
 	CameraManager::SetCurrent(Camera::ID::CAMERA_1, Camera::Type::ORTHOGRAPHIC_2D);
 
@@ -131,35 +131,35 @@ void Game::LoadContent()
 	Mesh *pNullMesh = new NullMesh(nullptr);
 	MeshNodeManager::Add(Mesh::Name::NULL_MESH, pNullMesh);
 
-	//Load Texture
-	TextureManager::Add("../src/Textures/ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
+	////Load Texture
+	//TextureManager::Add("../src/Textures/ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
 
-	//Load mesh and set the correct Name for Skeleton.find
-	Mesh *MeshArray[8];
-	ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
-	MeshArray[0]->name = Mesh::Name::BONE;
-	MeshArray[1]->name = Mesh::Name::BONE_R;
-	MeshArray[2]->name = Mesh::Name::BONE_R_001;
-	MeshArray[3]->name = Mesh::Name::BONE_R_002;
-	MeshArray[4]->name = Mesh::Name::BONE_L;
-	MeshArray[5]->name = Mesh::Name::BONE_L_001;
-	MeshArray[6]->name = Mesh::Name::BONE_L_002;
-	MeshArray[7]->name = Mesh::Name::BONE_01;
+	////Load mesh and set the correct Name for Skeleton.find
+	//Mesh *MeshArray[8];
+	//ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
+	//MeshArray[0]->name = Mesh::Name::BONE;
+	//MeshArray[1]->name = Mesh::Name::BONE_R;
+	//MeshArray[2]->name = Mesh::Name::BONE_R_001;
+	//MeshArray[3]->name = Mesh::Name::BONE_R_002;
+	//MeshArray[4]->name = Mesh::Name::BONE_L;
+	//MeshArray[5]->name = Mesh::Name::BONE_L_001;
+	//MeshArray[6]->name = Mesh::Name::BONE_L_002;
+	//MeshArray[7]->name = Mesh::Name::BONE_01;
 
-	Animation *Anim_Die_Left[8];
-	ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
+	//Animation *Anim_Die_Left[8];
+	//ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
 
-	Animation *Anim_Walk[8];
-	ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
+	//Animation *Anim_Walk[8];
+	//ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
 
-	Animation *Anim_Shot_Down[8];
-	ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
+	//Animation *Anim_Shot_Down[8];
+	//ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
 
-	Animation *Anim_Hit_Right[8];
-	ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
+	//Animation *Anim_Hit_Right[8];
+	//ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
-	Animation *Anim_Run[8];
-	ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
+	//Animation *Anim_Run[8];
+	//ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
 
 	//-----------------------------------------------------------------------------
 	//	    Load Sprites
@@ -198,18 +198,37 @@ void Game::LoadContent()
 	assert(pShaderObject_colorSingle);
 
 	// Textures
-	//TextureManager::Add("../src/Textures/Rocks.tga", Texture::Name::ROCKS);
-	//TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
-	//TextureManager::Add("../src/Textures/Stone.tga", Texture::Name::STONES);
-	//TextureManager::Add("../src/Textures/RedBrick.tga", Texture::Name::RED_BRICK);
+	/*TextureManager::Add("../src/Textures/Rocks.t.proto.azul", Texture::Name::ROCKS);
+	TextureManager::Add("../src/Textures/Stones.t.proto.azul", Texture::Name::STONES);
+	TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);*/
 	TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
-	
+
+	////-----------------------------------------------------------------------------
+	////	    Create Image
+	////-----------------------------------------------------------------------------
+
+	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::DUCKWEED, Rect(554.f, 63.f, 98.f, 64.f));
+	////-----------------------------------------------------------------------------
+	////	    Sprite
+	////-----------------------------------------------------------------------------
+	GraphicsObjectHdr_Sprite *pGraphicsHdr_Sprite = new GraphicsObjectHdr_Sprite();
+	pGraphicsHdr_Sprite->Set_Sprite(pSpriteMesh, 
+									pShaderObject_sprite,
+									ImageManager::Find(Image::Name::Alien_Green),
+									Rect(455, 155, 150, 150));
+
+	GameObject2D *pA1 = new GameObject2D(pGraphicsHdr_Sprite);
+	GameObjectManager::Add(pA1, GameObjectManager::GetRoot());
+	pA1->posX = 900.f;
+	pA1->posY = 450.f;
+	pA1->SetName("ALIEN");
+
 
 	////-----------------------------------------------------------------------------
 	////	    Create Animation
 	////-----------------------------------------------------------------------------
 
-	Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
+	/*Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
 	pSkel->SetPos(-1.3f, 0, 0);
 
 	Skeleton *pSkel2 = new Skeleton(MeshArray, NUM_BONES);
@@ -234,7 +253,7 @@ void Game::LoadContent()
 
 	AnimationManager::Demo();
 
-	pSkel2->Hide();
+	pSkel2->Hide();*/
 
 	CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
 
@@ -262,6 +281,7 @@ void Game::Update(float currentTime)
 	// Camera update
 	// ------------------------------------
 	CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
+	CameraManager::Update(Camera::Type::ORTHOGRAPHIC_2D);
 	CameraInput::Update();
 
 	// ------------------------------------

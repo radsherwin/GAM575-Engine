@@ -11,6 +11,9 @@ Image::Image()
 	this->pText = nullptr;
 }
 
+Image::~Image()
+{}
+
 Image::Image(Image::Name _imageName, Texture::Name _texName, Rect _rect)
 {
 	this->imageName = _imageName;
