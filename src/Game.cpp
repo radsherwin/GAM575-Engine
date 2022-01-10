@@ -209,7 +209,7 @@ void Game::LoadContent()
 	////	    Create Image
 	////-----------------------------------------------------------------------------
 
-	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::DUCKWEED, Rect(554.f, 63.f, 98.f, 64.f));
+	ImageManager::Add(Image::Name::Alien_Green, Texture::Name::INVADERS, Rect(554.f, 63.f, 98.f, 64.f));
 
 	////-----------------------------------------------------------------------------
 	////	    Sprite

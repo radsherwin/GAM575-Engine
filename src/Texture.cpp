@@ -20,12 +20,12 @@ Texture::Texture()
 	height(0)
 {
 	this->assetName.resize(1);
-	minFilter.push_back((GLenum)GL_LINEAR);
-	magFilter.push_back((GLenum)GL_LINEAR);
-	wrapModeS.push_back((GLenum)GL_CLAMP_TO_EDGE);
-	wrapModeT.push_back((GLenum)GL_CLAMP_TO_EDGE); //why am I initializing?
-	width.push_back(0);
-	height.push_back(0);
+	//minFilter.push_back((GLenum)GL_LINEAR);
+	//magFilter.push_back((GLenum)GL_LINEAR);
+	//wrapModeS.push_back((GLenum)GL_CLAMP_TO_EDGE);
+	//wrapModeT.push_back((GLenum)GL_CLAMP_TO_EDGE); //why am I initializing?
+	//width.push_back(0);
+	//height.push_back(0);
 }
 
 
