@@ -208,6 +208,9 @@
     <None Include="GLSL\spriteRender.vs.glsl">
       <Filter>Source Files\Shaders\GLSL</Filter>
     </None>
+    <None Include="CameraDiagram.cd">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Framework\Framework.h">

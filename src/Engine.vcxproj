@@ -20,6 +20,7 @@
     <None Include="..\Proto\google\protobuf\port_undef.inc" />
     <None Include="..\Proto\google\protobuf\proto3_lite_unittest.inc" />
     <None Include="..\Proto\google\protobuf\test_util.inc" />
+    <None Include="CameraDiagram.cd" />
     <None Include="GLSL\colorRender.fs.glsl" />
     <None Include="GLSL\colorRender.vs.glsl" />
     <None Include="GLSL\colorSingleRender.fs.glsl" />

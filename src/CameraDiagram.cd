@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="Azul::CameraManager">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAaAAAAAIAAAAAgAAAABAwAAAABIAEAAAAQggAggACA=</HashCode>
+      <FileName>CameraManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="poActive" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Azul::CameraInput" Collapsed="true">
+    <Position X="8.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAQAAAQEAAAAYACAAAABAAAAIABAAEAAAAAgAAAIAAA=</HashCode>
+      <FileName>CameraInput.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::CameraLink">
+    <Position X="1.5" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAABAgAIAAAA=</HashCode>
+      <FileName>CameraNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::CameraNode">
+    <Position X="1.25" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAgAAAAAAAQAAAAAAAAAAAAAIAAgAAAAAAA=</HashCode>
+      <FileName>CameraNode.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="poCamera" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Azul::Camera" Collapsed="true">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Azul::Camera::Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CameraNode.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Azul::Camera::ID" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CameraNode.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Azul::Camera::CullResult" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CameraNode.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AHgiQQWSqAQglKRGQNYAhwmygAiO2xF8glggZAIC+cw=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
