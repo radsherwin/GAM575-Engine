@@ -1,5 +1,4 @@
 #include "CameraInput.h"
-#include "InputManager.h"
 #include "GameObjectManager.h"
 #include "AnimationManager.h" //For demo
 
@@ -18,145 +17,90 @@ void CameraInput::SwitchCamera(Keyboard* pKey)
 	
 }
 
+KeyPress walkKey(Keyboard::KEY_1);
+KeyPress dieLeftKey(Keyboard::KEY_2);
+KeyPress shotDownKey(Keyboard::KEY_3);
+KeyPress hitRightKey(Keyboard::KEY_4);
+KeyPress runKey(Keyboard::KEY_5);
+
 void CameraInput::PlayDemo(Keyboard* pKey)
 {
 	//------------
 	//	Walk
 	//------------
-	static bool keyState1 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_1) && !keyState1)
+	if (walkKey)
 	{
-		keyState1 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_1) && keyState1)
-	{
+		Trace::out("Walking!");
 		AnimationManager::SetClip(Clip::Name::WALK, AnimController::AnimName::MESH1);
-		keyState1 = false;
 	}
 
 	//------------
 	//	Die_Left
 	//------------
-	static bool keyState2 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_2) && !keyState2)
-	{
-		keyState2 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_2) && keyState2)
+	if (dieLeftKey)
 	{
 		AnimationManager::SetClip(Clip::Name::DIE_LEFT, AnimController::AnimName::MESH1);
-		keyState2 = false;
 	}
 
 	//------------
 	//	Shot_Down
 	//------------
-	static bool keyState3 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_3) && !keyState3)
-	{
-		keyState3 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_3) && keyState3)
+	if (shotDownKey)
 	{
 		AnimationManager::SetClip(Clip::Name::SHOT_DOWN, AnimController::AnimName::MESH1);
-		keyState3 = false;
 	}
 
 	//------------
 	//	Hit_Right
 	//------------
-	static bool keyState4 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_4) && !keyState4)
-	{
-		keyState4 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_4) && keyState4)
+	if (hitRightKey)
 	{
 		AnimationManager::SetClip(Clip::Name::HIT_RIGHT, AnimController::AnimName::MESH1);
-		keyState4 = false;
 	}
 
 	//------------
 	//	Run
 	//------------
-	static bool keyState5 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_5) && !keyState5)
-	{
-		keyState5 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_5) && keyState5)
+	if (runKey)
 	{
 		AnimationManager::SetClip(Clip::Name::RUN, AnimController::AnimName::MESH1);
-		keyState5 = false;
+
 	}
 
 }
 
+KeyPress speedUPKey(Keyboard::KEY_EQUAL);
+KeyPress slowDownKey(Keyboard::KEY_MINUS);
+KeyPress revKey(Keyboard::KEY_Q);
+KeyPress fwdKey(Keyboard::KEY_W);
+KeyPress ppKey(Keyboard::KEY_SPACE);
+
 void CameraInput::DemoChangeSpeed(Keyboard* pKey)
 {
-	static bool keyState1 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_EQUAL) && !keyState1)
-	{
-		keyState1 = true;
-	}
 
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_EQUAL) && keyState1)
+	if(speedUPKey)
 	{
 		AnimationManager::IncreaseSpeed(1.25f);
-		keyState1 = false;
 	}
 
-	static bool keyState2 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_MINUS) && !keyState2)
-	{
-		keyState2 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_MINUS) && keyState2)
+	if(slowDownKey)
 	{
 		AnimationManager::DecreaseSpeed(1.25f);
-		keyState2 = false;
 	}
 
-	static bool keyState3 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_Q) && !keyState3)
-	{
-		keyState3 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_Q) && keyState3)
+	if(revKey)
 	{
 		AnimationManager::Reverse();
-		keyState3 = false;
 	}
 
-	static bool keyState4 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_W) && !keyState4)
-	{
-		keyState4 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_W) && keyState4)
+	if(fwdKey)
 	{
 		AnimationManager::Forward();
-		keyState4 = false;
 	}
 
-	static bool keyState5 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_SPACE) && !keyState5)
-	{
-		keyState5 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_SPACE) && keyState5)
+	if(ppKey)
 	{
 		AnimationManager::PlayPause();
-		keyState5 = false;
 	}
 
 	//Demo 2
@@ -200,26 +144,17 @@ CameraInput* CameraInput::privGetInstance()
     return posInstance;
 }
 
+
+
 void CameraInput::Update()
 {
 	CameraInput* pMan = CameraInput::privGetInstance();
     Camera* pCam = CameraManager::GetCurrent(Camera::Type::PERSPECTIVE_3D);
 	Keyboard* pKey = InputManager::GetKeyboard();
+	
 
-	pMan->PlayDemo(pKey);
+	pMan->PlayDemo(pKey); //Demo of cycling through animation
 	pMan->DemoChangeSpeed(pKey);
-
-	static bool keyState1 = false;
-	if (pKey->GetKeyState(Keyboard::KEY_H) && !keyState1)
-	{
-		keyState1 = true;
-	}
-
-	if (pKey->GetKeyReleaseState(Keyboard::KEY_H) && keyState1)
-	{
-		GameObjectManager::FlipBSphere();
-		keyState1 = false;
-	}
 
 	pMan->SwitchCamera(pKey);
 

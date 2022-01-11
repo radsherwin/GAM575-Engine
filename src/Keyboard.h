@@ -63,10 +63,10 @@ public:
 		KEY_Y = 89,
 		KEY_Z = 90,
 
-		KEY_LEFT_BRACKET = 91,	// [ 
-		KEY_BACKSLASH = 92,		// \ 
-		KEY_RIGHT_BRACKET = 93,	// ] 
-		KEY_GRAVE_ACCENT = 96,	// ` 
+		KEY_LEFT_BRACKET = 91,	// [
+		KEY_BACKSLASH = 92,		// \
+		KEY_RIGHT_BRACKET = 93,	// ]
+		KEY_GRAVE_ACCENT = 96,	// `
 
 		KEY_ARROW_UP = 264,
 		KEY_ARROW_DOWN = 265,
@@ -79,13 +79,12 @@ public:
 		KEY_BACKSPACE = 259,
 		KEY_INSERT = 260,
 		KEY_DELETE = 261,
-
 	};
 
 public:
 	Keyboard() = default;
-	Keyboard(const Keyboard&) = delete;
-	Keyboard& operator =(const Keyboard&) = delete;
+	Keyboard(const Keyboard &) = delete;
+	Keyboard &operator =(const Keyboard &) = delete;
 	~Keyboard() = default;
 
 	// Use this to read keyboard
@@ -94,7 +93,6 @@ public:
 
 private:
 	// Future use
-
 };
 
 #endif

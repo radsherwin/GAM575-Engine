@@ -11,29 +11,27 @@
 class InputManager
 {
 public:
-	InputManager(const InputManager&) = delete;
-	InputManager& operator = (const InputManager&) = delete;
+	InputManager(const InputManager &) = delete;
+	InputManager &operator = (const InputManager &) = delete;
 	~InputManager();
 
 	static void Create();
 	static void Destroy();
 
-	static Keyboard* GetKeyboard();
-	static Mouse* GetMouse();
+	static Keyboard *GetKeyboard();
+	static Mouse *GetMouse();
 
 private:
 	InputManager();
 
-	static InputManager* privInstance();
+	static InputManager *privInstance();
 	static void privCreate();
 
 	// Data
-	static InputManager* poInputMan;
-	Keyboard* poKeyboard;
-	Mouse* poMouse;
-
+	static InputManager *poInputMan;
+	Keyboard *poKeyboard;
+	Mouse *poMouse;
 };
-
 
 #endif
 
