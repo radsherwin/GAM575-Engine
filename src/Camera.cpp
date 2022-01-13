@@ -21,27 +21,6 @@ Camera::~Camera()
 {
 }
 
-void Camera::Set(Camera::ID _camID, const float fovDeg, const float nearCamDist, const float farCamDist, const int width, const int height)
-{
-	this->nextCam = nullptr;
-	this->prevCam = nullptr;
-	this->cameraID = _camID;
-	this->viewport_x = 0;
-	this->viewport_y = 0;
-	this->viewport_width = width;
-	this->viewport_height = height;
-
-	this->privSetViewState();
-
-	this->aspectRatio = float(width) / float(height);
-	this->fovy = fovDeg;
-	this->nearDist = nearCamDist;
-	this->farDist = farCamDist;
-
-	//Save original
-	GetHelper(this->origUp, this->origTar, this->origPos, this->origUpNorm, this->origForwardNorm, this->origRightNorm);
-}
-
 void Camera::GetHelper(Vect &up, Vect &tar, Vect &pos, Vect &upNorm, Vect &forwardNorm, Vect &pRightNorm)
 {
 	this->getPos(pos);
@@ -65,6 +44,16 @@ void Camera::GetOriginal()
 {
 	Vect upVect = this->origUp - this->origPos;
 	this->setOrientAndPosition(upVect, this->origTar, this->origPos);
+}
+
+void Camera::SetOriginal()
+{
+	this->origUp			= this->vPos + this->vUp;
+	this->origTar			= this->vLookAt;
+	this->origPos			= this->vPos;
+	this->origUpNorm		= this->vUp;
+	this->origForwardNorm	= this->vLookAt - this->vPos;
+	this->origRightNorm		= this->vRight;
 }
 
 Camera::Type Camera::GetType() const

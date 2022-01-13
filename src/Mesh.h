@@ -26,6 +26,7 @@ public:
 		BONE_B,
 		CHICKEN_BOT,
 		CRATE,
+		CORSET,
 		SNOWMAN,
 		PYRAMID,
 		BONE,

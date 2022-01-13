@@ -44,8 +44,6 @@ public:
 	Camera &operator = (const Camera &) = delete;
 	virtual ~Camera();
 
-	void Set(Camera::ID, const float fovDeg, const float nearDist, const float farDist, const int width, const int height);
-
 	// Setup on single camera
 	void setOrthographic(const float _xMin, const float _xMax, const float _yMin, const float _yMax, const float _zMin, const float _zMax);
 	void setPerspective(const float FieldOfView_Degs, const float AspectRatio, const float NearDist, const float FarDist);
@@ -83,6 +81,7 @@ public:
 	void SetHelper(Vect &up, Vect &tar, Vect &pos);
 
 	void GetOriginal();
+	void SetOriginal();
 
 	Camera::Type GetType() const;
 	Camera::ID GetCameraID() const;

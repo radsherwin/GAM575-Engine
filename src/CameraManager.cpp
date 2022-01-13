@@ -52,6 +52,7 @@ void CameraManager::Add(Camera::ID _camID, Camera *pCamera)
 
 	assert(pCamera);
 	pCamera->SetCameraID(_camID);
+	pCamera->SetOriginal();
 	pNode->set(pCamera);
 
 	pCamMan->privAddToFront(pNode, pCamMan->poActive);
