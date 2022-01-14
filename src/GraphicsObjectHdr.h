@@ -20,6 +20,7 @@ public:
 	virtual ~GraphicsObjectHdr();
 
 	void Set_FlatTexture(const std::vector<Mesh*> pMesh, const ShaderObject* const pShaderObj, Texture::Name _name = Texture::Name::PINK_ERROR);
+	void Set_FlatTexture(Mesh **pMesh, const int meshSize, const ShaderObject *const pShaderObj, Texture::Name textureName = Texture::Name::PINK_ERROR);
 	void Set_ConstColor(const std::vector<Mesh*> pMesh, const ShaderObject* const pShaderObj, Azul::Vect& color, Azul::Vect& pos);
 	void Set_ColorByPosition(const std::vector<Mesh*> mesh, const ShaderObject* const pShaderObj);
 	void Set_ColorSpecLighting(const std::vector<Mesh*> _pMesh, const ShaderObject* const _pShaderObj, Azul::Vect& color, Azul::Vect& pos);

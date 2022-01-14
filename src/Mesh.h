@@ -21,6 +21,7 @@ public:
 	enum class Name
 	{
 		CUBE,
+		ANTIQUE_CAMERA,
 		SPRITE,
 		BONE_A,
 		BONE_B,

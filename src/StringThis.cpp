@@ -112,6 +112,10 @@ StringThis::StringThis(Mesh::Name status)
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::CUBE));
 		break;
 
+    case Mesh::Name::ANTIQUE_CAMERA:
+        strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::ANTIQUE_CAMERA));
+        break;
+
     case Mesh::Name::CORSET:
         strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::CORSET));
         break;

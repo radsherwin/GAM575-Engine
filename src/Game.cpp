@@ -136,6 +136,12 @@ void Game::LoadContent()
     ProtoMeshFactory::CreateMeshSingle("Corset.mt.proto.azul", pCorsetMesh, Texture::Name::CORSET);
     MeshNodeManager::Add(Mesh::Name::CORSET, pCorsetMesh);
 
+    // AntiqueCamera
+    Mesh *antiqueCameraMesh[2];
+    ProtoMeshFactory::CreateMeshArray("AntiqueCamera.mt.proto.azul", antiqueCameraMesh, Texture::Name::ANTIQUE_CAMERA);
+    MeshNodeManager::Add(Mesh::Name::ANTIQUE_CAMERA, antiqueCameraMesh[0]);
+    MeshNodeManager::Add(Mesh::Name::ANTIQUE_CAMERA, antiqueCameraMesh[1]);
+
     Mesh *chickenBotMesh[8];
     ProtoMeshFactory::CreateMeshArray("walk_mesh.mat.proto.azul", chickenBotMesh, Texture::Name::CHICKEN_BOT);
     MeshNodeManager::Add(Mesh::Name::BONE, chickenBotMesh[0]);
@@ -235,11 +241,22 @@ void Game::LoadContent()
     GameObjectBasic *pGameObject = new GameObjectBasic(pGraphicsHdr);
     GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
 
+    // CORSET
+
     pGraphicsHdr = new GraphicsObjectHdr();
     pGraphicsHdr->Set_FlatTexture(pCorsetMesh, pShaderObject_texture, Texture::Name::CORSET);
     pGameObject = new GameObjectBasic(pGraphicsHdr);
     pGameObject->SetTrans(2.f, 2.f, 0.f);
     pGameObject->SetScale(Vect(10.f, 10.f, 10.f));
+    GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
+
+    // ANTIQUE CAMERA
+
+    pGraphicsHdr = new GraphicsObjectHdr();
+    pGraphicsHdr->Set_FlatTexture(antiqueCameraMesh, 2, pShaderObject_texture, Texture::Name::ANTIQUE_CAMERA);
+    pGameObject = new GameObjectBasic(pGraphicsHdr);
+    pGameObject->SetTrans(2.f, 2.f, 0.f);
+    pGameObject->SetScale(Vect(0.3f, 0.3f, 0.3f));
     GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
 
     ////-----------------------------------------------------------------------------
