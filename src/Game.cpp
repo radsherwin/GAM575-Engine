@@ -151,7 +151,7 @@ void Game::LoadContent()
     ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
 
     Animation *Anim_Walk[8];
-    ProtoMeshFactory::GetAnimation("walk_mesh.mt.proto.azul", Anim_Walk);
+    ProtoMeshFactory::GetAnimation("walk_mesh.mat.proto.azul", Anim_Walk);
 
     Animation *Anim_Shot_Down[8];
     ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);

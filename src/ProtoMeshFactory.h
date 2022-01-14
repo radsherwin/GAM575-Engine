@@ -18,18 +18,10 @@ public:
 	ProtoMeshFactory& operator=(const ProtoMeshFactory*) = delete;
 	~ProtoMeshFactory() = default;
 
-	static void LoadMesh(const char* const pMeshFileName, protoData& mB, Texture::Name _name = Texture::Name::NOT_INITIALIZED);
-	static void LoadTexture(const char* const pFileName, Texture::Name _name = Texture::Name::NOT_INITIALIZED);
-
 	static void LoadProto(const char *const pMeshFileName, protoData &mB);
 	static void CreateMeshArray(const char *const pFileName, Mesh** meshArray, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
-	static void CreateMeshSingle(const char *const pFileName, Mesh *mesh, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
-
-
-	//static void GetAnimation(const char* const pAnimFileName, std::vector<AnimationManager::AnimationData>& ad);
-	static void GetMesh(const char* const pMeshFileName, Mesh** MeshArray, Mesh::Name _meshName = Mesh::Name::NOT_INITIALIZED);
+	static void CreateMeshSingle(const char *const pFileName, Mesh *&mesh, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
 	static void GetAnimation(const char* const pMeshFileName, Animation** AnimationArray);
-	static Mesh* GetSingleMesh(protoData& mB, int meshIndex, Mesh::Name _meshName = Mesh::Name::NOT_INITIALIZED);
 };
 
 #endif

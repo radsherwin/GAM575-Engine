@@ -82,7 +82,7 @@ void ProtoMeshFactory::CreateMeshArray(const char *const pFileName, Mesh **meshA
     }
 }
 
-void ProtoMeshFactory::CreateMeshSingle(const char *const pFileName, Mesh *mesh, Texture::Name texName)
+void ProtoMeshFactory::CreateMeshSingle(const char *const pFileName, Mesh *&mesh, Texture::Name texName)
 {
     protoData pB;
     LoadProto(pFileName, pB);
@@ -108,7 +108,7 @@ void ProtoMeshFactory::CreateMeshSingle(const char *const pFileName, Mesh *mesh,
 void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation **AnimationArray)
 {
     protoData pB;
-    ProtoMeshFactory::LoadMesh(pMeshFileName, pB);
+    ProtoMeshFactory::LoadProto(pMeshFileName, pB);
 
     for (unsigned int index = 0; index < pB.animCount; index++)
     {
