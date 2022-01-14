@@ -124,8 +124,8 @@ namespace Azul
 		pGraphicsHdr = new GraphicsObjectHdr();
 		pGraphicsHdr->Set_TextureLight(SkeletonMesh[0], pShaderObject_textureLight, color, pos, Texture::Name::CHICKEN_BOT);
 		pGameObj = new GameObjectAnimSkin(pGraphicsHdr, pBoneResult);
-		pGameObj->SetIndex(SkeletonMesh[0]->pAnim->joint);
-		pGameObj->SetName(SkeletonMesh[0]->pAnim->protoName.c_str());
+		pGameObj->SetIndex(SkeletonMesh[0]->jointIndex); //Change to SkeletonMesh[0]->jointIndex
+		pGameObj->SetName(SkeletonMesh[0]->meshName.c_str());
 		GameObjectManager::Add(pGameObj, pPivot);
 		this->pFirstBone = pGameObj;
 
@@ -134,9 +134,9 @@ namespace Azul
 			pGraphicsHdr = new GraphicsObjectHdr();
 			pGraphicsHdr->Set_TextureLight(SkeletonMesh[i], pShaderObject_textureLight, color, pos, Texture::Name::CHICKEN_BOT);
 			pGameObj = new GameObjectAnimSkin(pGraphicsHdr, pBoneResult);
-			pGameObj->SetIndex(SkeletonMesh[i]->pAnim->joint);
-			pGameObj->SetName(SkeletonMesh[i]->pAnim->protoName.c_str());
-			GameObjectAnim* pParent = this->privFindBoneByIndex(SkeletonMesh[i]->pAnim->parent);
+			pGameObj->SetIndex(SkeletonMesh[i]->jointIndex);
+			pGameObj->SetName(SkeletonMesh[i]->meshName.c_str());
+			GameObjectAnim* pParent = this->privFindBoneByIndex(SkeletonMesh[i]->parentJointIndex);
 			GameObjectManager::Add(pGameObj, pParent);
 		}
 	}

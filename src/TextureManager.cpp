@@ -7,7 +7,7 @@
 #include "textureDataHelper.h"
 #include "File.h"
 
-TextureManager* TextureManager::posInstance = nullptr;
+TextureManager *TextureManager::posInstance = nullptr;
 
 //----------------------------------------------------------------------
 // Constructor
@@ -28,14 +28,14 @@ TextureManager::~TextureManager()
     this->poNodeCompare = nullptr;
 
     // iterate through the list and delete
-    Iterator* pIt = this->baseGetActiveIterator();
+    Iterator *pIt = this->baseGetActiveIterator();
 
-    DLink* pNode = pIt->First();
+    DLink *pNode = pIt->First();
 
     // Walk through the nodes
     while (!pIt->IsDone())
     {
-        Texture* pDeleteMe = (Texture*)pIt->Curr();
+        Texture *pDeleteMe = (Texture *)pIt->Curr();
         pNode = pIt->Next();
         delete pDeleteMe;
     }
@@ -47,7 +47,7 @@ TextureManager::~TextureManager()
     // Walk through the nodes
     while (!pIt->IsDone())
     {
-        Texture* pDeleteMe = (Texture*)pIt->Curr();
+        Texture *pDeleteMe = (Texture *)pIt->Curr();
         pNode = pIt->Next();
         delete pDeleteMe;
     }
@@ -58,7 +58,7 @@ TextureManager::~TextureManager()
 //----------------------------------------------------------------------
 void TextureManager::Create(int reserveNum, int reserveGrow)
 {
-    // make sure values are ressonable 
+    // make sure values are ressonable
     assert(reserveNum > 0);
     assert(reserveGrow > 0);
 
@@ -70,12 +70,11 @@ void TextureManager::Create(int reserveNum, int reserveGrow)
     {
         posInstance = new TextureManager(reserveNum, reserveGrow);
     }
-
 }
 
 void TextureManager::Destroy()
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
     assert(pMan != nullptr);
     AZUL_UNUSED_VAR(pMan);
 
@@ -83,11 +82,12 @@ void TextureManager::Destroy()
     TextureManager::posInstance = nullptr;
 }
 
-Texture* TextureManager::Add(const char* const pName, Texture::Name name)
+// For direct texture files only
+Texture *TextureManager::Add(const char *const pName, Texture::Name name)
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
 
-    GLuint* pTextureID = new GLuint;
+    GLuint *pTextureID = new GLuint;
 
     //Read and recreate model data
     Azul::File::Handle fh;
@@ -110,75 +110,73 @@ Texture* TextureManager::Add(const char* const pName, Texture::Name name)
     assert(err == Azul::File::Error::SUCCESS);
 
     std::string strIn(poNewBuff, FileLength);
-    meshData_proto mB_proto;
-    mB_proto.ParseFromString(strIn);
-    meshData mB;
-    mB.Deserialize(mB_proto);
+    protoData_proto pB_proto;
+    pB_proto.ParseFromString(strIn);
+    protoData pB;
+    pB.Deserialize(pB_proto);
 
     delete[] poNewBuff;
 
-    pMan->privLoadTexture(mB, pTextureID);
-    Texture *pNode = (Texture*)pMan->baseAddToFront();
+    pMan->privLoadTexture(pB, pTextureID);
+    Texture *pNode = (Texture *)pMan->baseAddToFront();
     assert(pNode != nullptr);
 
     pNode->Set
     (
-        mB.text_color->pFileName,
+        pB.pTextureData->pFileName,
         name,
         pTextureID,
-        textureDataHelper::Get(mB.text_color->minFilter),
-        textureDataHelper::Get(mB.text_color->magFilter),
-        textureDataHelper::Get(mB.text_color->wrapS),
-        textureDataHelper::Get(mB.text_color->wrapT),
-        mB.text_color->width,
-        mB.text_color->height
+        textureDataHelper::Get(pB.pTextureData->minFilter),
+        textureDataHelper::Get(pB.pTextureData->magFilter),
+        textureDataHelper::Get(pB.pTextureData->wrapS),
+        textureDataHelper::Get(pB.pTextureData->wrapT),
+        pB.pTextureData->width,
+        pB.pTextureData->height
     );
 
     return pNode;
 }
-Texture* TextureManager::Add(meshData& mB, Texture::Name _name)
+Texture *TextureManager::Add(protoData &pB, Texture::Name _name)
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
-    GLuint* pTextureID = new GLuint[mB.texCount];
-    
+    TextureManager *pMan = TextureManager::privGetInstance();
+    GLuint *pTextureID = new GLuint[pB.textureCount];
 
     //Load the texture and get the textureID
-    pMan->privLoadTexture(mB, pTextureID);
-    //std::vector<Texture*> pNode(mB.texCount);
+    pMan->privLoadTexture(pB, pTextureID);
 
-    Texture* pNode = (Texture*)pMan->baseAddToFront();
+    Texture *pNode = (Texture *)pMan->baseAddToFront();
 
     //Initialize the date
-    for(unsigned int i = 0; i < mB.texCount; i++)
+    for (unsigned int i = 0; i < pB.textureCount; i++)
     {
+        textureData *tD = &pB.pTextureData[i];
         pNode->Set
         (
-            mB.text_color[i].pFileName,
+            tD->pFileName,
             _name,
             pTextureID,
-            textureDataHelper::Get(mB.text_color[i].minFilter),
-            textureDataHelper::Get(mB.text_color[i].magFilter),
-            textureDataHelper::Get(mB.text_color[i].wrapS),
-            textureDataHelper::Get(mB.text_color[i].wrapT),
-            mB.text_color->width,
-            mB.text_color->height
+            textureDataHelper::Get(tD->minFilter),
+            textureDataHelper::Get(tD->magFilter),
+            textureDataHelper::Get(tD->wrapS),
+            textureDataHelper::Get(tD->wrapT),
+            tD->width,
+            tD->height
         );
     }
 
     return pNode;
 }
 
-Texture* TextureManager::Add(textureData& tB, Texture::Name _name)
+Texture *TextureManager::Add(textureData &tB, Texture::Name _name)
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
-    GLuint* pTextureID = new GLuint[1];
-
+    TextureManager *pMan = TextureManager::privGetInstance();
+    GLuint *pTextureID = new GLuint[1];
 
     //Load the texture and get the textureID
     pMan->privLoadTexture(tB, pTextureID);
     //std::vector<Texture*> pNode(mB.texCount);
 
-    Texture* pNode = (Texture*)pMan->baseAddToFront();
+    Texture *pNode = (Texture *)pMan->baseAddToFront();
 
     //Initialize the date
     pNode->Set
@@ -194,32 +192,41 @@ Texture* TextureManager::Add(textureData& tB, Texture::Name _name)
         tB.height
     );
 
-
     return pNode;
 }
 
-Texture* TextureManager::Find(Texture::Name _name)
+bool TextureManager::Exist(Texture::Name name)
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
     assert(pMan != nullptr);
 
-    // Compare functions only compares two Nodes
+    pMan->poNodeCompare->name = name;
 
-    // So:  Use the Compare Node - as a reference
-    //      use in the Compare() function
+    Texture *pData = (Texture *)pMan->baseFind(pMan->poNodeCompare);
+
+    if (pData == nullptr) return false;
+
+    return true;
+}
+
+Texture *TextureManager::Find(Texture::Name _name)
+{
+    TextureManager *pMan = TextureManager::privGetInstance();
+    assert(pMan != nullptr);
+
     pMan->poNodeCompare->name = _name;
 
-    Texture* pData = (Texture*)pMan->baseFind(pMan->poNodeCompare);
-    if(pData == nullptr) pData = pMan->Find(Texture::Name::PINK_ERROR);
+    Texture *pData = (Texture *)pMan->baseFind(pMan->poNodeCompare);
+    if (pData == nullptr) pData = pMan->Find(Texture::Name::PINK_ERROR);
     return pData;
 }
 
-GLuint* TextureManager::FindID(Texture::Name name)
+GLuint *TextureManager::FindID(Texture::Name name)
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
     assert(pMan != nullptr);
 
-    Texture* pTexture = pMan->Find(name);
+    Texture *pTexture = pMan->Find(name);
     assert(pTexture);
 
     return pTexture->textureID;
@@ -227,20 +234,20 @@ GLuint* TextureManager::FindID(Texture::Name name)
 
 GLuint TextureManager::FindID(Texture::Name name, int _index)
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
     assert(pMan != nullptr);
 
-    Texture* pTexture = pMan->Find(name);
+    Texture *pTexture = pMan->Find(name);
     assert(pTexture);
 
     return pTexture->textureID[_index];
 }
 
-void TextureManager::Remove(Texture* pNode)
+void TextureManager::Remove(Texture *pNode)
 {
     assert(pNode != nullptr);
 
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
     assert(pMan != nullptr);
 
     pMan->baseRemove(pNode);
@@ -248,7 +255,7 @@ void TextureManager::Remove(Texture* pNode)
 
 void TextureManager::Dump()
 {
-    TextureManager* pMan = TextureManager::privGetInstance();
+    TextureManager *pMan = TextureManager::privGetInstance();
     assert(pMan != nullptr);
 
     pMan->baseDump();
@@ -257,7 +264,7 @@ void TextureManager::Dump()
 //----------------------------------------------------------------------
 // Private methods
 //----------------------------------------------------------------------
-TextureManager* TextureManager::privGetInstance()
+TextureManager *TextureManager::privGetInstance()
 {
     // Safety - this forces users to call Create() first before using class
     assert(posInstance != nullptr);
@@ -268,41 +275,40 @@ TextureManager* TextureManager::privGetInstance()
 //----------------------------------------------------------------------
 // Override Abstract methods
 //----------------------------------------------------------------------
-DLink* TextureManager::derivedCreateNode()
+DLink *TextureManager::derivedCreateNode()
 {
-    DLink* pNodeBase = new Texture();
+    DLink *pNodeBase = new Texture();
     assert(pNodeBase != nullptr);
 
     return pNodeBase;
 }
 
-void TextureManager::privLoadTexture(meshData& mB, GLuint*& textureID)
+void TextureManager::privLoadTexture(protoData &pB, GLuint *&textureID)
 {
     //Get an ID, for textures (OpenGL poor man's handle)
-    glGenTextures(mB.texCount, textureID);
+    glGenTextures(pB.textureCount, textureID);
 
     //Bind it
-    for(int i = 0; i < (int)mB.texCount; i++)
+    for (int i = 0; i < (int)pB.textureCount; i++)
     {
-        this->privLoadRawTexture(mB.text_color[i], textureID[i]);
-    }   
+        this->privLoadRawTexture(pB.pTextureData[i], textureID[i]);
+    }
 }
 
-void TextureManager::privLoadTexture(textureData& tB, GLuint*& textureID)
+void TextureManager::privLoadTexture(textureData &tB, GLuint *&textureID)
 {
     //Get an ID, for textures (OpenGL poor man's handle)
     glGenTextures(1, textureID);
 
     //Bind it
-	this->privLoadRawTexture(tB, textureID[0]);
+    this->privLoadRawTexture(tB, textureID[0]);
 }
 
-bool TextureManager::privLoadRawTexture(textureData& tD, GLuint texture)
+bool TextureManager::privLoadRawTexture(textureData &tD, GLuint texture)
 {
-
     glBindTexture(GL_TEXTURE_2D, texture);
     assert(tD.as_is == false);
-    void* pBits = tD.poData;
+    void *pBits = tD.poData;
     assert(pBits);
 
     int nWidth = (int)tD.width;
@@ -338,24 +344,24 @@ GLenum TextureManager::privGetOpenGLValue(textureData::TEXTURE_EFORMAT eFormat) 
 
     switch (eFormat)
     {
-    case textureData::TEXTURE_EFORMAT::EFORMAT_BGR:
-        val = GL_BGR;
-        break;
+        case textureData::TEXTURE_EFORMAT::EFORMAT_BGR:
+            val = GL_BGR;
+            break;
 
-    case textureData::TEXTURE_EFORMAT::EFORMAT_BGRA:
-        val = GL_BGRA;
-        break;
+        case textureData::TEXTURE_EFORMAT::EFORMAT_BGRA:
+            val = GL_BGRA;
+            break;
 
-    case textureData::TEXTURE_EFORMAT::EFORMAT_RGB:
-        val = GL_RGB;
-        break;
+        case textureData::TEXTURE_EFORMAT::EFORMAT_RGB:
+            val = GL_RGB;
+            break;
 
-    case textureData::TEXTURE_EFORMAT::EFORMAT_RGBA:
-        val = GL_RGBA;
-        break;
+        case textureData::TEXTURE_EFORMAT::EFORMAT_RGBA:
+            val = GL_RGBA;
+            break;
 
-    default:
-        assert(false);
+        default:
+            assert(false);
     }
 
     return val;
@@ -367,24 +373,24 @@ GLint TextureManager::privGetOpenGLValue(textureData::TEXTURE_NCOMPONENT nCompon
 
     switch (nComponent)
     {
-    case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_BGR:
-        val = GL_BGR;
-        break;
+        case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_BGR:
+            val = GL_BGR;
+            break;
 
-    case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_BGRA:
-        val = GL_BGRA;
-        break;
+        case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_BGRA:
+            val = GL_BGRA;
+            break;
 
-    case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_RGB:
-        val = GL_RGB;
-        break;
+        case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_RGB:
+            val = GL_RGB;
+            break;
 
-    case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_RGBA:
-        val = GL_RGBA;
-        break;
+        case textureData::TEXTURE_NCOMPONENT::NCOMPONENT_RGBA:
+            val = GL_RGBA;
+            break;
 
-    default:
-        assert(false);
+        default:
+            assert(false);
     }
 
     return val;

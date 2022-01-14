@@ -126,13 +126,13 @@ public:
 	unsigned int		width;
 	unsigned int		height;
 
-	unsigned int		component; //bits per channel: //1 = grey / 2 = grey, alpha / 3 = red, green, blue / 4 = red, green blue, alpha
-	unsigned int		bits; //bits per channel 8, 16, 32 per color
+	unsigned int		component;  // bits per channel: //1 = grey / 2 = grey, alpha / 3 = red, green, blue / 4 = red, green blue, alpha
+	unsigned int		bits;		// bits per channel 8, 16, 32 per color
 	bool				as_is;
 	char                pFileName[FILE_NAME_SIZE];
 	unsigned int        dataSize;
 	unsigned int		hash;
-	unsigned char      *poData;
+	unsigned char       *poData;
 
 };
 

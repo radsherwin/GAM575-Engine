@@ -211,6 +211,9 @@
     <None Include="CameraDiagram.cd">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="Proto\protoData.proto">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Framework\Framework.h">
@@ -777,12 +780,6 @@
     <ClInclude Include="..\Proto\google\protobuf\util\internal\utility.h">
       <Filter>_Libs\Proto\include\google\protobuff\util\internal</Filter>
     </ClInclude>
-    <ClInclude Include="ProtoBuffMesh.h">
-      <Filter>Source Files\Mesh\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="ProtoMeshFactory.h">
-      <Filter>Source Files\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsObjectHdr.h">
       <Filter>Source Files\GraphicsObject\GraphicsObjectHdr</Filter>
     </ClInclude>
@@ -909,6 +906,18 @@
     <ClInclude Include="GraphicsObjectHdr_Sprite.h">
       <Filter>Source Files\GraphicsObject\GraphicsObjectHdr</Filter>
     </ClInclude>
+    <ClInclude Include="Proto\protoData.h">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\protoData.pb.h">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtoMeshFactory.h">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtoBuffMesh.h">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1000,12 +1009,6 @@
     </ClCompile>
     <ClCompile Include="GraphicsObject_ColorSpecLighting.cpp">
       <Filter>Source Files\GraphicsObject</Filter>
-    </ClCompile>
-    <ClCompile Include="ProtoBuffMesh.cpp">
-      <Filter>Source Files\Mesh\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="ProtoMeshFactory.cpp">
-      <Filter>Source Files\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsObjectHdr.cpp">
       <Filter>Source Files\GraphicsObject\GraphicsObjectHdr</Filter>
@@ -1129,6 +1132,18 @@
     </ClCompile>
     <ClCompile Include="GraphicsObjectHdr_Sprite.cpp">
       <Filter>Source Files\GraphicsObject\GraphicsObjectHdr</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\protoData.cpp">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\protoData.pb.cc">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtoMeshFactory.cpp">
+      <Filter>Source Files\ProtoBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtoBuffMesh.cpp">
+      <Filter>Source Files\ProtoBuff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

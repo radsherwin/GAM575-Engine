@@ -66,17 +66,16 @@ public:
 	bool Compare(DLink* pTarget);
 	char* GetName();
 	void SetName(Name _name);
-	Animation* GetAnimation() const;
 
 	//Reference sphere before any transformations are applied
 	Sphere* poRefSphere;
 
 public:
 	Name name;
+	std::string meshName;
 	unsigned int textureIDInt;
-	int texCount;
-	Animation* pAnim;
-
+	int jointIndex;
+	int parentJointIndex;
 };
 
 #endif

@@ -161,8 +161,10 @@ class animData_proto final :
 
   enum : int {
     kBoneDataFieldNumber = 1,
-    kParentFieldNumber = 2,
-    kFrameBucketCountFieldNumber = 3,
+    kAnimNameFieldNumber = 2,
+    kJointIndexFieldNumber = 3,
+    kParentIndexFieldNumber = 4,
+    kTotalAnimFramesFieldNumber = 5,
   };
   // repeated .boneData_proto bone_Data = 1;
   int bone_data_size() const;
@@ -182,22 +184,45 @@ class animData_proto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::boneData_proto >&
       bone_data() const;
 
-  // sint32 parent = 2;
-  void clear_parent();
-  ::PROTOBUF_NAMESPACE_ID::int32 parent() const;
-  void set_parent(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // bytes animName = 2;
+  void clear_animname();
+  const std::string& animname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_animname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_animname();
+  PROTOBUF_MUST_USE_RESULT std::string* release_animname();
+  void set_allocated_animname(std::string* animname);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_parent() const;
-  void _internal_set_parent(::PROTOBUF_NAMESPACE_ID::int32 value);
+  const std::string& _internal_animname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_animname(const std::string& value);
+  std::string* _internal_mutable_animname();
   public:
 
-  // uint32 frameBucketCount = 3;
-  void clear_framebucketcount();
-  ::PROTOBUF_NAMESPACE_ID::uint32 framebucketcount() const;
-  void set_framebucketcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  // sint32 jointIndex = 3;
+  void clear_jointindex();
+  ::PROTOBUF_NAMESPACE_ID::int32 jointindex() const;
+  void set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_framebucketcount() const;
-  void _internal_set_framebucketcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_jointindex() const;
+  void _internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // sint32 parentIndex = 4;
+  void clear_parentindex();
+  ::PROTOBUF_NAMESPACE_ID::int32 parentindex() const;
+  void set_parentindex(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_parentindex() const;
+  void _internal_set_parentindex(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // uint32 totalAnimFrames = 5;
+  void clear_totalanimframes();
+  ::PROTOBUF_NAMESPACE_ID::uint32 totalanimframes() const;
+  void set_totalanimframes(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_totalanimframes() const;
+  void _internal_set_totalanimframes(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:animData_proto)
@@ -208,8 +233,10 @@ class animData_proto final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::boneData_proto > bone_data_;
-  ::PROTOBUF_NAMESPACE_ID::int32 parent_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 framebucketcount_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr animname_;
+  ::PROTOBUF_NAMESPACE_ID::int32 jointindex_;
+  ::PROTOBUF_NAMESPACE_ID::int32 parentindex_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 totalanimframes_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animData_2eproto;
 };
@@ -261,44 +288,110 @@ animData_proto::bone_data() const {
   return bone_data_;
 }
 
-// sint32 parent = 2;
-inline void animData_proto::clear_parent() {
-  parent_ = 0;
+// bytes animName = 2;
+inline void animData_proto::clear_animname() {
+  animname_.ClearToEmpty();
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 animData_proto::_internal_parent() const {
-  return parent_;
+inline const std::string& animData_proto::animname() const {
+  // @@protoc_insertion_point(field_get:animData_proto.animName)
+  return _internal_animname();
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 animData_proto::parent() const {
-  // @@protoc_insertion_point(field_get:animData_proto.parent)
-  return _internal_parent();
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void animData_proto::set_animname(ArgT0&& arg0, ArgT... args) {
+ 
+ animname_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animData_proto.animName)
 }
-inline void animData_proto::_internal_set_parent(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline std::string* animData_proto::mutable_animname() {
+  std::string* _s = _internal_mutable_animname();
+  // @@protoc_insertion_point(field_mutable:animData_proto.animName)
+  return _s;
+}
+inline const std::string& animData_proto::_internal_animname() const {
+  return animname_.Get();
+}
+inline void animData_proto::_internal_set_animname(const std::string& value) {
   
-  parent_ = value;
+  animname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline void animData_proto::set_parent(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_parent(value);
-  // @@protoc_insertion_point(field_set:animData_proto.parent)
+inline std::string* animData_proto::_internal_mutable_animname() {
+  
+  return animname_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* animData_proto::release_animname() {
+  // @@protoc_insertion_point(field_release:animData_proto.animName)
+  return animname_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void animData_proto::set_allocated_animname(std::string* animname) {
+  if (animname != nullptr) {
+    
+  } else {
+    
+  }
+  animname_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), animname,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animData_proto.animName)
 }
 
-// uint32 frameBucketCount = 3;
-inline void animData_proto::clear_framebucketcount() {
-  framebucketcount_ = 0u;
+// sint32 jointIndex = 3;
+inline void animData_proto::clear_jointindex() {
+  jointindex_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 animData_proto::_internal_framebucketcount() const {
-  return framebucketcount_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 animData_proto::_internal_jointindex() const {
+  return jointindex_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 animData_proto::framebucketcount() const {
-  // @@protoc_insertion_point(field_get:animData_proto.frameBucketCount)
-  return _internal_framebucketcount();
+inline ::PROTOBUF_NAMESPACE_ID::int32 animData_proto::jointindex() const {
+  // @@protoc_insertion_point(field_get:animData_proto.jointIndex)
+  return _internal_jointindex();
 }
-inline void animData_proto::_internal_set_framebucketcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void animData_proto::_internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  framebucketcount_ = value;
+  jointindex_ = value;
 }
-inline void animData_proto::set_framebucketcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_framebucketcount(value);
-  // @@protoc_insertion_point(field_set:animData_proto.frameBucketCount)
+inline void animData_proto::set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_jointindex(value);
+  // @@protoc_insertion_point(field_set:animData_proto.jointIndex)
+}
+
+// sint32 parentIndex = 4;
+inline void animData_proto::clear_parentindex() {
+  parentindex_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 animData_proto::_internal_parentindex() const {
+  return parentindex_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 animData_proto::parentindex() const {
+  // @@protoc_insertion_point(field_get:animData_proto.parentIndex)
+  return _internal_parentindex();
+}
+inline void animData_proto::_internal_set_parentindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  parentindex_ = value;
+}
+inline void animData_proto::set_parentindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_parentindex(value);
+  // @@protoc_insertion_point(field_set:animData_proto.parentIndex)
+}
+
+// uint32 totalAnimFrames = 5;
+inline void animData_proto::clear_totalanimframes() {
+  totalanimframes_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 animData_proto::_internal_totalanimframes() const {
+  return totalanimframes_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 animData_proto::totalanimframes() const {
+  // @@protoc_insertion_point(field_get:animData_proto.totalAnimFrames)
+  return _internal_totalanimframes();
+}
+inline void animData_proto::_internal_set_totalanimframes(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  totalanimframes_ = value;
+}
+inline void animData_proto::set_totalanimframes(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_totalanimframes(value);
+  // @@protoc_insertion_point(field_set:animData_proto.totalAnimFrames)
 }
 
 #ifdef __GNUC__

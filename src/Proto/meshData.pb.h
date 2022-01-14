@@ -31,8 +31,6 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
 #include "vboData.pb.h"
-#include "textureData.pb.h"
-#include "animData.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_meshData_2eproto
@@ -225,338 +223,175 @@ class meshData_proto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPNameFieldNumber = 2,
-    kModeFieldNumber = 3,
-    kNodeNumberFieldNumber = 4,
-    kTriCountFieldNumber = 5,
-    kVertCountFieldNumber = 6,
-    kVboVertFieldNumber = 7,
-    kVboNormFieldNumber = 8,
-    kVboUvFieldNumber = 9,
-    kVboIndexFieldNumber = 10,
-    kVboColorFieldNumber = 11,
-    kTextColorFieldNumber = 12,
-    kAnimDataFieldNumber = 13,
-    kMaterialIndexFieldNumber = 14,
-    kPVersionFieldNumber = 1,
-    kMeshCountFieldNumber = 15,
-    kTexCountFieldNumber = 16,
-    kNameCountFieldNumber = 17,
-    kAnimCountFieldNumber = 18,
-    kHasSkinFieldNumber = 19,
+    kPNameFieldNumber = 1,
+    kVboVertFieldNumber = 3,
+    kVboNormFieldNumber = 4,
+    kVboUvFieldNumber = 5,
+    kVboIndexFieldNumber = 6,
+    kVboColorFieldNumber = 7,
+    kModeFieldNumber = 2,
+    kTriCountFieldNumber = 8,
+    kVertCountFieldNumber = 9,
+    kMaterialIndexFieldNumber = 10,
+    kJointIndexFieldNumber = 11,
+    kParentJointIndexFieldNumber = 12,
   };
-  // repeated bytes pName = 2;
-  int pname_size() const;
-  private:
-  int _internal_pname_size() const;
-  public:
+  // bytes pName = 1;
   void clear_pname();
-  const std::string& pname(int index) const;
-  std::string* mutable_pname(int index);
-  void set_pname(int index, const std::string& value);
-  void set_pname(int index, std::string&& value);
-  void set_pname(int index, const char* value);
-  void set_pname(int index, const void* value, size_t size);
-  std::string* add_pname();
-  void add_pname(const std::string& value);
-  void add_pname(std::string&& value);
-  void add_pname(const char* value);
-  void add_pname(const void* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& pname() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_pname();
+  const std::string& pname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_pname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_pname();
+  PROTOBUF_MUST_USE_RESULT std::string* release_pname();
+  void set_allocated_pname(std::string* pname);
   private:
-  const std::string& _internal_pname(int index) const;
-  std::string* _internal_add_pname();
+  const std::string& _internal_pname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_pname(const std::string& value);
+  std::string* _internal_mutable_pname();
   public:
 
-  // repeated .meshData_proto.RENDER_MODE mode = 3;
-  int mode_size() const;
+  // .vboData_proto vbo_vert = 3;
+  bool has_vbo_vert() const;
   private:
-  int _internal_mode_size() const;
-  public:
-  void clear_mode();
-  private:
-  ::meshData_proto_RENDER_MODE _internal_mode(int index) const;
-  void _internal_add_mode(::meshData_proto_RENDER_MODE value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_mode();
-  public:
-  ::meshData_proto_RENDER_MODE mode(int index) const;
-  void set_mode(int index, ::meshData_proto_RENDER_MODE value);
-  void add_mode(::meshData_proto_RENDER_MODE value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& mode() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_mode();
-
-  // repeated uint32 nodeNumber = 4;
-  int nodenumber_size() const;
-  private:
-  int _internal_nodenumber_size() const;
-  public:
-  void clear_nodenumber();
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_nodenumber(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      _internal_nodenumber() const;
-  void _internal_add_nodenumber(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      _internal_mutable_nodenumber();
-  public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 nodenumber(int index) const;
-  void set_nodenumber(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_nodenumber(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      nodenumber() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      mutable_nodenumber();
-
-  // repeated uint32 triCount = 5;
-  int tricount_size() const;
-  private:
-  int _internal_tricount_size() const;
-  public:
-  void clear_tricount();
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_tricount(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      _internal_tricount() const;
-  void _internal_add_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      _internal_mutable_tricount();
-  public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 tricount(int index) const;
-  void set_tricount(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      tricount() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      mutable_tricount();
-
-  // repeated uint32 vertCount = 6;
-  int vertcount_size() const;
-  private:
-  int _internal_vertcount_size() const;
-  public:
-  void clear_vertcount();
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_vertcount(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      _internal_vertcount() const;
-  void _internal_add_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      _internal_mutable_vertcount();
-  public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 vertcount(int index) const;
-  void set_vertcount(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      vertcount() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      mutable_vertcount();
-
-  // repeated .vboData_proto vbo_vert = 7;
-  int vbo_vert_size() const;
-  private:
-  int _internal_vbo_vert_size() const;
+  bool _internal_has_vbo_vert() const;
   public:
   void clear_vbo_vert();
-  ::vboData_proto* mutable_vbo_vert(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-      mutable_vbo_vert();
+  const ::vboData_proto& vbo_vert() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_vert();
+  ::vboData_proto* mutable_vbo_vert();
+  void set_allocated_vbo_vert(::vboData_proto* vbo_vert);
   private:
-  const ::vboData_proto& _internal_vbo_vert(int index) const;
-  ::vboData_proto* _internal_add_vbo_vert();
+  const ::vboData_proto& _internal_vbo_vert() const;
+  ::vboData_proto* _internal_mutable_vbo_vert();
   public:
-  const ::vboData_proto& vbo_vert(int index) const;
-  ::vboData_proto* add_vbo_vert();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-      vbo_vert() const;
+  void unsafe_arena_set_allocated_vbo_vert(
+      ::vboData_proto* vbo_vert);
+  ::vboData_proto* unsafe_arena_release_vbo_vert();
 
-  // repeated .vboData_proto vbo_norm = 8;
-  int vbo_norm_size() const;
+  // .vboData_proto vbo_norm = 4;
+  bool has_vbo_norm() const;
   private:
-  int _internal_vbo_norm_size() const;
+  bool _internal_has_vbo_norm() const;
   public:
   void clear_vbo_norm();
-  ::vboData_proto* mutable_vbo_norm(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-      mutable_vbo_norm();
+  const ::vboData_proto& vbo_norm() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_norm();
+  ::vboData_proto* mutable_vbo_norm();
+  void set_allocated_vbo_norm(::vboData_proto* vbo_norm);
   private:
-  const ::vboData_proto& _internal_vbo_norm(int index) const;
-  ::vboData_proto* _internal_add_vbo_norm();
+  const ::vboData_proto& _internal_vbo_norm() const;
+  ::vboData_proto* _internal_mutable_vbo_norm();
   public:
-  const ::vboData_proto& vbo_norm(int index) const;
-  ::vboData_proto* add_vbo_norm();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-      vbo_norm() const;
+  void unsafe_arena_set_allocated_vbo_norm(
+      ::vboData_proto* vbo_norm);
+  ::vboData_proto* unsafe_arena_release_vbo_norm();
 
-  // repeated .vboData_proto vbo_uv = 9;
-  int vbo_uv_size() const;
+  // .vboData_proto vbo_uv = 5;
+  bool has_vbo_uv() const;
   private:
-  int _internal_vbo_uv_size() const;
+  bool _internal_has_vbo_uv() const;
   public:
   void clear_vbo_uv();
-  ::vboData_proto* mutable_vbo_uv(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-      mutable_vbo_uv();
+  const ::vboData_proto& vbo_uv() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_uv();
+  ::vboData_proto* mutable_vbo_uv();
+  void set_allocated_vbo_uv(::vboData_proto* vbo_uv);
   private:
-  const ::vboData_proto& _internal_vbo_uv(int index) const;
-  ::vboData_proto* _internal_add_vbo_uv();
+  const ::vboData_proto& _internal_vbo_uv() const;
+  ::vboData_proto* _internal_mutable_vbo_uv();
   public:
-  const ::vboData_proto& vbo_uv(int index) const;
-  ::vboData_proto* add_vbo_uv();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-      vbo_uv() const;
+  void unsafe_arena_set_allocated_vbo_uv(
+      ::vboData_proto* vbo_uv);
+  ::vboData_proto* unsafe_arena_release_vbo_uv();
 
-  // repeated .vboData_proto vbo_index = 10;
-  int vbo_index_size() const;
+  // .vboData_proto vbo_index = 6;
+  bool has_vbo_index() const;
   private:
-  int _internal_vbo_index_size() const;
+  bool _internal_has_vbo_index() const;
   public:
   void clear_vbo_index();
-  ::vboData_proto* mutable_vbo_index(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-      mutable_vbo_index();
+  const ::vboData_proto& vbo_index() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_index();
+  ::vboData_proto* mutable_vbo_index();
+  void set_allocated_vbo_index(::vboData_proto* vbo_index);
   private:
-  const ::vboData_proto& _internal_vbo_index(int index) const;
-  ::vboData_proto* _internal_add_vbo_index();
+  const ::vboData_proto& _internal_vbo_index() const;
+  ::vboData_proto* _internal_mutable_vbo_index();
   public:
-  const ::vboData_proto& vbo_index(int index) const;
-  ::vboData_proto* add_vbo_index();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-      vbo_index() const;
+  void unsafe_arena_set_allocated_vbo_index(
+      ::vboData_proto* vbo_index);
+  ::vboData_proto* unsafe_arena_release_vbo_index();
 
-  // repeated .vboData_proto vbo_color = 11;
-  int vbo_color_size() const;
+  // .vboData_proto vbo_color = 7;
+  bool has_vbo_color() const;
   private:
-  int _internal_vbo_color_size() const;
+  bool _internal_has_vbo_color() const;
   public:
   void clear_vbo_color();
-  ::vboData_proto* mutable_vbo_color(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-      mutable_vbo_color();
+  const ::vboData_proto& vbo_color() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_color();
+  ::vboData_proto* mutable_vbo_color();
+  void set_allocated_vbo_color(::vboData_proto* vbo_color);
   private:
-  const ::vboData_proto& _internal_vbo_color(int index) const;
-  ::vboData_proto* _internal_add_vbo_color();
+  const ::vboData_proto& _internal_vbo_color() const;
+  ::vboData_proto* _internal_mutable_vbo_color();
   public:
-  const ::vboData_proto& vbo_color(int index) const;
-  ::vboData_proto* add_vbo_color();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-      vbo_color() const;
+  void unsafe_arena_set_allocated_vbo_color(
+      ::vboData_proto* vbo_color);
+  ::vboData_proto* unsafe_arena_release_vbo_color();
 
-  // repeated .textureData_proto text_color = 12;
-  int text_color_size() const;
+  // .meshData_proto.RENDER_MODE mode = 2;
+  void clear_mode();
+  ::meshData_proto_RENDER_MODE mode() const;
+  void set_mode(::meshData_proto_RENDER_MODE value);
   private:
-  int _internal_text_color_size() const;
+  ::meshData_proto_RENDER_MODE _internal_mode() const;
+  void _internal_set_mode(::meshData_proto_RENDER_MODE value);
   public:
-  void clear_text_color();
-  ::textureData_proto* mutable_text_color(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >*
-      mutable_text_color();
-  private:
-  const ::textureData_proto& _internal_text_color(int index) const;
-  ::textureData_proto* _internal_add_text_color();
-  public:
-  const ::textureData_proto& text_color(int index) const;
-  ::textureData_proto* add_text_color();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >&
-      text_color() const;
 
-  // repeated .animData_proto anim_data = 13;
-  int anim_data_size() const;
+  // uint32 triCount = 8;
+  void clear_tricount();
+  ::PROTOBUF_NAMESPACE_ID::uint32 tricount() const;
+  void set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   private:
-  int _internal_anim_data_size() const;
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_tricount() const;
+  void _internal_set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
-  void clear_anim_data();
-  ::animData_proto* mutable_anim_data(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto >*
-      mutable_anim_data();
-  private:
-  const ::animData_proto& _internal_anim_data(int index) const;
-  ::animData_proto* _internal_add_anim_data();
-  public:
-  const ::animData_proto& anim_data(int index) const;
-  ::animData_proto* add_anim_data();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto >&
-      anim_data() const;
 
-  // repeated uint32 materialIndex = 14;
-  int materialindex_size() const;
+  // uint32 vertCount = 9;
+  void clear_vertcount();
+  ::PROTOBUF_NAMESPACE_ID::uint32 vertcount() const;
+  void set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   private:
-  int _internal_materialindex_size() const;
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_vertcount() const;
+  void _internal_set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
+
+  // uint32 materialIndex = 10;
   void clear_materialindex();
+  ::PROTOBUF_NAMESPACE_ID::uint32 materialindex() const;
+  void set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_materialindex(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      _internal_materialindex() const;
-  void _internal_add_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      _internal_mutable_materialindex();
-  public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 materialindex(int index) const;
-  void set_materialindex(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      materialindex() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      mutable_materialindex();
-
-  // bytes pVersion = 1;
-  void clear_pversion();
-  const std::string& pversion() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_pversion(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_pversion();
-  PROTOBUF_MUST_USE_RESULT std::string* release_pversion();
-  void set_allocated_pversion(std::string* pversion);
-  private:
-  const std::string& _internal_pversion() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_pversion(const std::string& value);
-  std::string* _internal_mutable_pversion();
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_materialindex() const;
+  void _internal_set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 meshCount = 15;
-  void clear_meshcount();
-  ::PROTOBUF_NAMESPACE_ID::uint32 meshcount() const;
-  void set_meshcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  // sint32 jointIndex = 11;
+  void clear_jointindex();
+  ::PROTOBUF_NAMESPACE_ID::int32 jointindex() const;
+  void set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_meshcount() const;
-  void _internal_set_meshcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_jointindex() const;
+  void _internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // uint32 texCount = 16;
-  void clear_texcount();
-  ::PROTOBUF_NAMESPACE_ID::uint32 texcount() const;
-  void set_texcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  // sint32 parentJointIndex = 12;
+  void clear_parentjointindex();
+  ::PROTOBUF_NAMESPACE_ID::int32 parentjointindex() const;
+  void set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_texcount() const;
-  void _internal_set_texcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // uint32 nameCount = 17;
-  void clear_namecount();
-  ::PROTOBUF_NAMESPACE_ID::uint32 namecount() const;
-  void set_namecount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_namecount() const;
-  void _internal_set_namecount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // uint32 animCount = 18;
-  void clear_animcount();
-  ::PROTOBUF_NAMESPACE_ID::uint32 animcount() const;
-  void set_animcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_animcount() const;
-  void _internal_set_animcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // uint32 hasSkin = 19;
-  void clear_hasskin();
-  ::PROTOBUF_NAMESPACE_ID::uint32 hasskin() const;
-  void set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_hasskin() const;
-  void _internal_set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_parentjointindex() const;
+  void _internal_set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:meshData_proto)
@@ -566,30 +401,18 @@ class meshData_proto final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> pname_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> mode_;
-  mutable std::atomic<int> _mode_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > nodenumber_;
-  mutable std::atomic<int> _nodenumber_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > tricount_;
-  mutable std::atomic<int> _tricount_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > vertcount_;
-  mutable std::atomic<int> _vertcount_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto > vbo_vert_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto > vbo_norm_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto > vbo_uv_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto > vbo_index_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto > vbo_color_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto > text_color_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto > anim_data_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > materialindex_;
-  mutable std::atomic<int> _materialindex_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pversion_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 meshcount_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 texcount_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 namecount_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 animcount_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 hasskin_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pname_;
+  ::vboData_proto* vbo_vert_;
+  ::vboData_proto* vbo_norm_;
+  ::vboData_proto* vbo_uv_;
+  ::vboData_proto* vbo_index_;
+  ::vboData_proto* vbo_color_;
+  int mode_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 tricount_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 vertcount_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 materialindex_;
+  ::PROTOBUF_NAMESPACE_ID::int32 jointindex_;
+  ::PROTOBUF_NAMESPACE_ID::int32 parentjointindex_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_meshData_2eproto;
 };
@@ -604,715 +427,600 @@ class meshData_proto final :
 #endif  // __GNUC__
 // meshData_proto
 
-// bytes pVersion = 1;
-inline void meshData_proto::clear_pversion() {
-  pversion_.ClearToEmpty();
+// bytes pName = 1;
+inline void meshData_proto::clear_pname() {
+  pname_.ClearToEmpty();
 }
-inline const std::string& meshData_proto::pversion() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.pVersion)
-  return _internal_pversion();
+inline const std::string& meshData_proto::pname() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.pName)
+  return _internal_pname();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void meshData_proto::set_pversion(ArgT0&& arg0, ArgT... args) {
+void meshData_proto::set_pname(ArgT0&& arg0, ArgT... args) {
  
- pversion_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:meshData_proto.pVersion)
+ pname_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:meshData_proto.pName)
 }
-inline std::string* meshData_proto::mutable_pversion() {
-  std::string* _s = _internal_mutable_pversion();
-  // @@protoc_insertion_point(field_mutable:meshData_proto.pVersion)
+inline std::string* meshData_proto::mutable_pname() {
+  std::string* _s = _internal_mutable_pname();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.pName)
   return _s;
 }
-inline const std::string& meshData_proto::_internal_pversion() const {
-  return pversion_.Get();
+inline const std::string& meshData_proto::_internal_pname() const {
+  return pname_.Get();
 }
-inline void meshData_proto::_internal_set_pversion(const std::string& value) {
+inline void meshData_proto::_internal_set_pname(const std::string& value) {
   
-  pversion_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+  pname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* meshData_proto::_internal_mutable_pversion() {
+inline std::string* meshData_proto::_internal_mutable_pname() {
   
-  return pversion_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+  return pname_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* meshData_proto::release_pversion() {
-  // @@protoc_insertion_point(field_release:meshData_proto.pVersion)
-  return pversion_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+inline std::string* meshData_proto::release_pname() {
+  // @@protoc_insertion_point(field_release:meshData_proto.pName)
+  return pname_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void meshData_proto::set_allocated_pversion(std::string* pversion) {
-  if (pversion != nullptr) {
+inline void meshData_proto::set_allocated_pname(std::string* pname) {
+  if (pname != nullptr) {
     
   } else {
     
   }
-  pversion_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pversion,
+  pname_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pname,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:meshData_proto.pVersion)
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.pName)
 }
 
-// repeated bytes pName = 2;
-inline int meshData_proto::_internal_pname_size() const {
-  return pname_.size();
-}
-inline int meshData_proto::pname_size() const {
-  return _internal_pname_size();
-}
-inline void meshData_proto::clear_pname() {
-  pname_.Clear();
-}
-inline std::string* meshData_proto::add_pname() {
-  std::string* _s = _internal_add_pname();
-  // @@protoc_insertion_point(field_add_mutable:meshData_proto.pName)
-  return _s;
-}
-inline const std::string& meshData_proto::_internal_pname(int index) const {
-  return pname_.Get(index);
-}
-inline const std::string& meshData_proto::pname(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.pName)
-  return _internal_pname(index);
-}
-inline std::string* meshData_proto::mutable_pname(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.pName)
-  return pname_.Mutable(index);
-}
-inline void meshData_proto::set_pname(int index, const std::string& value) {
-  pname_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.pName)
-}
-inline void meshData_proto::set_pname(int index, std::string&& value) {
-  pname_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:meshData_proto.pName)
-}
-inline void meshData_proto::set_pname(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  pname_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:meshData_proto.pName)
-}
-inline void meshData_proto::set_pname(int index, const void* value, size_t size) {
-  pname_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:meshData_proto.pName)
-}
-inline std::string* meshData_proto::_internal_add_pname() {
-  return pname_.Add();
-}
-inline void meshData_proto::add_pname(const std::string& value) {
-  pname_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:meshData_proto.pName)
-}
-inline void meshData_proto::add_pname(std::string&& value) {
-  pname_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:meshData_proto.pName)
-}
-inline void meshData_proto::add_pname(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  pname_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:meshData_proto.pName)
-}
-inline void meshData_proto::add_pname(const void* value, size_t size) {
-  pname_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:meshData_proto.pName)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-meshData_proto::pname() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.pName)
-  return pname_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-meshData_proto::mutable_pname() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.pName)
-  return &pname_;
-}
-
-// repeated .meshData_proto.RENDER_MODE mode = 3;
-inline int meshData_proto::_internal_mode_size() const {
-  return mode_.size();
-}
-inline int meshData_proto::mode_size() const {
-  return _internal_mode_size();
-}
+// .meshData_proto.RENDER_MODE mode = 2;
 inline void meshData_proto::clear_mode() {
-  mode_.Clear();
+  mode_ = 0;
 }
-inline ::meshData_proto_RENDER_MODE meshData_proto::_internal_mode(int index) const {
-  return static_cast< ::meshData_proto_RENDER_MODE >(mode_.Get(index));
+inline ::meshData_proto_RENDER_MODE meshData_proto::_internal_mode() const {
+  return static_cast< ::meshData_proto_RENDER_MODE >(mode_);
 }
-inline ::meshData_proto_RENDER_MODE meshData_proto::mode(int index) const {
+inline ::meshData_proto_RENDER_MODE meshData_proto::mode() const {
   // @@protoc_insertion_point(field_get:meshData_proto.mode)
-  return _internal_mode(index);
+  return _internal_mode();
 }
-inline void meshData_proto::set_mode(int index, ::meshData_proto_RENDER_MODE value) {
-  mode_.Set(index, value);
+inline void meshData_proto::_internal_set_mode(::meshData_proto_RENDER_MODE value) {
+  
+  mode_ = value;
+}
+inline void meshData_proto::set_mode(::meshData_proto_RENDER_MODE value) {
+  _internal_set_mode(value);
   // @@protoc_insertion_point(field_set:meshData_proto.mode)
 }
-inline void meshData_proto::_internal_add_mode(::meshData_proto_RENDER_MODE value) {
-  mode_.Add(value);
-}
-inline void meshData_proto::add_mode(::meshData_proto_RENDER_MODE value) {
-  _internal_add_mode(value);
-  // @@protoc_insertion_point(field_add:meshData_proto.mode)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-meshData_proto::mode() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.mode)
-  return mode_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-meshData_proto::_internal_mutable_mode() {
-  return &mode_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-meshData_proto::mutable_mode() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.mode)
-  return _internal_mutable_mode();
-}
 
-// repeated uint32 nodeNumber = 4;
-inline int meshData_proto::_internal_nodenumber_size() const {
-  return nodenumber_.size();
+// .vboData_proto vbo_vert = 3;
+inline bool meshData_proto::_internal_has_vbo_vert() const {
+  return this != internal_default_instance() && vbo_vert_ != nullptr;
 }
-inline int meshData_proto::nodenumber_size() const {
-  return _internal_nodenumber_size();
+inline bool meshData_proto::has_vbo_vert() const {
+  return _internal_has_vbo_vert();
 }
-inline void meshData_proto::clear_nodenumber() {
-  nodenumber_.Clear();
+inline const ::vboData_proto& meshData_proto::_internal_vbo_vert() const {
+  const ::vboData_proto* p = vbo_vert_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_nodenumber(int index) const {
-  return nodenumber_.Get(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::nodenumber(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.nodeNumber)
-  return _internal_nodenumber(index);
-}
-inline void meshData_proto::set_nodenumber(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  nodenumber_.Set(index, value);
-  // @@protoc_insertion_point(field_set:meshData_proto.nodeNumber)
-}
-inline void meshData_proto::_internal_add_nodenumber(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  nodenumber_.Add(value);
-}
-inline void meshData_proto::add_nodenumber(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_add_nodenumber(value);
-  // @@protoc_insertion_point(field_add:meshData_proto.nodeNumber)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::_internal_nodenumber() const {
-  return nodenumber_;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::nodenumber() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.nodeNumber)
-  return _internal_nodenumber();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::_internal_mutable_nodenumber() {
-  return &nodenumber_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::mutable_nodenumber() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.nodeNumber)
-  return _internal_mutable_nodenumber();
-}
-
-// repeated uint32 triCount = 5;
-inline int meshData_proto::_internal_tricount_size() const {
-  return tricount_.size();
-}
-inline int meshData_proto::tricount_size() const {
-  return _internal_tricount_size();
-}
-inline void meshData_proto::clear_tricount() {
-  tricount_.Clear();
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_tricount(int index) const {
-  return tricount_.Get(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::tricount(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.triCount)
-  return _internal_tricount(index);
-}
-inline void meshData_proto::set_tricount(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  tricount_.Set(index, value);
-  // @@protoc_insertion_point(field_set:meshData_proto.triCount)
-}
-inline void meshData_proto::_internal_add_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  tricount_.Add(value);
-}
-inline void meshData_proto::add_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_add_tricount(value);
-  // @@protoc_insertion_point(field_add:meshData_proto.triCount)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::_internal_tricount() const {
-  return tricount_;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::tricount() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.triCount)
-  return _internal_tricount();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::_internal_mutable_tricount() {
-  return &tricount_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::mutable_tricount() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.triCount)
-  return _internal_mutable_tricount();
-}
-
-// repeated uint32 vertCount = 6;
-inline int meshData_proto::_internal_vertcount_size() const {
-  return vertcount_.size();
-}
-inline int meshData_proto::vertcount_size() const {
-  return _internal_vertcount_size();
-}
-inline void meshData_proto::clear_vertcount() {
-  vertcount_.Clear();
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_vertcount(int index) const {
-  return vertcount_.Get(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::vertcount(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.vertCount)
-  return _internal_vertcount(index);
-}
-inline void meshData_proto::set_vertcount(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  vertcount_.Set(index, value);
-  // @@protoc_insertion_point(field_set:meshData_proto.vertCount)
-}
-inline void meshData_proto::_internal_add_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  vertcount_.Add(value);
-}
-inline void meshData_proto::add_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_add_vertcount(value);
-  // @@protoc_insertion_point(field_add:meshData_proto.vertCount)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::_internal_vertcount() const {
-  return vertcount_;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::vertcount() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.vertCount)
-  return _internal_vertcount();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::_internal_mutable_vertcount() {
-  return &vertcount_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::mutable_vertcount() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.vertCount)
-  return _internal_mutable_vertcount();
-}
-
-// repeated .vboData_proto vbo_vert = 7;
-inline int meshData_proto::_internal_vbo_vert_size() const {
-  return vbo_vert_.size();
-}
-inline int meshData_proto::vbo_vert_size() const {
-  return _internal_vbo_vert_size();
-}
-inline ::vboData_proto* meshData_proto::mutable_vbo_vert(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_vert)
-  return vbo_vert_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-meshData_proto::mutable_vbo_vert() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.vbo_vert)
-  return &vbo_vert_;
-}
-inline const ::vboData_proto& meshData_proto::_internal_vbo_vert(int index) const {
-  return vbo_vert_.Get(index);
-}
-inline const ::vboData_proto& meshData_proto::vbo_vert(int index) const {
+inline const ::vboData_proto& meshData_proto::vbo_vert() const {
   // @@protoc_insertion_point(field_get:meshData_proto.vbo_vert)
-  return _internal_vbo_vert(index);
+  return _internal_vbo_vert();
 }
-inline ::vboData_proto* meshData_proto::_internal_add_vbo_vert() {
-  return vbo_vert_.Add();
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_vert(
+    ::vboData_proto* vbo_vert) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_vert_);
+  }
+  vbo_vert_ = vbo_vert;
+  if (vbo_vert) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_vert)
 }
-inline ::vboData_proto* meshData_proto::add_vbo_vert() {
-  ::vboData_proto* _add = _internal_add_vbo_vert();
-  // @@protoc_insertion_point(field_add:meshData_proto.vbo_vert)
-  return _add;
+inline ::vboData_proto* meshData_proto::release_vbo_vert() {
+  
+  ::vboData_proto* temp = vbo_vert_;
+  vbo_vert_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-meshData_proto::vbo_vert() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.vbo_vert)
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_vert() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_vert)
+  
+  ::vboData_proto* temp = vbo_vert_;
+  vbo_vert_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_vert() {
+  
+  if (vbo_vert_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_vert_ = p;
+  }
   return vbo_vert_;
 }
+inline ::vboData_proto* meshData_proto::mutable_vbo_vert() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_vert();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_vert)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_vert(::vboData_proto* vbo_vert) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_vert_);
+  }
+  if (vbo_vert) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_vert));
+    if (message_arena != submessage_arena) {
+      vbo_vert = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_vert, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_vert_ = vbo_vert;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_vert)
+}
 
-// repeated .vboData_proto vbo_norm = 8;
-inline int meshData_proto::_internal_vbo_norm_size() const {
-  return vbo_norm_.size();
+// .vboData_proto vbo_norm = 4;
+inline bool meshData_proto::_internal_has_vbo_norm() const {
+  return this != internal_default_instance() && vbo_norm_ != nullptr;
 }
-inline int meshData_proto::vbo_norm_size() const {
-  return _internal_vbo_norm_size();
+inline bool meshData_proto::has_vbo_norm() const {
+  return _internal_has_vbo_norm();
 }
-inline ::vboData_proto* meshData_proto::mutable_vbo_norm(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_norm)
-  return vbo_norm_.Mutable(index);
+inline const ::vboData_proto& meshData_proto::_internal_vbo_norm() const {
+  const ::vboData_proto* p = vbo_norm_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-meshData_proto::mutable_vbo_norm() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.vbo_norm)
-  return &vbo_norm_;
-}
-inline const ::vboData_proto& meshData_proto::_internal_vbo_norm(int index) const {
-  return vbo_norm_.Get(index);
-}
-inline const ::vboData_proto& meshData_proto::vbo_norm(int index) const {
+inline const ::vboData_proto& meshData_proto::vbo_norm() const {
   // @@protoc_insertion_point(field_get:meshData_proto.vbo_norm)
-  return _internal_vbo_norm(index);
+  return _internal_vbo_norm();
 }
-inline ::vboData_proto* meshData_proto::_internal_add_vbo_norm() {
-  return vbo_norm_.Add();
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_norm(
+    ::vboData_proto* vbo_norm) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_norm_);
+  }
+  vbo_norm_ = vbo_norm;
+  if (vbo_norm) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_norm)
 }
-inline ::vboData_proto* meshData_proto::add_vbo_norm() {
-  ::vboData_proto* _add = _internal_add_vbo_norm();
-  // @@protoc_insertion_point(field_add:meshData_proto.vbo_norm)
-  return _add;
+inline ::vboData_proto* meshData_proto::release_vbo_norm() {
+  
+  ::vboData_proto* temp = vbo_norm_;
+  vbo_norm_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-meshData_proto::vbo_norm() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.vbo_norm)
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_norm() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_norm)
+  
+  ::vboData_proto* temp = vbo_norm_;
+  vbo_norm_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_norm() {
+  
+  if (vbo_norm_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_norm_ = p;
+  }
   return vbo_norm_;
 }
+inline ::vboData_proto* meshData_proto::mutable_vbo_norm() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_norm();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_norm)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_norm(::vboData_proto* vbo_norm) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_norm_);
+  }
+  if (vbo_norm) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_norm));
+    if (message_arena != submessage_arena) {
+      vbo_norm = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_norm, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_norm_ = vbo_norm;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_norm)
+}
 
-// repeated .vboData_proto vbo_uv = 9;
-inline int meshData_proto::_internal_vbo_uv_size() const {
-  return vbo_uv_.size();
+// .vboData_proto vbo_uv = 5;
+inline bool meshData_proto::_internal_has_vbo_uv() const {
+  return this != internal_default_instance() && vbo_uv_ != nullptr;
 }
-inline int meshData_proto::vbo_uv_size() const {
-  return _internal_vbo_uv_size();
+inline bool meshData_proto::has_vbo_uv() const {
+  return _internal_has_vbo_uv();
 }
-inline ::vboData_proto* meshData_proto::mutable_vbo_uv(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_uv)
-  return vbo_uv_.Mutable(index);
+inline const ::vboData_proto& meshData_proto::_internal_vbo_uv() const {
+  const ::vboData_proto* p = vbo_uv_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-meshData_proto::mutable_vbo_uv() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.vbo_uv)
-  return &vbo_uv_;
-}
-inline const ::vboData_proto& meshData_proto::_internal_vbo_uv(int index) const {
-  return vbo_uv_.Get(index);
-}
-inline const ::vboData_proto& meshData_proto::vbo_uv(int index) const {
+inline const ::vboData_proto& meshData_proto::vbo_uv() const {
   // @@protoc_insertion_point(field_get:meshData_proto.vbo_uv)
-  return _internal_vbo_uv(index);
+  return _internal_vbo_uv();
 }
-inline ::vboData_proto* meshData_proto::_internal_add_vbo_uv() {
-  return vbo_uv_.Add();
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_uv(
+    ::vboData_proto* vbo_uv) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_uv_);
+  }
+  vbo_uv_ = vbo_uv;
+  if (vbo_uv) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_uv)
 }
-inline ::vboData_proto* meshData_proto::add_vbo_uv() {
-  ::vboData_proto* _add = _internal_add_vbo_uv();
-  // @@protoc_insertion_point(field_add:meshData_proto.vbo_uv)
-  return _add;
+inline ::vboData_proto* meshData_proto::release_vbo_uv() {
+  
+  ::vboData_proto* temp = vbo_uv_;
+  vbo_uv_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-meshData_proto::vbo_uv() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.vbo_uv)
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_uv() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_uv)
+  
+  ::vboData_proto* temp = vbo_uv_;
+  vbo_uv_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_uv() {
+  
+  if (vbo_uv_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_uv_ = p;
+  }
   return vbo_uv_;
 }
+inline ::vboData_proto* meshData_proto::mutable_vbo_uv() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_uv();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_uv)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_uv(::vboData_proto* vbo_uv) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_uv_);
+  }
+  if (vbo_uv) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_uv));
+    if (message_arena != submessage_arena) {
+      vbo_uv = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_uv, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_uv_ = vbo_uv;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_uv)
+}
 
-// repeated .vboData_proto vbo_index = 10;
-inline int meshData_proto::_internal_vbo_index_size() const {
-  return vbo_index_.size();
+// .vboData_proto vbo_index = 6;
+inline bool meshData_proto::_internal_has_vbo_index() const {
+  return this != internal_default_instance() && vbo_index_ != nullptr;
 }
-inline int meshData_proto::vbo_index_size() const {
-  return _internal_vbo_index_size();
+inline bool meshData_proto::has_vbo_index() const {
+  return _internal_has_vbo_index();
 }
-inline ::vboData_proto* meshData_proto::mutable_vbo_index(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_index)
-  return vbo_index_.Mutable(index);
+inline const ::vboData_proto& meshData_proto::_internal_vbo_index() const {
+  const ::vboData_proto* p = vbo_index_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-meshData_proto::mutable_vbo_index() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.vbo_index)
-  return &vbo_index_;
-}
-inline const ::vboData_proto& meshData_proto::_internal_vbo_index(int index) const {
-  return vbo_index_.Get(index);
-}
-inline const ::vboData_proto& meshData_proto::vbo_index(int index) const {
+inline const ::vboData_proto& meshData_proto::vbo_index() const {
   // @@protoc_insertion_point(field_get:meshData_proto.vbo_index)
-  return _internal_vbo_index(index);
+  return _internal_vbo_index();
 }
-inline ::vboData_proto* meshData_proto::_internal_add_vbo_index() {
-  return vbo_index_.Add();
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_index(
+    ::vboData_proto* vbo_index) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_index_);
+  }
+  vbo_index_ = vbo_index;
+  if (vbo_index) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_index)
 }
-inline ::vboData_proto* meshData_proto::add_vbo_index() {
-  ::vboData_proto* _add = _internal_add_vbo_index();
-  // @@protoc_insertion_point(field_add:meshData_proto.vbo_index)
-  return _add;
+inline ::vboData_proto* meshData_proto::release_vbo_index() {
+  
+  ::vboData_proto* temp = vbo_index_;
+  vbo_index_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-meshData_proto::vbo_index() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.vbo_index)
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_index() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_index)
+  
+  ::vboData_proto* temp = vbo_index_;
+  vbo_index_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_index() {
+  
+  if (vbo_index_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_index_ = p;
+  }
   return vbo_index_;
 }
+inline ::vboData_proto* meshData_proto::mutable_vbo_index() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_index();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_index)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_index(::vboData_proto* vbo_index) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_index_);
+  }
+  if (vbo_index) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_index));
+    if (message_arena != submessage_arena) {
+      vbo_index = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_index, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_index_ = vbo_index;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_index)
+}
 
-// repeated .vboData_proto vbo_color = 11;
-inline int meshData_proto::_internal_vbo_color_size() const {
-  return vbo_color_.size();
+// .vboData_proto vbo_color = 7;
+inline bool meshData_proto::_internal_has_vbo_color() const {
+  return this != internal_default_instance() && vbo_color_ != nullptr;
 }
-inline int meshData_proto::vbo_color_size() const {
-  return _internal_vbo_color_size();
+inline bool meshData_proto::has_vbo_color() const {
+  return _internal_has_vbo_color();
 }
-inline ::vboData_proto* meshData_proto::mutable_vbo_color(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_color)
-  return vbo_color_.Mutable(index);
+inline const ::vboData_proto& meshData_proto::_internal_vbo_color() const {
+  const ::vboData_proto* p = vbo_color_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >*
-meshData_proto::mutable_vbo_color() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.vbo_color)
-  return &vbo_color_;
-}
-inline const ::vboData_proto& meshData_proto::_internal_vbo_color(int index) const {
-  return vbo_color_.Get(index);
-}
-inline const ::vboData_proto& meshData_proto::vbo_color(int index) const {
+inline const ::vboData_proto& meshData_proto::vbo_color() const {
   // @@protoc_insertion_point(field_get:meshData_proto.vbo_color)
-  return _internal_vbo_color(index);
+  return _internal_vbo_color();
 }
-inline ::vboData_proto* meshData_proto::_internal_add_vbo_color() {
-  return vbo_color_.Add();
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_color(
+    ::vboData_proto* vbo_color) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_color_);
+  }
+  vbo_color_ = vbo_color;
+  if (vbo_color) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_color)
 }
-inline ::vboData_proto* meshData_proto::add_vbo_color() {
-  ::vboData_proto* _add = _internal_add_vbo_color();
-  // @@protoc_insertion_point(field_add:meshData_proto.vbo_color)
-  return _add;
+inline ::vboData_proto* meshData_proto::release_vbo_color() {
+  
+  ::vboData_proto* temp = vbo_color_;
+  vbo_color_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vboData_proto >&
-meshData_proto::vbo_color() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.vbo_color)
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_color() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_color)
+  
+  ::vboData_proto* temp = vbo_color_;
+  vbo_color_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_color() {
+  
+  if (vbo_color_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_color_ = p;
+  }
   return vbo_color_;
 }
-
-// repeated .textureData_proto text_color = 12;
-inline int meshData_proto::_internal_text_color_size() const {
-  return text_color_.size();
+inline ::vboData_proto* meshData_proto::mutable_vbo_color() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_color();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_color)
+  return _msg;
 }
-inline int meshData_proto::text_color_size() const {
-  return _internal_text_color_size();
-}
-inline ::textureData_proto* meshData_proto::mutable_text_color(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.text_color)
-  return text_color_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >*
-meshData_proto::mutable_text_color() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.text_color)
-  return &text_color_;
-}
-inline const ::textureData_proto& meshData_proto::_internal_text_color(int index) const {
-  return text_color_.Get(index);
-}
-inline const ::textureData_proto& meshData_proto::text_color(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.text_color)
-  return _internal_text_color(index);
-}
-inline ::textureData_proto* meshData_proto::_internal_add_text_color() {
-  return text_color_.Add();
-}
-inline ::textureData_proto* meshData_proto::add_text_color() {
-  ::textureData_proto* _add = _internal_add_text_color();
-  // @@protoc_insertion_point(field_add:meshData_proto.text_color)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >&
-meshData_proto::text_color() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.text_color)
-  return text_color_;
+inline void meshData_proto::set_allocated_vbo_color(::vboData_proto* vbo_color) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_color_);
+  }
+  if (vbo_color) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_color));
+    if (message_arena != submessage_arena) {
+      vbo_color = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_color, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_color_ = vbo_color;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_color)
 }
 
-// repeated .animData_proto anim_data = 13;
-inline int meshData_proto::_internal_anim_data_size() const {
-  return anim_data_.size();
+// uint32 triCount = 8;
+inline void meshData_proto::clear_tricount() {
+  tricount_ = 0u;
 }
-inline int meshData_proto::anim_data_size() const {
-  return _internal_anim_data_size();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_tricount() const {
+  return tricount_;
 }
-inline ::animData_proto* meshData_proto::mutable_anim_data(int index) {
-  // @@protoc_insertion_point(field_mutable:meshData_proto.anim_data)
-  return anim_data_.Mutable(index);
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::tricount() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.triCount)
+  return _internal_tricount();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto >*
-meshData_proto::mutable_anim_data() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.anim_data)
-  return &anim_data_;
+inline void meshData_proto::_internal_set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  tricount_ = value;
 }
-inline const ::animData_proto& meshData_proto::_internal_anim_data(int index) const {
-  return anim_data_.Get(index);
-}
-inline const ::animData_proto& meshData_proto::anim_data(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.anim_data)
-  return _internal_anim_data(index);
-}
-inline ::animData_proto* meshData_proto::_internal_add_anim_data() {
-  return anim_data_.Add();
-}
-inline ::animData_proto* meshData_proto::add_anim_data() {
-  ::animData_proto* _add = _internal_add_anim_data();
-  // @@protoc_insertion_point(field_add:meshData_proto.anim_data)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto >&
-meshData_proto::anim_data() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.anim_data)
-  return anim_data_;
+inline void meshData_proto::set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_tricount(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.triCount)
 }
 
-// repeated uint32 materialIndex = 14;
-inline int meshData_proto::_internal_materialindex_size() const {
-  return materialindex_.size();
+// uint32 vertCount = 9;
+inline void meshData_proto::clear_vertcount() {
+  vertcount_ = 0u;
 }
-inline int meshData_proto::materialindex_size() const {
-  return _internal_materialindex_size();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_vertcount() const {
+  return vertcount_;
 }
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::vertcount() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.vertCount)
+  return _internal_vertcount();
+}
+inline void meshData_proto::_internal_set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  vertcount_ = value;
+}
+inline void meshData_proto::set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_vertcount(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.vertCount)
+}
+
+// uint32 materialIndex = 10;
 inline void meshData_proto::clear_materialindex() {
-  materialindex_.Clear();
+  materialindex_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_materialindex(int index) const {
-  return materialindex_.Get(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::materialindex(int index) const {
-  // @@protoc_insertion_point(field_get:meshData_proto.materialIndex)
-  return _internal_materialindex(index);
-}
-inline void meshData_proto::set_materialindex(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  materialindex_.Set(index, value);
-  // @@protoc_insertion_point(field_set:meshData_proto.materialIndex)
-}
-inline void meshData_proto::_internal_add_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  materialindex_.Add(value);
-}
-inline void meshData_proto::add_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_add_materialindex(value);
-  // @@protoc_insertion_point(field_add:meshData_proto.materialIndex)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::_internal_materialindex() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_materialindex() const {
   return materialindex_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-meshData_proto::materialindex() const {
-  // @@protoc_insertion_point(field_list:meshData_proto.materialIndex)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::materialindex() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.materialIndex)
   return _internal_materialindex();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::_internal_mutable_materialindex() {
-  return &materialindex_;
+inline void meshData_proto::_internal_set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  materialindex_ = value;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-meshData_proto::mutable_materialindex() {
-  // @@protoc_insertion_point(field_mutable_list:meshData_proto.materialIndex)
-  return _internal_mutable_materialindex();
+inline void meshData_proto::set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_materialindex(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.materialIndex)
 }
 
-// uint32 meshCount = 15;
-inline void meshData_proto::clear_meshcount() {
-  meshcount_ = 0u;
+// sint32 jointIndex = 11;
+inline void meshData_proto::clear_jointindex() {
+  jointindex_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_meshcount() const {
-  return meshcount_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::_internal_jointindex() const {
+  return jointindex_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::meshcount() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.meshCount)
-  return _internal_meshcount();
+inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::jointindex() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.jointIndex)
+  return _internal_jointindex();
 }
-inline void meshData_proto::_internal_set_meshcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void meshData_proto::_internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  meshcount_ = value;
+  jointindex_ = value;
 }
-inline void meshData_proto::set_meshcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_meshcount(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.meshCount)
+inline void meshData_proto::set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_jointindex(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.jointIndex)
 }
 
-// uint32 texCount = 16;
-inline void meshData_proto::clear_texcount() {
-  texcount_ = 0u;
+// sint32 parentJointIndex = 12;
+inline void meshData_proto::clear_parentjointindex() {
+  parentjointindex_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_texcount() const {
-  return texcount_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::_internal_parentjointindex() const {
+  return parentjointindex_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::texcount() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.texCount)
-  return _internal_texcount();
+inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::parentjointindex() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.parentJointIndex)
+  return _internal_parentjointindex();
 }
-inline void meshData_proto::_internal_set_texcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void meshData_proto::_internal_set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  texcount_ = value;
+  parentjointindex_ = value;
 }
-inline void meshData_proto::set_texcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_texcount(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.texCount)
-}
-
-// uint32 nameCount = 17;
-inline void meshData_proto::clear_namecount() {
-  namecount_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_namecount() const {
-  return namecount_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::namecount() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.nameCount)
-  return _internal_namecount();
-}
-inline void meshData_proto::_internal_set_namecount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  namecount_ = value;
-}
-inline void meshData_proto::set_namecount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_namecount(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.nameCount)
-}
-
-// uint32 animCount = 18;
-inline void meshData_proto::clear_animcount() {
-  animcount_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_animcount() const {
-  return animcount_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::animcount() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.animCount)
-  return _internal_animcount();
-}
-inline void meshData_proto::_internal_set_animcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  animcount_ = value;
-}
-inline void meshData_proto::set_animcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_animcount(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.animCount)
-}
-
-// uint32 hasSkin = 19;
-inline void meshData_proto::clear_hasskin() {
-  hasskin_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_hasskin() const {
-  return hasskin_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::hasskin() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.hasSkin)
-  return _internal_hasskin();
-}
-inline void meshData_proto::_internal_set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  hasskin_ = value;
-}
-inline void meshData_proto::set_hasskin(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_hasskin(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.hasSkin)
+inline void meshData_proto::set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_parentjointindex(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.parentJointIndex)
 }
 
 #ifdef __GNUC__

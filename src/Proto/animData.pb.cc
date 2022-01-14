@@ -16,8 +16,10 @@ PROTOBUF_PRAGMA_INIT_SEG
 constexpr animData_proto::animData_proto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : bone_data_()
-  , parent_(0)
-  , framebucketcount_(0u){}
+  , animname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , jointindex_(0)
+  , parentindex_(0)
+  , totalanimframes_(0u){}
 struct animData_protoDefaultTypeInternal {
   constexpr animData_protoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -51,17 +53,23 @@ animData_proto::animData_proto(const animData_proto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       bone_data_(from.bone_data_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&parent_, &from.parent_,
-    static_cast<size_t>(reinterpret_cast<char*>(&framebucketcount_) -
-    reinterpret_cast<char*>(&parent_)) + sizeof(framebucketcount_));
+  animname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_animname().empty()) {
+    animname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_animname(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&jointindex_, &from.jointindex_,
+    static_cast<size_t>(reinterpret_cast<char*>(&totalanimframes_) -
+    reinterpret_cast<char*>(&jointindex_)) + sizeof(totalanimframes_));
   // @@protoc_insertion_point(copy_constructor:animData_proto)
 }
 
 inline void animData_proto::SharedCtor() {
+animname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&parent_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&framebucketcount_) -
-    reinterpret_cast<char*>(&parent_)) + sizeof(framebucketcount_));
+    reinterpret_cast<char*>(&jointindex_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&totalanimframes_) -
+    reinterpret_cast<char*>(&jointindex_)) + sizeof(totalanimframes_));
 }
 
 animData_proto::~animData_proto() {
@@ -73,6 +81,7 @@ animData_proto::~animData_proto() {
 
 inline void animData_proto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  animname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void animData_proto::ArenaDtor(void* object) {
@@ -92,9 +101,10 @@ void animData_proto::Clear() {
   (void) cached_has_bits;
 
   bone_data_.Clear();
-  ::memset(&parent_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&framebucketcount_) -
-      reinterpret_cast<char*>(&parent_)) + sizeof(framebucketcount_));
+  animname_.ClearToEmpty();
+  ::memset(&jointindex_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&totalanimframes_) -
+      reinterpret_cast<char*>(&jointindex_)) + sizeof(totalanimframes_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -116,17 +126,32 @@ const char* animData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else goto handle_unusual;
         continue;
-      // sint32 parent = 2;
+      // bytes animName = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          parent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_animname();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 frameBucketCount = 3;
+      // sint32 jointIndex = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          framebucketcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          jointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // sint32 parentIndex = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          parentindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint32 totalAnimFrames = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          totalanimframes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -167,16 +192,28 @@ failure:
       InternalWriteMessage(1, this->_internal_bone_data(i), target, stream);
   }
 
-  // sint32 parent = 2;
-  if (this->_internal_parent() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(2, this->_internal_parent(), target);
+  // bytes animName = 2;
+  if (!this->_internal_animname().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_animname(), target);
   }
 
-  // uint32 frameBucketCount = 3;
-  if (this->_internal_framebucketcount() != 0) {
+  // sint32 jointIndex = 3;
+  if (this->_internal_jointindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_framebucketcount(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(3, this->_internal_jointindex(), target);
+  }
+
+  // sint32 parentIndex = 4;
+  if (this->_internal_parentindex() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(4, this->_internal_parentindex(), target);
+  }
+
+  // uint32 totalAnimFrames = 5;
+  if (this->_internal_totalanimframes() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(5, this->_internal_totalanimframes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -202,18 +239,32 @@ size_t animData_proto::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // sint32 parent = 2;
-  if (this->_internal_parent() != 0) {
+  // bytes animName = 2;
+  if (!this->_internal_animname().empty()) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
-        this->_internal_parent());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_animname());
   }
 
-  // uint32 frameBucketCount = 3;
-  if (this->_internal_framebucketcount() != 0) {
+  // sint32 jointIndex = 3;
+  if (this->_internal_jointindex() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
+        this->_internal_jointindex());
+  }
+
+  // sint32 parentIndex = 4;
+  if (this->_internal_parentindex() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
+        this->_internal_parentindex());
+  }
+
+  // uint32 totalAnimFrames = 5;
+  if (this->_internal_totalanimframes() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_framebucketcount());
+        this->_internal_totalanimframes());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -237,11 +288,17 @@ void animData_proto::MergeFrom(const animData_proto& from) {
   (void) cached_has_bits;
 
   bone_data_.MergeFrom(from.bone_data_);
-  if (from._internal_parent() != 0) {
-    _internal_set_parent(from._internal_parent());
+  if (!from._internal_animname().empty()) {
+    _internal_set_animname(from._internal_animname());
   }
-  if (from._internal_framebucketcount() != 0) {
-    _internal_set_framebucketcount(from._internal_framebucketcount());
+  if (from._internal_jointindex() != 0) {
+    _internal_set_jointindex(from._internal_jointindex());
+  }
+  if (from._internal_parentindex() != 0) {
+    _internal_set_parentindex(from._internal_parentindex());
+  }
+  if (from._internal_totalanimframes() != 0) {
+    _internal_set_totalanimframes(from._internal_totalanimframes());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -261,12 +318,17 @@ void animData_proto::InternalSwap(animData_proto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   bone_data_.InternalSwap(&other->bone_data_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &animname_, GetArenaForAllocation(),
+      &other->animname_, other->GetArenaForAllocation()
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(animData_proto, framebucketcount_)
-      + sizeof(animData_proto::framebucketcount_)
-      - PROTOBUF_FIELD_OFFSET(animData_proto, parent_)>(
-          reinterpret_cast<char*>(&parent_),
-          reinterpret_cast<char*>(&other->parent_));
+      PROTOBUF_FIELD_OFFSET(animData_proto, totalanimframes_)
+      + sizeof(animData_proto::totalanimframes_)
+      - PROTOBUF_FIELD_OFFSET(animData_proto, jointindex_)>(
+          reinterpret_cast<char*>(&jointindex_),
+          reinterpret_cast<char*>(&other->jointindex_));
 }
 
 std::string animData_proto::GetTypeName() const {

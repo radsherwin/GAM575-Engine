@@ -11,7 +11,7 @@
 class ProtoBuffMesh : public Mesh
 {
 public:
-	ProtoBuffMesh(meshData& mB, unsigned int index);
+	ProtoBuffMesh(meshData &pB);
 
 	ProtoBuffMesh() = delete;
 	ProtoBuffMesh(const ProtoBuffMesh&) = delete;
@@ -19,8 +19,7 @@ public:
 	virtual ~ProtoBuffMesh();
 
 private:
-	void privCreateVAO(meshData& mB, unsigned int index);
-	// Data
+	void privCreateMesh(meshData &pB);
 
 };
 

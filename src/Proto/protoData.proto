@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "meshData.proto";
+import "textureData.proto";
+import "animData.proto";
+
+option optimize_for = LITE_RUNTIME;
+
+message protoData_proto
+{
+			 bytes				pVersion		= 1;
+			 bytes				pName			= 2;
+			 uint32				meshCount		= 3;
+			 uint32				animCount		= 4;
+			 uint32				textureCount	= 5;
+	repeated meshData_proto		pMeshData		= 6;
+	repeated animData_proto		pAnimData		= 7;
+	repeated textureData_proto	pTextureData	= 8;
+}

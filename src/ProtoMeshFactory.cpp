@@ -1,189 +1,142 @@
 #include "ProtoMeshFactory.h"
 #include "File.h"
-#include "meshData.h"
+#include "protoData.h"
 #include "MeshNodeManager.h"
 #include "ProtoBuffMesh.h"
 #include "TextureManager.h"
-
-using namespace Azul;
+#include "StringThis.h"
 
 ProtoMeshFactory::ProtoMeshFactory()
 {
-
 }
 
-void ProtoMeshFactory::LoadMesh(const char* const pMeshFileName, meshData& _mB, Texture::Name _texName)
+void ProtoMeshFactory::LoadProto(const char *const pMeshFileName, protoData &mB)
 {
-	//Read file
-	//Create meshes and save to MeshNodeManager
-	std::string fullMeshName = "./Models/" + (std::string)pMeshFileName;
-	File::Handle fh;
-	File::Error err;
+    //Read file
+    //Create meshes and save to MeshNodeManager
+    std::string fullMeshName = "./Models/" + (std::string)pMeshFileName;
+    File::Handle fh;
+    File::Error err;
 
-	assert(fullMeshName.c_str());
+    assert(fullMeshName.c_str());
 
-	err = File::Open(fh, fullMeshName.c_str(), File::Mode::READ);
-	assert(err == File::Error::SUCCESS);
+    err = File::Open(fh, fullMeshName.c_str(), File::Mode::READ);
+    assert(err == File::Error::SUCCESS);
 
-	err = File::Seek(fh, File::Position::END, 0);
-	assert(err == File::Error::SUCCESS);
+    err = File::Seek(fh, File::Position::END, 0);
+    assert(err == File::Error::SUCCESS);
 
-	DWORD FileLength;
-	err = File::Tell(fh, FileLength);
-	assert(err == File::Error::SUCCESS);
+    DWORD FileLength;
+    err = File::Tell(fh, FileLength);
+    assert(err == File::Error::SUCCESS);
 
-	char* poNewBuff = new char[FileLength]();
-	assert(poNewBuff);
+    char *poNewBuff = new char[FileLength]();
+    assert(poNewBuff);
 
-	err = File::Seek(fh, File::Position::BEGIN, 0);
-	assert(err == File::Error::SUCCESS);
+    err = File::Seek(fh, File::Position::BEGIN, 0);
+    assert(err == File::Error::SUCCESS);
 
-	err = File::Read(fh, poNewBuff, FileLength);
-	assert(err == File::Error::SUCCESS);
+    err = File::Read(fh, poNewBuff, FileLength);
+    assert(err == File::Error::SUCCESS);
 
-	err = File::Close(fh);
-	assert(err == File::Error::SUCCESS);
+    err = File::Close(fh);
+    assert(err == File::Error::SUCCESS);
 
-	Trace::out("--------------\n");
-	Trace::out("--------------\n");
-	Trace::out("--------------\n");
+    Trace::out("--------------\n");
+    Trace::out("--------------\n");
+    Trace::out("--------------\n");
 
-	std::string strIn(poNewBuff, FileLength);
-	meshData_proto mB_proto;
+    std::string strIn(poNewBuff, FileLength);
+    protoData_proto mB_proto;
 
-	mB_proto.ParseFromString(strIn);
+    mB_proto.ParseFromString(strIn);
 
-	//meshData mB;
-	_mB.Deserialize(mB_proto);
-	//mB.Print("mB");
+    mB.Deserialize(mB_proto);
 
-	delete[] poNewBuff;
-	if (_texName != Texture::Name::NOT_INITIALIZED)
-	{
-		TextureManager::Add(_mB, _texName);
-	}
+    delete poNewBuff;
 }
 
-void ProtoMeshFactory::LoadTexture(const char* const pFileName, Texture::Name _name)
+void ProtoMeshFactory::CreateMeshArray(const char *const pFileName, Mesh **meshArray, Texture::Name texName)
 {
-	//Read file
-	//Create meshes and save to MeshNodeManager
-	std::string fullMeshName = "./Textures/" + (std::string)pFileName;
-	File::Handle fh;
-	File::Error err;
+    protoData pB;
+    LoadProto(pFileName, pB);
 
-	assert(fullMeshName.c_str());
+    // Mesh has texture
+    if (texName != Texture::Name::NOT_INITIALIZED)
+    {
+        // If it already exists do nothing
+        if (!TextureManager::Exist(texName))
+        {
+            TextureManager::Add(pB, texName);
+        }
+        else
+        {
+            Trace::out("Texture %s already exists in manager!\n", StringMe(texName));
+        }
+    }
 
-	err = File::Open(fh, fullMeshName.c_str(), File::Mode::READ);
-	assert(err == File::Error::SUCCESS);
-
-	err = File::Seek(fh, File::Position::END, 0);
-	assert(err == File::Error::SUCCESS);
-
-	DWORD FileLength;
-	err = File::Tell(fh, FileLength);
-	assert(err == File::Error::SUCCESS);
-
-	char* poNewBuff = new char[FileLength]();
-	assert(poNewBuff);
-
-	err = File::Seek(fh, File::Position::BEGIN, 0);
-	assert(err == File::Error::SUCCESS);
-
-	err = File::Read(fh, poNewBuff, FileLength);
-	assert(err == File::Error::SUCCESS);
-
-	err = File::Close(fh);
-	assert(err == File::Error::SUCCESS);
-
-	Trace::out("--------------\n");
-	Trace::out("--------------\n");
-	Trace::out("--------------\n");
-
-	std::string strIn(poNewBuff, FileLength);
-	meshData_proto mB_proto;
-	mB_proto.ParseFromString(strIn);
-
-	meshData mB;
-	mB.Deserialize(mB_proto);
-
-	if(_name != Texture::Name::NOT_INITIALIZED)
-	{
-		TextureManager::Add(mB.text_color[0], _name);
-	}
-	else
-	{
-		assert(false);
-	}
-
-	delete[] poNewBuff;
+    // LOAD MESH
+    for (unsigned int i = 0; i < pB.meshCount; i++)
+    {
+        meshArray[i] = new ProtoBuffMesh(pB.pMeshData[i]);
+    }
 }
 
-
-
-void ProtoMeshFactory::GetMesh(const char* const pMeshFileName, Mesh** MeshArray, Mesh::Name _meshName)
+void ProtoMeshFactory::CreateMeshSingle(const char *const pFileName, Mesh *mesh, Texture::Name texName)
 {
-	meshData mB;
-	ProtoMeshFactory::LoadMesh(pMeshFileName, mB);
-	const unsigned int _count = mB.meshCount;
-	for (unsigned int i = 0; i < _count; i++)
-	{
-		Mesh* tmp = new ProtoBuffMesh(mB, i);
-		if (_meshName == Mesh::Name::NOT_INITIALIZED)
-		{
-			MeshNodeManager::Add(tmp->name, tmp);
-		}
-		else
-		{
-			MeshNodeManager::Add(_meshName, tmp);
-		}
+    protoData pB;
+    LoadProto(pFileName, pB);
 
-		MeshArray[i] = tmp;
-	}
+    // Mesh has texture
+    if (texName != Texture::Name::NOT_INITIALIZED)
+    {
+        // If it already exists do nothing
+        if (!TextureManager::Exist(texName))
+        {
+            TextureManager::Add(pB, texName);
+        }
+        else
+        {
+            Trace::out("Texture %s already exists in manager!\n", StringMe(texName));
+        }
+    }
 
+    // LOAD MESH
+    mesh = new ProtoBuffMesh(pB.pMeshData[0]);
 }
 
-void ProtoMeshFactory::GetAnimation(const char* const pMeshFileName, Animation** AnimationArray)
+void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation **AnimationArray)
 {
-	meshData mB;
-	ProtoMeshFactory::LoadMesh(pMeshFileName, mB);
-	const unsigned int _count = mB.animCount;
-	for (unsigned int index = 0; index < _count; index++)
-	{
-		Animation* tmpAnim = new Animation();
+    protoData pB;
+    ProtoMeshFactory::LoadMesh(pMeshFileName, pB);
 
-		tmpAnim->parent = mB.anim_data[index].parent;
-		tmpAnim->joint = mB.nodeNumber[index];
-		tmpAnim->frames = mB.anim_data[index].frameBucketCount;
-		tmpAnim->protoName = mB.pName[index];
+    for (unsigned int index = 0; index < pB.animCount; index++)
+    {
+        animData *pAnim = &pB.pAnimData[index];
+        Animation *tmpAnim = new Animation();
 
-		Bone tmp;
-		tmpAnim->meshBone.reserve(mB.anim_data[index].frameBucketCount);
-		for (int i = 0; i < mB.anim_data[index].frameBucketCount; i++)
-		{
-			float* pTrans = (float*)&mB.anim_data[index].bone_data[i].pTranslation[0];
-			tmp.T.set(*&pTrans[0], *&pTrans[1], *&pTrans[2]);
+        tmpAnim->parent = pAnim->parentIndex;
+        tmpAnim->joint = pAnim->jointIndex;
+        tmpAnim->frames = pAnim->totalAnimFrames;
+        tmpAnim->protoName = pAnim->animName;
 
-			float* pQuat = (float*)&mB.anim_data[index].bone_data[i].pRotation[0];
-			tmp.Q.set(*&pQuat[0], *&pQuat[1], *&pQuat[2], *&pQuat[3]);
+        Bone tmpBone;
+        tmpAnim->meshBone.reserve(tmpAnim->frames);
+        for (int i = 0; i < tmpAnim->frames; i++)
+        {
+            float *pTrans = (float *)&pAnim->bone_data[i].pTranslation[0];
+            tmpBone.T.set(*&pTrans[0], *&pTrans[1], *&pTrans[2]);
 
-			float* pScale = (float*)&mB.anim_data[index].bone_data[i].pScale[0];
-			tmp.S.set(*&pScale[0], *&pScale[1], *&pScale[2]);
+            float *pQuat = (float *)&pAnim->bone_data[i].pRotation[0];
+            tmpBone.Q.set(*&pQuat[0], *&pQuat[1], *&pQuat[2], *&pQuat[3]);
 
-			tmpAnim->meshBone.push_back(tmp);
-		}
+            float *pScale = (float *)&pAnim->bone_data[i].pScale[0];
+            tmpBone.S.set(*&pScale[0], *&pScale[1], *&pScale[2]);
 
-		AnimationManager::Add(tmpAnim);
-		AnimationArray[index] = tmpAnim;
-	}
+            tmpAnim->meshBone.push_back(tmpBone);
+        }
+
+        AnimationManager::Add(tmpAnim);
+        AnimationArray[index] = tmpAnim;
+    }
 }
-
-Mesh* ProtoMeshFactory::GetSingleMesh(meshData& mB, int meshIndex, Mesh::Name _meshName)
-{
-	Mesh* pMesh = new ProtoBuffMesh(mB, (unsigned int)meshIndex);
-	MeshNodeManager::Add(_meshName, pMesh);
-
-	return pMesh;
-}
-
-

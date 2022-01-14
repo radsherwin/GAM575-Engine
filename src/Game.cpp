@@ -132,24 +132,20 @@ void Game::LoadContent()
     MeshNodeManager::Add(Mesh::Name::NULL_MESH, pNullMesh);
 
     // Corset
-    meshData mB;
-    ProtoMeshFactory::LoadMesh("Corset.mt.proto.azul", mB, Texture::Name::CORSET);
-    Mesh *pCorsetMesh = ProtoMeshFactory::GetSingleMesh(mB, 0, Mesh::Name::CORSET);
+    Mesh *pCorsetMesh;
+    ProtoMeshFactory::CreateMeshSingle("Corset.mt.proto.azul", pCorsetMesh, Texture::Name::CORSET);
+    MeshNodeManager::Add(Mesh::Name::CORSET, pCorsetMesh);
 
-    //Load Texture
-    TextureManager::Add("../src/Textures/ChickenbotDiffuse.t.proto.azul", Texture::Name::CHICKEN_BOT);
-
-    //Load mesh and set the correct Name for Skeleton.find
-    Mesh *MeshArray[8];
-    ProtoMeshFactory::GetMesh("walk_mesh.mt.proto.azul", MeshArray);
-    MeshArray[0]->name = Mesh::Name::BONE;
-    MeshArray[1]->name = Mesh::Name::BONE_R;
-    MeshArray[2]->name = Mesh::Name::BONE_R_001;
-    MeshArray[3]->name = Mesh::Name::BONE_R_002;
-    MeshArray[4]->name = Mesh::Name::BONE_L;
-    MeshArray[5]->name = Mesh::Name::BONE_L_001;
-    MeshArray[6]->name = Mesh::Name::BONE_L_002;
-    MeshArray[7]->name = Mesh::Name::BONE_01;
+    Mesh *chickenBotMesh[8];
+    ProtoMeshFactory::CreateMeshArray("walk_mesh.mat.proto.azul", chickenBotMesh, Texture::Name::CHICKEN_BOT);
+    MeshNodeManager::Add(Mesh::Name::BONE, chickenBotMesh[0]);
+    MeshNodeManager::Add(Mesh::Name::BONE_R, chickenBotMesh[1]);
+    MeshNodeManager::Add(Mesh::Name::BONE_R_001, chickenBotMesh[2]);
+    MeshNodeManager::Add(Mesh::Name::BONE_R_002, chickenBotMesh[3]);
+    MeshNodeManager::Add(Mesh::Name::BONE_L, chickenBotMesh[4]);
+    MeshNodeManager::Add(Mesh::Name::BONE_L_001, chickenBotMesh[5]);
+    MeshNodeManager::Add(Mesh::Name::BONE_L_002, chickenBotMesh[6]);
+    MeshNodeManager::Add(Mesh::Name::BONE_01, chickenBotMesh[7]);
 
     Animation *Anim_Die_Left[8];
     ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
@@ -250,16 +246,16 @@ void Game::LoadContent()
     ////	    Create Animation
     ////-----------------------------------------------------------------------------
 
-    Skeleton *pSkel = new Skeleton(MeshArray, NUM_BONES);
+    Skeleton *pSkel = new Skeleton(chickenBotMesh, NUM_BONES);
     pSkel->SetPos(-1.3f, 0, 0);
 
-    Skeleton *pSkel2 = new Skeleton(MeshArray, NUM_BONES);
+    Skeleton *pSkel2 = new Skeleton(chickenBotMesh, NUM_BONES);
     pSkel2->SetPos(0, 0, 0);
 
-    Skeleton *pSkel3 = new Skeleton(MeshArray, NUM_BONES);
+    Skeleton *pSkel3 = new Skeleton(chickenBotMesh, NUM_BONES);
     pSkel3->SetPos(1.3f, 0, 0);
 
-    Skeleton *pSkel4 = new Skeleton(MeshArray, NUM_BONES);
+    Skeleton *pSkel4 = new Skeleton(chickenBotMesh, NUM_BONES);
     pSkel4->SetPos(0, 1.4f, 0);
 
     AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT, NUM_BONES);

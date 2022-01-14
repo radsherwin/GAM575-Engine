@@ -15,30 +15,19 @@
 PROTOBUF_PRAGMA_INIT_SEG
 constexpr meshData_proto::meshData_proto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : pname_()
-  , mode_()
-  , _mode_cached_byte_size_(0)
-  , nodenumber_()
-  , _nodenumber_cached_byte_size_(0)
-  , tricount_()
-  , _tricount_cached_byte_size_(0)
-  , vertcount_()
-  , _vertcount_cached_byte_size_(0)
-  , vbo_vert_()
-  , vbo_norm_()
-  , vbo_uv_()
-  , vbo_index_()
-  , vbo_color_()
-  , text_color_()
-  , anim_data_()
-  , materialindex_()
-  , _materialindex_cached_byte_size_(0)
-  , pversion_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , meshcount_(0u)
-  , texcount_(0u)
-  , namecount_(0u)
-  , animcount_(0u)
-  , hasskin_(0u){}
+  : pname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , vbo_vert_(nullptr)
+  , vbo_norm_(nullptr)
+  , vbo_uv_(nullptr)
+  , vbo_index_(nullptr)
+  , vbo_color_(nullptr)
+  , mode_(0)
+
+  , tricount_(0u)
+  , vertcount_(0u)
+  , materialindex_(0u)
+  , jointindex_(0)
+  , parentjointindex_(0){}
 struct meshData_protoDefaultTypeInternal {
   constexpr meshData_protoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -136,45 +125,66 @@ constexpr int meshData_proto::RENDER_MODE_ARRAYSIZE;
 
 class meshData_proto::_Internal {
  public:
+  static const ::vboData_proto& vbo_vert(const meshData_proto* msg);
+  static const ::vboData_proto& vbo_norm(const meshData_proto* msg);
+  static const ::vboData_proto& vbo_uv(const meshData_proto* msg);
+  static const ::vboData_proto& vbo_index(const meshData_proto* msg);
+  static const ::vboData_proto& vbo_color(const meshData_proto* msg);
 };
 
+const ::vboData_proto&
+meshData_proto::_Internal::vbo_vert(const meshData_proto* msg) {
+  return *msg->vbo_vert_;
+}
+const ::vboData_proto&
+meshData_proto::_Internal::vbo_norm(const meshData_proto* msg) {
+  return *msg->vbo_norm_;
+}
+const ::vboData_proto&
+meshData_proto::_Internal::vbo_uv(const meshData_proto* msg) {
+  return *msg->vbo_uv_;
+}
+const ::vboData_proto&
+meshData_proto::_Internal::vbo_index(const meshData_proto* msg) {
+  return *msg->vbo_index_;
+}
+const ::vboData_proto&
+meshData_proto::_Internal::vbo_color(const meshData_proto* msg) {
+  return *msg->vbo_color_;
+}
 void meshData_proto::clear_vbo_vert() {
-  vbo_vert_.Clear();
+  if (GetArenaForAllocation() == nullptr && vbo_vert_ != nullptr) {
+    delete vbo_vert_;
+  }
+  vbo_vert_ = nullptr;
 }
 void meshData_proto::clear_vbo_norm() {
-  vbo_norm_.Clear();
+  if (GetArenaForAllocation() == nullptr && vbo_norm_ != nullptr) {
+    delete vbo_norm_;
+  }
+  vbo_norm_ = nullptr;
 }
 void meshData_proto::clear_vbo_uv() {
-  vbo_uv_.Clear();
+  if (GetArenaForAllocation() == nullptr && vbo_uv_ != nullptr) {
+    delete vbo_uv_;
+  }
+  vbo_uv_ = nullptr;
 }
 void meshData_proto::clear_vbo_index() {
-  vbo_index_.Clear();
+  if (GetArenaForAllocation() == nullptr && vbo_index_ != nullptr) {
+    delete vbo_index_;
+  }
+  vbo_index_ = nullptr;
 }
 void meshData_proto::clear_vbo_color() {
-  vbo_color_.Clear();
-}
-void meshData_proto::clear_text_color() {
-  text_color_.Clear();
-}
-void meshData_proto::clear_anim_data() {
-  anim_data_.Clear();
+  if (GetArenaForAllocation() == nullptr && vbo_color_ != nullptr) {
+    delete vbo_color_;
+  }
+  vbo_color_ = nullptr;
 }
 meshData_proto::meshData_proto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  pname_(arena),
-  mode_(arena),
-  nodenumber_(arena),
-  tricount_(arena),
-  vertcount_(arena),
-  vbo_vert_(arena),
-  vbo_norm_(arena),
-  vbo_uv_(arena),
-  vbo_index_(arena),
-  vbo_color_(arena),
-  text_color_(arena),
-  anim_data_(arena),
-  materialindex_(arena) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -182,38 +192,50 @@ meshData_proto::meshData_proto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:meshData_proto)
 }
 meshData_proto::meshData_proto(const meshData_proto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      pname_(from.pname_),
-      mode_(from.mode_),
-      nodenumber_(from.nodenumber_),
-      tricount_(from.tricount_),
-      vertcount_(from.vertcount_),
-      vbo_vert_(from.vbo_vert_),
-      vbo_norm_(from.vbo_norm_),
-      vbo_uv_(from.vbo_uv_),
-      vbo_index_(from.vbo_index_),
-      vbo_color_(from.vbo_color_),
-      text_color_(from.text_color_),
-      anim_data_(from.anim_data_),
-      materialindex_(from.materialindex_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  pversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_pversion().empty()) {
-    pversion_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pversion(), 
+  pname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_pname().empty()) {
+    pname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pname(), 
       GetArenaForAllocation());
   }
-  ::memcpy(&meshcount_, &from.meshcount_,
-    static_cast<size_t>(reinterpret_cast<char*>(&hasskin_) -
-    reinterpret_cast<char*>(&meshcount_)) + sizeof(hasskin_));
+  if (from._internal_has_vbo_vert()) {
+    vbo_vert_ = new ::vboData_proto(*from.vbo_vert_);
+  } else {
+    vbo_vert_ = nullptr;
+  }
+  if (from._internal_has_vbo_norm()) {
+    vbo_norm_ = new ::vboData_proto(*from.vbo_norm_);
+  } else {
+    vbo_norm_ = nullptr;
+  }
+  if (from._internal_has_vbo_uv()) {
+    vbo_uv_ = new ::vboData_proto(*from.vbo_uv_);
+  } else {
+    vbo_uv_ = nullptr;
+  }
+  if (from._internal_has_vbo_index()) {
+    vbo_index_ = new ::vboData_proto(*from.vbo_index_);
+  } else {
+    vbo_index_ = nullptr;
+  }
+  if (from._internal_has_vbo_color()) {
+    vbo_color_ = new ::vboData_proto(*from.vbo_color_);
+  } else {
+    vbo_color_ = nullptr;
+  }
+  ::memcpy(&mode_, &from.mode_,
+    static_cast<size_t>(reinterpret_cast<char*>(&parentjointindex_) -
+    reinterpret_cast<char*>(&mode_)) + sizeof(parentjointindex_));
   // @@protoc_insertion_point(copy_constructor:meshData_proto)
 }
 
 inline void meshData_proto::SharedCtor() {
-pversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+pname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&meshcount_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&hasskin_) -
-    reinterpret_cast<char*>(&meshcount_)) + sizeof(hasskin_));
+    reinterpret_cast<char*>(&vbo_vert_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&parentjointindex_) -
+    reinterpret_cast<char*>(&vbo_vert_)) + sizeof(parentjointindex_));
 }
 
 meshData_proto::~meshData_proto() {
@@ -225,7 +247,12 @@ meshData_proto::~meshData_proto() {
 
 inline void meshData_proto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  pversion_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  pname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete vbo_vert_;
+  if (this != internal_default_instance()) delete vbo_norm_;
+  if (this != internal_default_instance()) delete vbo_uv_;
+  if (this != internal_default_instance()) delete vbo_index_;
+  if (this != internal_default_instance()) delete vbo_color_;
 }
 
 void meshData_proto::ArenaDtor(void* object) {
@@ -244,23 +271,30 @@ void meshData_proto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  pname_.Clear();
-  mode_.Clear();
-  nodenumber_.Clear();
-  tricount_.Clear();
-  vertcount_.Clear();
-  vbo_vert_.Clear();
-  vbo_norm_.Clear();
-  vbo_uv_.Clear();
-  vbo_index_.Clear();
-  vbo_color_.Clear();
-  text_color_.Clear();
-  anim_data_.Clear();
-  materialindex_.Clear();
-  pversion_.ClearToEmpty();
-  ::memset(&meshcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&hasskin_) -
-      reinterpret_cast<char*>(&meshcount_)) + sizeof(hasskin_));
+  pname_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && vbo_vert_ != nullptr) {
+    delete vbo_vert_;
+  }
+  vbo_vert_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && vbo_norm_ != nullptr) {
+    delete vbo_norm_;
+  }
+  vbo_norm_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && vbo_uv_ != nullptr) {
+    delete vbo_uv_;
+  }
+  vbo_uv_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && vbo_index_ != nullptr) {
+    delete vbo_index_;
+  }
+  vbo_index_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && vbo_color_ != nullptr) {
+    delete vbo_color_;
+  }
+  vbo_color_ = nullptr;
+  ::memset(&mode_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&parentjointindex_) -
+      reinterpret_cast<char*>(&mode_)) + sizeof(parentjointindex_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -270,194 +304,89 @@ const char* meshData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bytes pVersion = 1;
+      // bytes pName = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_pversion();
+          auto str = _internal_mutable_pname();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated bytes pName = 2;
+      // .meshData_proto.RENDER_MODE mode = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_pname();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated .meshData_proto.RENDER_MODE mode = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_mode(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_add_mode(static_cast<::meshData_proto_RENDER_MODE>(val));
+          _internal_set_mode(static_cast<::meshData_proto_RENDER_MODE>(val));
         } else goto handle_unusual;
         continue;
-      // repeated uint32 nodeNumber = 4;
+      // .vboData_proto vbo_vert = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_vbo_vert(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .vboData_proto vbo_norm = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_nodenumber(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32) {
-          _internal_add_nodenumber(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          ptr = ctx->ParseMessage(_internal_mutable_vbo_norm(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated uint32 triCount = 5;
+      // .vboData_proto vbo_uv = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_tricount(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40) {
-          _internal_add_tricount(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          ptr = ctx->ParseMessage(_internal_mutable_vbo_uv(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated uint32 vertCount = 6;
+      // .vboData_proto vbo_index = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_vertcount(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48) {
-          _internal_add_vertcount(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          ptr = ctx->ParseMessage(_internal_mutable_vbo_index(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .vboData_proto vbo_vert = 7;
+      // .vboData_proto vbo_color = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_vbo_vert(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
+          ptr = ctx->ParseMessage(_internal_mutable_vbo_color(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .vboData_proto vbo_norm = 8;
+      // uint32 triCount = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_vbo_norm(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          tricount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .vboData_proto vbo_uv = 9;
+      // uint32 vertCount = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_vbo_uv(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+          vertcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .vboData_proto vbo_index = 10;
+      // uint32 materialIndex = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_vbo_index(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+          materialindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .vboData_proto vbo_color = 11;
+      // sint32 jointIndex = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_vbo_color(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+          jointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .textureData_proto text_color = 12;
+      // sint32 parentJointIndex = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_text_color(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated .animData_proto anim_data = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_anim_data(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated uint32 materialIndex = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_materialindex(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 112) {
-          _internal_add_materialindex(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 meshCount = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 120)) {
-          meshcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 texCount = 16;
-      case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 128)) {
-          texcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 nameCount = 17;
-      case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
-          namecount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 animCount = 18;
-      case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 144)) {
-          animcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 hasSkin = 19;
-      case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
-          hasskin_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
+          parentjointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -490,147 +419,87 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bytes pVersion = 1;
-  if (!this->_internal_pversion().empty()) {
+  // bytes pName = 1;
+  if (!this->_internal_pname().empty()) {
     target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_pversion(), target);
+        1, this->_internal_pname(), target);
   }
 
-  // repeated bytes pName = 2;
-  for (int i = 0, n = this->_internal_pname_size(); i < n; i++) {
-    const auto& s = this->_internal_pname(i);
-    target = stream->WriteBytes(2, s, target);
+  // .meshData_proto.RENDER_MODE mode = 2;
+  if (this->_internal_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_mode(), target);
   }
 
-  // repeated .meshData_proto.RENDER_MODE mode = 3;
-  {
-    int byte_size = _mode_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteEnumPacked(
-          3, mode_, byte_size, target);
-    }
-  }
-
-  // repeated uint32 nodeNumber = 4;
-  {
-    int byte_size = _nodenumber_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
-          4, _internal_nodenumber(), byte_size, target);
-    }
-  }
-
-  // repeated uint32 triCount = 5;
-  {
-    int byte_size = _tricount_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
-          5, _internal_tricount(), byte_size, target);
-    }
-  }
-
-  // repeated uint32 vertCount = 6;
-  {
-    int byte_size = _vertcount_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
-          6, _internal_vertcount(), byte_size, target);
-    }
-  }
-
-  // repeated .vboData_proto vbo_vert = 7;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_vbo_vert_size()); i < n; i++) {
+  // .vboData_proto vbo_vert = 3;
+  if (this->_internal_has_vbo_vert()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, this->_internal_vbo_vert(i), target, stream);
+      InternalWriteMessage(
+        3, _Internal::vbo_vert(this), target, stream);
   }
 
-  // repeated .vboData_proto vbo_norm = 8;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_vbo_norm_size()); i < n; i++) {
+  // .vboData_proto vbo_norm = 4;
+  if (this->_internal_has_vbo_norm()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, this->_internal_vbo_norm(i), target, stream);
+      InternalWriteMessage(
+        4, _Internal::vbo_norm(this), target, stream);
   }
 
-  // repeated .vboData_proto vbo_uv = 9;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_vbo_uv_size()); i < n; i++) {
+  // .vboData_proto vbo_uv = 5;
+  if (this->_internal_has_vbo_uv()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(9, this->_internal_vbo_uv(i), target, stream);
+      InternalWriteMessage(
+        5, _Internal::vbo_uv(this), target, stream);
   }
 
-  // repeated .vboData_proto vbo_index = 10;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_vbo_index_size()); i < n; i++) {
+  // .vboData_proto vbo_index = 6;
+  if (this->_internal_has_vbo_index()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(10, this->_internal_vbo_index(i), target, stream);
+      InternalWriteMessage(
+        6, _Internal::vbo_index(this), target, stream);
   }
 
-  // repeated .vboData_proto vbo_color = 11;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_vbo_color_size()); i < n; i++) {
+  // .vboData_proto vbo_color = 7;
+  if (this->_internal_has_vbo_color()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(11, this->_internal_vbo_color(i), target, stream);
+      InternalWriteMessage(
+        7, _Internal::vbo_color(this), target, stream);
   }
 
-  // repeated .textureData_proto text_color = 12;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_text_color_size()); i < n; i++) {
+  // uint32 triCount = 8;
+  if (this->_internal_tricount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(12, this->_internal_text_color(i), target, stream);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(8, this->_internal_tricount(), target);
   }
 
-  // repeated .animData_proto anim_data = 13;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_anim_data_size()); i < n; i++) {
+  // uint32 vertCount = 9;
+  if (this->_internal_vertcount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(13, this->_internal_anim_data(i), target, stream);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(9, this->_internal_vertcount(), target);
   }
 
-  // repeated uint32 materialIndex = 14;
-  {
-    int byte_size = _materialindex_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
-          14, _internal_materialindex(), byte_size, target);
-    }
-  }
-
-  // uint32 meshCount = 15;
-  if (this->_internal_meshcount() != 0) {
+  // uint32 materialIndex = 10;
+  if (this->_internal_materialindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(15, this->_internal_meshcount(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(10, this->_internal_materialindex(), target);
   }
 
-  // uint32 texCount = 16;
-  if (this->_internal_texcount() != 0) {
+  // sint32 jointIndex = 11;
+  if (this->_internal_jointindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(16, this->_internal_texcount(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(11, this->_internal_jointindex(), target);
   }
 
-  // uint32 nameCount = 17;
-  if (this->_internal_namecount() != 0) {
+  // sint32 parentJointIndex = 12;
+  if (this->_internal_parentjointindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(17, this->_internal_namecount(), target);
-  }
-
-  // uint32 animCount = 18;
-  if (this->_internal_animcount() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(18, this->_internal_animcount(), target);
-  }
-
-  // uint32 hasSkin = 19;
-  if (this->_internal_hasskin() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(19, this->_internal_hasskin(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(12, this->_internal_parentjointindex(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -649,181 +518,87 @@ size_t meshData_proto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated bytes pName = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(pname_.size());
-  for (int i = 0, n = pname_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      pname_.Get(i));
-  }
-
-  // repeated .meshData_proto.RENDER_MODE mode = 3;
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_mode_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
-        this->_internal_mode(static_cast<int>(i)));
-    }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _mode_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  // repeated uint32 nodeNumber = 4;
-  {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->nodenumber_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _nodenumber_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  // repeated uint32 triCount = 5;
-  {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->tricount_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _tricount_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  // repeated uint32 vertCount = 6;
-  {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->vertcount_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _vertcount_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  // repeated .vboData_proto vbo_vert = 7;
-  total_size += 1UL * this->_internal_vbo_vert_size();
-  for (const auto& msg : this->vbo_vert_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .vboData_proto vbo_norm = 8;
-  total_size += 1UL * this->_internal_vbo_norm_size();
-  for (const auto& msg : this->vbo_norm_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .vboData_proto vbo_uv = 9;
-  total_size += 1UL * this->_internal_vbo_uv_size();
-  for (const auto& msg : this->vbo_uv_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .vboData_proto vbo_index = 10;
-  total_size += 1UL * this->_internal_vbo_index_size();
-  for (const auto& msg : this->vbo_index_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .vboData_proto vbo_color = 11;
-  total_size += 1UL * this->_internal_vbo_color_size();
-  for (const auto& msg : this->vbo_color_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .textureData_proto text_color = 12;
-  total_size += 1UL * this->_internal_text_color_size();
-  for (const auto& msg : this->text_color_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .animData_proto anim_data = 13;
-  total_size += 1UL * this->_internal_anim_data_size();
-  for (const auto& msg : this->anim_data_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated uint32 materialIndex = 14;
-  {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->materialindex_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _materialindex_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  // bytes pVersion = 1;
-  if (!this->_internal_pversion().empty()) {
+  // bytes pName = 1;
+  if (!this->_internal_pname().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_pversion());
+        this->_internal_pname());
   }
 
-  // uint32 meshCount = 15;
-  if (this->_internal_meshcount() != 0) {
+  // .vboData_proto vbo_vert = 3;
+  if (this->_internal_has_vbo_vert()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *vbo_vert_);
+  }
+
+  // .vboData_proto vbo_norm = 4;
+  if (this->_internal_has_vbo_norm()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *vbo_norm_);
+  }
+
+  // .vboData_proto vbo_uv = 5;
+  if (this->_internal_has_vbo_uv()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *vbo_uv_);
+  }
+
+  // .vboData_proto vbo_index = 6;
+  if (this->_internal_has_vbo_index()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *vbo_index_);
+  }
+
+  // .vboData_proto vbo_color = 7;
+  if (this->_internal_has_vbo_color()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *vbo_color_);
+  }
+
+  // .meshData_proto.RENDER_MODE mode = 2;
+  if (this->_internal_mode() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_mode());
+  }
+
+  // uint32 triCount = 8;
+  if (this->_internal_tricount() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_meshcount());
+        this->_internal_tricount());
   }
 
-  // uint32 texCount = 16;
-  if (this->_internal_texcount() != 0) {
-    total_size += 2 +
+  // uint32 vertCount = 9;
+  if (this->_internal_vertcount() != 0) {
+    total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_texcount());
+        this->_internal_vertcount());
   }
 
-  // uint32 nameCount = 17;
-  if (this->_internal_namecount() != 0) {
-    total_size += 2 +
+  // uint32 materialIndex = 10;
+  if (this->_internal_materialindex() != 0) {
+    total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_namecount());
+        this->_internal_materialindex());
   }
 
-  // uint32 animCount = 18;
-  if (this->_internal_animcount() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_animcount());
+  // sint32 jointIndex = 11;
+  if (this->_internal_jointindex() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
+        this->_internal_jointindex());
   }
 
-  // uint32 hasSkin = 19;
-  if (this->_internal_hasskin() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_hasskin());
+  // sint32 parentJointIndex = 12;
+  if (this->_internal_parentjointindex() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
+        this->_internal_parentjointindex());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -846,36 +621,41 @@ void meshData_proto::MergeFrom(const meshData_proto& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  pname_.MergeFrom(from.pname_);
-  mode_.MergeFrom(from.mode_);
-  nodenumber_.MergeFrom(from.nodenumber_);
-  tricount_.MergeFrom(from.tricount_);
-  vertcount_.MergeFrom(from.vertcount_);
-  vbo_vert_.MergeFrom(from.vbo_vert_);
-  vbo_norm_.MergeFrom(from.vbo_norm_);
-  vbo_uv_.MergeFrom(from.vbo_uv_);
-  vbo_index_.MergeFrom(from.vbo_index_);
-  vbo_color_.MergeFrom(from.vbo_color_);
-  text_color_.MergeFrom(from.text_color_);
-  anim_data_.MergeFrom(from.anim_data_);
-  materialindex_.MergeFrom(from.materialindex_);
-  if (!from._internal_pversion().empty()) {
-    _internal_set_pversion(from._internal_pversion());
+  if (!from._internal_pname().empty()) {
+    _internal_set_pname(from._internal_pname());
   }
-  if (from._internal_meshcount() != 0) {
-    _internal_set_meshcount(from._internal_meshcount());
+  if (from._internal_has_vbo_vert()) {
+    _internal_mutable_vbo_vert()->::vboData_proto::MergeFrom(from._internal_vbo_vert());
   }
-  if (from._internal_texcount() != 0) {
-    _internal_set_texcount(from._internal_texcount());
+  if (from._internal_has_vbo_norm()) {
+    _internal_mutable_vbo_norm()->::vboData_proto::MergeFrom(from._internal_vbo_norm());
   }
-  if (from._internal_namecount() != 0) {
-    _internal_set_namecount(from._internal_namecount());
+  if (from._internal_has_vbo_uv()) {
+    _internal_mutable_vbo_uv()->::vboData_proto::MergeFrom(from._internal_vbo_uv());
   }
-  if (from._internal_animcount() != 0) {
-    _internal_set_animcount(from._internal_animcount());
+  if (from._internal_has_vbo_index()) {
+    _internal_mutable_vbo_index()->::vboData_proto::MergeFrom(from._internal_vbo_index());
   }
-  if (from._internal_hasskin() != 0) {
-    _internal_set_hasskin(from._internal_hasskin());
+  if (from._internal_has_vbo_color()) {
+    _internal_mutable_vbo_color()->::vboData_proto::MergeFrom(from._internal_vbo_color());
+  }
+  if (from._internal_mode() != 0) {
+    _internal_set_mode(from._internal_mode());
+  }
+  if (from._internal_tricount() != 0) {
+    _internal_set_tricount(from._internal_tricount());
+  }
+  if (from._internal_vertcount() != 0) {
+    _internal_set_vertcount(from._internal_vertcount());
+  }
+  if (from._internal_materialindex() != 0) {
+    _internal_set_materialindex(from._internal_materialindex());
+  }
+  if (from._internal_jointindex() != 0) {
+    _internal_set_jointindex(from._internal_jointindex());
+  }
+  if (from._internal_parentjointindex() != 0) {
+    _internal_set_parentjointindex(from._internal_parentjointindex());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -894,30 +674,17 @@ bool meshData_proto::IsInitialized() const {
 void meshData_proto::InternalSwap(meshData_proto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  pname_.InternalSwap(&other->pname_);
-  mode_.InternalSwap(&other->mode_);
-  nodenumber_.InternalSwap(&other->nodenumber_);
-  tricount_.InternalSwap(&other->tricount_);
-  vertcount_.InternalSwap(&other->vertcount_);
-  vbo_vert_.InternalSwap(&other->vbo_vert_);
-  vbo_norm_.InternalSwap(&other->vbo_norm_);
-  vbo_uv_.InternalSwap(&other->vbo_uv_);
-  vbo_index_.InternalSwap(&other->vbo_index_);
-  vbo_color_.InternalSwap(&other->vbo_color_);
-  text_color_.InternalSwap(&other->text_color_);
-  anim_data_.InternalSwap(&other->anim_data_);
-  materialindex_.InternalSwap(&other->materialindex_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &pversion_, GetArenaForAllocation(),
-      &other->pversion_, other->GetArenaForAllocation()
+      &pname_, GetArenaForAllocation(),
+      &other->pname_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(meshData_proto, hasskin_)
-      + sizeof(meshData_proto::hasskin_)
-      - PROTOBUF_FIELD_OFFSET(meshData_proto, meshcount_)>(
-          reinterpret_cast<char*>(&meshcount_),
-          reinterpret_cast<char*>(&other->meshcount_));
+      PROTOBUF_FIELD_OFFSET(meshData_proto, parentjointindex_)
+      + sizeof(meshData_proto::parentjointindex_)
+      - PROTOBUF_FIELD_OFFSET(meshData_proto, vbo_vert_)>(
+          reinterpret_cast<char*>(&vbo_vert_),
+          reinterpret_cast<char*>(&other->vbo_vert_));
 }
 
 std::string meshData_proto::GetTypeName() const {

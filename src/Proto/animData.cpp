@@ -1,91 +1,97 @@
 #include "animData.h"
 
 animData::animData()
-	: bone_data(nullptr), parent(-1), frameBucketCount(0)
+    : bone_data(nullptr), animName{0},jointIndex(-1), parentIndex(-1),
+    totalAnimFrames(0)
 {
-	
+    
 }
 
-animData::animData(const animData& r)
+animData::animData(const animData &r)
 {
-	this->bone_data = r.bone_data;
-	this->parent = r.parent;
-	this->frameBucketCount = r.frameBucketCount;
+    this->bone_data = r.bone_data;
+    this->jointIndex = r.jointIndex;
+    this->parentIndex = r.parentIndex;
+    this->totalAnimFrames = r.totalAnimFrames;
+
+    strcpy_s(this->animName, animData::FILE_NAME_SIZE, r.animName);
 }
 
-animData& animData::operator=(const animData& r)
+animData &animData::operator=(const animData &r)
 {
-	if(this != &r)
-	{
-		this->bone_data = r.bone_data;
-		this->parent = r.parent;
-		this->frameBucketCount = r.frameBucketCount;
-	}
+    if (this != &r)
+    {
+        this->bone_data = r.bone_data;
+        this->jointIndex = r.jointIndex;
+        this->parentIndex = r.parentIndex;
+        this->totalAnimFrames = r.totalAnimFrames;
 
-	return *this;
+        strcpy_s(this->animName, animData::FILE_NAME_SIZE, r.animName);
+    }
+
+    return *this;
 }
 
 animData::~animData()
 {
-	delete[] this->bone_data;
+    delete[] this->bone_data;
 }
 
-animData::animData(	boneData* _bonedata, signed int _parent, unsigned int _frameBucketCount)
+animData::animData(boneData *_bone_data,
+                   char _animName[animData::FILE_NAME_SIZE],
+                   signed int _jointIndex,
+                   signed int _parentIndex,
+                   unsigned int _totalAnimFrames)
 {
-	this->bone_data = _bonedata;
-	this->parent = _parent;
-	this->frameBucketCount = _frameBucketCount;
+    this->bone_data = _bone_data;
+    strcpy_s(this->animName, animData::FILE_NAME_SIZE, _animName);
+    this->jointIndex = _jointIndex;
+    this->parentIndex = _parentIndex;
+    this->totalAnimFrames = _totalAnimFrames;
 }
 
-void animData::Serialize(animData_proto& out) const
+void animData::Serialize(animData_proto &out) const
 {
-	out.set_parent(this->parent);
-	out.set_framebucketcount(this->frameBucketCount);
+    std::string sName((const char *)this->animName, animData::FILE_NAME_SIZE);
+    out.set_animname(sName);
 
-	for(int i =0; i < this->frameBucketCount; i++)
-	{
-		boneData_proto* pBone = new boneData_proto();
-		this->bone_data[i].Serialize(*pBone);
-		out.mutable_bone_data()->AddAllocated(pBone);
-	}
-	
-	
+    out.set_jointindex(this->jointIndex);
+    out.set_parentindex(this->parentIndex);
+    out.set_totalanimframes(this->totalAnimFrames);
+
+    for (int i = 0; i < this->totalAnimFrames; i++)
+    {
+        boneData_proto *pBone = new boneData_proto();
+        this->bone_data[i].Serialize(*pBone);
+        out.mutable_bone_data()->AddAllocated(pBone);
+    }
 }
 
-void animData::Deserialize(const animData_proto& in)
+void animData::Deserialize(const animData_proto &in)
 {
-	this->frameBucketCount = in.framebucketcount();
-	this->parent = in.parent();
-	if(this->frameBucketCount == 0)
-	{
-		this->bone_data = nullptr;
-	}
-	else
-	{
-		this->bone_data = new boneData[this->frameBucketCount];
-		for(int i = 0; i < this->frameBucketCount; i++)
-		{
-			this->bone_data[i].Deserialize(in.bone_data(i));
-		}
-	}
-	
+    this->totalAnimFrames = in.totalanimframes();
+    this->jointIndex = in.jointindex();
+    this->parentIndex = in.parentindex();
 
-	
+    memcpy_s(this->animName, animData::FILE_NAME_SIZE, in.animname().data(), animData::FILE_NAME_SIZE);
+
+    if (this->totalAnimFrames == 0)
+    {
+        this->bone_data = nullptr;
+    }
+    else
+    {
+        this->bone_data = new boneData[this->totalAnimFrames];
+        for (int i = 0; i < this->totalAnimFrames; i++)
+        {
+            this->bone_data[i].Deserialize(in.bone_data(i));
+        }
+    }
 }
 
-void animData::Print(const char* const pName, int count) const
+void animData::Print(const char *const pName, int count) const
 {
-	Trace::out("pName: %s %d\n", pName, count);
-	Trace::out("FrameBucket Count: %d\n", this->frameBucketCount);
-
-	if(this->frameBucketCount != 0)
-	{
-		for (int i = 0; i < this->frameBucketCount; i++)
-		{
-			this->bone_data[i].Print("bone_Data", i);
-		}
-	}
-	
-
+    Trace::out("pName: %s %d\n", pName, count);
+    Trace::out("Total Frames Count: %d\n", this->totalAnimFrames);
 
 }

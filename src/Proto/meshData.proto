@@ -5,8 +5,6 @@
 syntax = "proto3";
 
 import "vboData.proto";
-import "textureData.proto";
-import "animData.proto";
 
 option optimize_for = LITE_RUNTIME;
 
@@ -23,24 +21,17 @@ message meshData_proto
 		MODE_TRIANGLE_FAN   = 6;
 	};
 
-			 bytes			    pVersion			= 1;
-	repeated bytes			    pName				= 2;
-	repeated RENDER_MODE	    mode				= 3;
-	repeated uint32             nodeNumber			= 4;
-	repeated uint32			    triCount			= 5;
-	repeated uint32			    vertCount			= 6;
-	repeated vboData_proto      vbo_vert			= 7;
-	repeated vboData_proto	    vbo_norm			= 8;
-	repeated vboData_proto      vbo_uv				= 9;
-	repeated vboData_proto      vbo_index			= 10;
-	repeated vboData_proto      vbo_color			= 11;
-	repeated textureData_proto  text_color			= 12;
-	repeated animData_proto		anim_data			= 13;
-	repeated uint32			    materialIndex		= 14;
-			 uint32			    meshCount			= 15;
-			 uint32			    texCount			= 16;
-			 uint32			    nameCount			= 17;
-			 uint32				animCount			= 18;
-			 uint32				hasSkin				= 19;
+	bytes			pName				= 1;
+	RENDER_MODE		mode				= 2;
+	vboData_proto	vbo_vert			= 3;
+	vboData_proto	vbo_norm			= 4;
+	vboData_proto	vbo_uv				= 5;
+	vboData_proto	vbo_index			= 6;
+	vboData_proto	vbo_color			= 7;
+	uint32			triCount			= 8;
+	uint32			vertCount			= 9;
+	uint32			materialIndex		= 10;
+	sint32			jointIndex			= 11;
+	sint32			parentJointIndex	= 12;
 }													 
 // -- End of File ---

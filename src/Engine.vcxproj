@@ -42,6 +42,7 @@
     <None Include="Proto\animData.proto" />
     <None Include="Proto\boneData.proto" />
     <None Include="Proto\meshData.proto" />
+    <None Include="Proto\protoData.proto" />
     <None Include="Proto\textureData.proto" />
     <None Include="Proto\vboData.proto" />
   </ItemGroup>
@@ -260,6 +261,8 @@
     <ClInclude Include="Proto\boneData.pb.h" />
     <ClInclude Include="Proto\meshData.h" />
     <ClInclude Include="Proto\meshData.pb.h" />
+    <ClInclude Include="Proto\protoData.h" />
+    <ClInclude Include="Proto\protoData.pb.h" />
     <ClInclude Include="Proto\textureData.h" />
     <ClInclude Include="Proto\textureData.pb.h" />
     <ClInclude Include="Proto\vboData.h" />
@@ -358,6 +361,8 @@
     <ClCompile Include="Proto\boneData.pb.cc" />
     <ClCompile Include="Proto\meshData.cpp" />
     <ClCompile Include="Proto\meshData.pb.cc" />
+    <ClCompile Include="Proto\protoData.cpp" />
+    <ClCompile Include="Proto\protoData.pb.cc" />
     <ClCompile Include="Proto\textureData.cpp" />
     <ClCompile Include="Proto\textureData.pb.cc" />
     <ClCompile Include="Proto\vboData.cpp" />

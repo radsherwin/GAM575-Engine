@@ -93,7 +93,7 @@ namespace Azul
 		int joint;
 		Trace::out("------------CLIP.CPP------------\n");
 
-		for (size_t meshIndex = 0; meshIndex < pMesh.size(); meshIndex++)
+		/*for (size_t meshIndex = 0; meshIndex < pMesh.size(); meshIndex++)
 		{
 			bone = pMesh[meshIndex]->pAnim->meshBone[frameIndex];
 			joint = pMesh[meshIndex]->pAnim->joint;
@@ -103,7 +103,7 @@ namespace Azul
 			Trace::out("T[%d]: %f %f %f\n", joint, bone.T.x(), bone.T.y(), bone.T.z());
 			Trace::out("Q[%d]: %f %f %f %f\n", joint, bone.Q.qx(), bone.Q.qy(), bone.Q.qz(), bone.Q.real());
 			Trace::out("S[%d]: %f %f %f\n", joint, bone.S.x(), bone.S.y(), bone.S.z());
-		}
+		}*/
 	}
 
 	float scale = 1.0f;

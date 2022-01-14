@@ -16,8 +16,8 @@ Mesh::Mesh()
 	vbo_index(0),
 	poRefSphere(new Sphere()),
 	textureIDInt(0),
-	texCount(1),
-	pAnim(nullptr)
+	jointIndex(-1),
+	parentJointIndex(-1)
 	
 {
 }
@@ -60,11 +60,6 @@ bool Mesh::Compare(DLink* pTarget)
 void Mesh::SetName(Name _name)
 {
 	this->name = _name;
-}
-
-Animation* Mesh::GetAnimation() const
-{
-	return this->pAnim;
 }
 
 char* Mesh::GetName()

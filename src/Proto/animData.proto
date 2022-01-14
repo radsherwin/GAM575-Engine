@@ -7,6 +7,8 @@ option optimize_for = LITE_RUNTIME;
 message animData_proto
 {
 	repeated	boneData_proto	bone_Data			= 1;
-				sint32			parent				= 2;
-				uint32			frameBucketCount	= 3;
+				bytes			animName			= 2;
+				sint32			jointIndex			= 3;
+				sint32			parentIndex			= 4;
+				uint32			totalAnimFrames		= 5;
 }

@@ -7,24 +7,31 @@
 class animData
 {
 public:
-	animData();
-	animData(const animData&);
-	animData& operator=(const animData&);
-	~animData();
+    static const unsigned int FILE_NAME_SIZE = 64;
 
-	animData(boneData* bone_data, signed int _parent, unsigned int _frameBucketCount);
+    animData();
+    animData(const animData &);
+    animData &operator=(const animData &);
+    ~animData();
 
-	//Serialization
-	void Serialize(animData_proto& out) const;
-	void Deserialize(const animData_proto& in);
+    animData(boneData *_bone_data,
+             char _animName[animData::FILE_NAME_SIZE],
+             signed int _jointIndex,
+             signed int _parentIndex, 
+             unsigned int _totalAnimFrames);
 
-	void Print(const char* const pName, int count) const;
+    //Serialization
+    void Serialize(animData_proto &out) const;
+    void Deserialize(const animData_proto &in);
+
+    void Print(const char *const pName, int count) const;
 
 public:
-	boneData*		bone_data;
-	signed int		parent;
-	unsigned int	frameBucketCount;
-	
+    boneData        *bone_data;
+    char	        animName[FILE_NAME_SIZE]; //joint name
+    signed int		jointIndex;
+    signed int		parentIndex;
+    unsigned int	totalAnimFrames;
 };
 
 #endif
