@@ -32,87 +32,74 @@ GraphicsObjectHdr::~GraphicsObjectHdr()
     delete this->poGraphicsObject;
 }
 
-void GraphicsObjectHdr::Set_FlatTexture(const std::vector<Mesh *>pMesh, const ShaderObject *const pShaderObj,
+// Array mesh
+
+void GraphicsObjectHdr::Set_FlatTexture(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj,
                                         Texture::Name _name)
 {
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_FlatTexture(*it, pShaderObj, _name));
+        AddToEnd(new GraphicsObject_FlatTexture(pMesh[i], pShaderObj, _name));
     }
 }
 
-void GraphicsObjectHdr::Set_FlatTexture(Mesh **pMesh, const int meshSize, const ShaderObject *const pShaderObj, Texture::Name textureName)
-{
-    for (int i = 0; i < meshSize; i++)
-    {
-        AddToEnd(new GraphicsObject_FlatTexture(pMesh[i], pShaderObj, textureName));
-    }
-}
-
-void GraphicsObjectHdr::Set_ConstColor(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj,
+void GraphicsObjectHdr::Set_ConstColor(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj,
                                        Vect &color, Vect &pos)
 {
     GraphicsObjectHdr *current = this->pNext;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_ConstColor(*it, pShaderObj, color, pos));
+        AddToEnd(new GraphicsObject_ConstColor(pMesh[i], pShaderObj, color, pos));
     }
 }
 
-void GraphicsObjectHdr::Set_ColorByPosition(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj)
+void GraphicsObjectHdr::Set_ColorByPosition(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj)
 {
-    GraphicsObjectHdr *current = this->pNext;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_ColorByPosition(*it, pShaderObj));
+        AddToEnd(new GraphicsObject_ColorByPosition(pMesh[i], pShaderObj));
     }
 }
 
-void GraphicsObjectHdr::Set_ColorSpecLighting(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj,
+void GraphicsObjectHdr::Set_ColorSpecLighting(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj,
                                               Vect &color, Vect &pos)
 {
-    GraphicsObjectHdr *current = this->pNext;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_ColorSpecLighting(*it, pShaderObj, color, pos));
+        AddToEnd(new GraphicsObject_ColorSpecLighting(pMesh[i], pShaderObj, color, pos));
     }
 }
 
-void GraphicsObjectHdr::Set_Null(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj)
+void GraphicsObjectHdr::Set_Null(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj)
 {
-    GraphicsObjectHdr *current = this->pNext;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_Null(*it, pShaderObj));
+        AddToEnd(new GraphicsObject_Null(pMesh[i], pShaderObj));
     }
 }
 
-void GraphicsObjectHdr::Set_TextureLight(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj, Vect &color, Vect &pos, Texture::Name _name)
+void GraphicsObjectHdr::Set_TextureLight(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj, Vect &color, Vect &pos, Texture::Name _name)
 {
-    int i = 0;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_TextureLight(*it, pShaderObj, _name, color, pos));
-        i++;
+        AddToEnd(new GraphicsObject_TextureLight(pMesh[i], pShaderObj, _name, color, pos));
     }
 }
 
-void GraphicsObjectHdr::Set_Wireframe(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj)
+void GraphicsObjectHdr::Set_Wireframe(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj)
 {
-    GraphicsObjectHdr *current = this->pNext;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_Wireframe(*it, pShaderObj));
+        AddToEnd(new GraphicsObject_Wireframe(pMesh[i], pShaderObj));
     }
 }
 
-void GraphicsObjectHdr::Set_WireframeConstColor(const std::vector<Mesh *> pMesh, const ShaderObject *const pShaderObj,
+void GraphicsObjectHdr::Set_WireframeConstColor(Mesh **pMesh, const int size, const ShaderObject *const pShaderObj,
                                                 const Vect &wireColor)
 {
-    GraphicsObjectHdr *current = this->pNext;
-    for (auto it = pMesh.begin(); it != pMesh.end(); it++)
+    for (int i = 0; i < size; i++)
     {
-        AddToEnd(new GraphicsObject_WireframeConstantColor(*it, pShaderObj, wireColor));
+        AddToEnd(new GraphicsObject_WireframeConstantColor(pMesh[i], pShaderObj, wireColor));
     }
 }
 

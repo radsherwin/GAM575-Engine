@@ -5,8 +5,7 @@
 #include "MeshNodeManager.h"
 #include "NullMesh.h"
 
-
-MeshNodeManager* MeshNodeManager::posInstance = nullptr;
+MeshNodeManager *MeshNodeManager::posInstance = nullptr;
 
 //----------------------------------------------------------------------
 // Constructor
@@ -18,7 +17,7 @@ MeshNodeManager::MeshNodeManager(int reserveNum, int reserveGrow)
     this->proFillReservedPool(reserveNum);
 
     // initialize derived data here
-    Mesh* pMesh = new NullMesh();
+    Mesh *pMesh = new NullMesh();
     assert(pMesh);
     this->poNodeCompare = new MeshNode();
     assert(this->poNodeCompare);
@@ -31,14 +30,14 @@ MeshNodeManager::~MeshNodeManager()
     this->poNodeCompare = nullptr;
 
     // iterate through the list and delete
-    Iterator* pIt = this->baseGetActiveIterator();
+    Iterator *pIt = this->baseGetActiveIterator();
 
-    DLink* pNode = pIt->First();
+    DLink *pNode = pIt->First();
 
     // Walk through the nodes
     while (!pIt->IsDone())
     {
-        MeshNode* pDeleteMe = (MeshNode*)pIt->Curr();
+        MeshNode *pDeleteMe = (MeshNode *)pIt->Curr();
         pNode = pIt->Next();
         delete pDeleteMe;
     }
@@ -50,7 +49,7 @@ MeshNodeManager::~MeshNodeManager()
     // Walk through the nodes
     while (!pIt->IsDone())
     {
-        MeshNode* pDeleteMe = (MeshNode*)pIt->Curr();
+        MeshNode *pDeleteMe = (MeshNode *)pIt->Curr();
         pNode = pIt->Next();
         delete pDeleteMe;
     }
@@ -61,7 +60,7 @@ MeshNodeManager::~MeshNodeManager()
 //----------------------------------------------------------------------
 void MeshNodeManager::Create(int reserveNum, int reserveGrow)
 {
-    // make sure values are ressonable 
+    // make sure values are ressonable
     assert(reserveNum >= 0);
     assert(reserveGrow > 0);
 
@@ -73,12 +72,11 @@ void MeshNodeManager::Create(int reserveNum, int reserveGrow)
     {
         posInstance = new MeshNodeManager(reserveNum, reserveGrow);
     }
-
 }
 
 void MeshNodeManager::Destroy()
 {
-    MeshNodeManager* pMan = MeshNodeManager::privGetInstance();
+    MeshNodeManager *pMan = MeshNodeManager::privGetInstance();
     assert(pMan != nullptr);
     AZUL_UNUSED_VAR(pMan);
 
@@ -86,13 +84,13 @@ void MeshNodeManager::Destroy()
     MeshNodeManager::posInstance = nullptr;
 }
 
-MeshNode* MeshNodeManager::Add(Mesh::Name name, Mesh* pMesh)
+MeshNode *MeshNodeManager::Add(Mesh::Name name, Mesh *pMesh)
 {
-    MeshNodeManager* pMan = MeshNodeManager::privGetInstance();
+    MeshNodeManager *pMan = MeshNodeManager::privGetInstance();
 
     assert(pMesh);
 
-    MeshNode* pNode = (MeshNode*)pMan->baseAddToFront();
+    MeshNode *pNode = (MeshNode *)pMan->baseAddToFront();
     assert(pNode != nullptr);
 
     // Initialize the date
@@ -101,21 +99,36 @@ MeshNode* MeshNodeManager::Add(Mesh::Name name, Mesh* pMesh)
     return pNode;
 }
 
-Mesh* MeshNodeManager::Find(Mesh::Name _name)
+void MeshNodeManager::Add(Mesh::Name name, Mesh **pMesh, int size)
 {
-    MeshNodeManager* pMan = MeshNodeManager::privGetInstance();
+    MeshNodeManager *pMan = MeshNodeManager::privGetInstance();
+
+    assert(pMesh);
+
+    for (int i = 0; i < size; i++)
+    {
+        MeshNode *pNode = (MeshNode *)pMan->baseAddToFront();
+        assert(pNode != nullptr);
+
+        pNode->Set(name, pMesh[i]);
+    }
+}
+
+Mesh *MeshNodeManager::Find(Mesh::Name _name)
+{
+    MeshNodeManager *pMan = MeshNodeManager::privGetInstance();
     assert(pMan != nullptr);
 
     // Compare functions only compares two Nodes
 
     // So:  Use the Compare Node - as a reference
     //      use in the Compare() function
-    Mesh* pMesh = pMan->poNodeCompare->GetMesh();
+    Mesh *pMesh = pMan->poNodeCompare->GetMesh();
     assert(pMesh);
 
     pMesh->name = _name;
 
-    MeshNode* pData = (MeshNode*)pMan->baseFind(pMan->poNodeCompare);
+    MeshNode *pData = (MeshNode *)pMan->baseFind(pMan->poNodeCompare);
 
     if (pData)
     {
@@ -129,11 +142,11 @@ Mesh* MeshNodeManager::Find(Mesh::Name _name)
     return pMesh;
 }
 
-void MeshNodeManager::Remove(MeshNode* pNode)
+void MeshNodeManager::Remove(MeshNode *pNode)
 {
     assert(pNode != nullptr);
 
-    MeshNodeManager* pMan = MeshNodeManager::privGetInstance();
+    MeshNodeManager *pMan = MeshNodeManager::privGetInstance();
     assert(pMan != nullptr);
 
     pMan->baseRemove(pNode);
@@ -141,7 +154,7 @@ void MeshNodeManager::Remove(MeshNode* pNode)
 
 void MeshNodeManager::Dump()
 {
-    MeshNodeManager* pMan = MeshNodeManager::privGetInstance();
+    MeshNodeManager *pMan = MeshNodeManager::privGetInstance();
     assert(pMan != nullptr);
 
     pMan->baseDump();
@@ -150,7 +163,7 @@ void MeshNodeManager::Dump()
 //----------------------------------------------------------------------
 // Private methods
 //----------------------------------------------------------------------
-MeshNodeManager* MeshNodeManager::privGetInstance()
+MeshNodeManager *MeshNodeManager::privGetInstance()
 {
     // Safety - this forces users to call Create() first before using class
     assert(posInstance != nullptr);
@@ -161,16 +174,10 @@ MeshNodeManager* MeshNodeManager::privGetInstance()
 //----------------------------------------------------------------------
 // Override Abstract methods
 //----------------------------------------------------------------------
-DLink* MeshNodeManager::derivedCreateNode()
+DLink *MeshNodeManager::derivedCreateNode()
 {
-    DLink* pNodeBase = new MeshNode();
+    DLink *pNodeBase = new MeshNode();
     assert(pNodeBase != nullptr);
 
     return pNodeBase;
 }
-
-
-
-
-
-

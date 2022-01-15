@@ -19,15 +19,14 @@ public:
 	GraphicsObjectHdr& operator=(const GraphicsObjectHdr&) = delete;
 	virtual ~GraphicsObjectHdr();
 
-	void Set_FlatTexture(const std::vector<Mesh*> pMesh, const ShaderObject* const pShaderObj, Texture::Name _name = Texture::Name::PINK_ERROR);
-	void Set_FlatTexture(Mesh **pMesh, const int meshSize, const ShaderObject *const pShaderObj, Texture::Name textureName = Texture::Name::PINK_ERROR);
-	void Set_ConstColor(const std::vector<Mesh*> pMesh, const ShaderObject* const pShaderObj, Azul::Vect& color, Azul::Vect& pos);
-	void Set_ColorByPosition(const std::vector<Mesh*> mesh, const ShaderObject* const pShaderObj);
-	void Set_ColorSpecLighting(const std::vector<Mesh*> _pMesh, const ShaderObject* const _pShaderObj, Azul::Vect& color, Azul::Vect& pos);
-	void Set_Null(const std::vector<Mesh*> pMesh, const ShaderObject* const pShaderObj);
-	void Set_TextureLight(const std::vector<Mesh*> pMesh, const ShaderObject* const pShaderObj, Azul::Vect& color, Azul::Vect& pos, Texture::Name  _name = Texture::Name::PINK_ERROR);
-	void Set_Wireframe(const std::vector<Mesh*> _pMesh, const ShaderObject* const _pShaderObj);
-	void Set_WireframeConstColor(const std::vector<Mesh*> mesh, const ShaderObject* const pShaderObj, const Vect& wireColor);
+	void Set_FlatTexture(Mesh **pMesh, const int size, const ShaderObject* const pShaderObj, Texture::Name _name = Texture::Name::PINK_ERROR);
+	void Set_ConstColor(Mesh **pMesh, const int size, const ShaderObject* const pShaderObj, Azul::Vect& color, Azul::Vect& pos);
+	void Set_ColorByPosition(Mesh **pMesh, const int size, const ShaderObject* const pShaderObj);
+	void Set_ColorSpecLighting(Mesh **pMesh, const int size, const ShaderObject* const _pShaderObj, Azul::Vect& color, Azul::Vect& pos);
+	void Set_Null(Mesh **pMesh, const int size, const ShaderObject* const pShaderObj);
+	void Set_TextureLight(Mesh **pMesh, const int size, const ShaderObject* const pShaderObj, Azul::Vect& color, Azul::Vect& pos, Texture::Name  _name = Texture::Name::PINK_ERROR);
+	void Set_Wireframe(Mesh **pMesh, const int size, const ShaderObject* const _pShaderObj);
+	void Set_WireframeConstColor(Mesh **pMesh, const int size, const ShaderObject* const pShaderObj, const Vect& wireColor);
 
 	//Non vector version
 	void Set_FlatTexture(const Mesh* const pMesh, const ShaderObject* const pShaderObj, Texture::Name _name = Texture::Name::PINK_ERROR);
