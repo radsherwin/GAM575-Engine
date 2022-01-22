@@ -41,6 +41,7 @@
     <None Include="GLSL\textureRender.vs.glsl" />
     <None Include="Proto\animData.proto" />
     <None Include="Proto\boneData.proto" />
+    <None Include="Proto\fontData.proto" />
     <None Include="Proto\meshData.proto" />
     <None Include="Proto\protoData.proto" />
     <None Include="Proto\textureData.proto" />
@@ -263,6 +264,8 @@
     <ClInclude Include="Proto\animData.pb.h" />
     <ClInclude Include="Proto\boneData.h" />
     <ClInclude Include="Proto\boneData.pb.h" />
+    <ClInclude Include="Proto\fontData.h" />
+    <ClInclude Include="Proto\fontData.pb.h" />
     <ClInclude Include="Proto\meshData.h" />
     <ClInclude Include="Proto\meshData.pb.h" />
     <ClInclude Include="Proto\protoData.h" />
@@ -367,6 +370,8 @@
     <ClCompile Include="Proto\animData.pb.cc" />
     <ClCompile Include="Proto\boneData.cpp" />
     <ClCompile Include="Proto\boneData.pb.cc" />
+    <ClCompile Include="Proto\fontData.cpp" />
+    <ClCompile Include="Proto\fontData.pb.cc" />
     <ClCompile Include="Proto\meshData.cpp" />
     <ClCompile Include="Proto\meshData.pb.cc" />
     <ClCompile Include="Proto\protoData.cpp" />
