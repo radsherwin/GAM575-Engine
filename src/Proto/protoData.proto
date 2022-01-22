@@ -3,6 +3,7 @@ syntax = "proto3";
 import "meshData.proto";
 import "textureData.proto";
 import "animData.proto";
+import "fontData.proto";
 
 option optimize_for = LITE_RUNTIME;
 
@@ -13,7 +14,9 @@ message protoData_proto
 			 uint32				meshCount		= 3;
 			 uint32				animCount		= 4;
 			 uint32				textureCount	= 5;
-	repeated meshData_proto		pMeshData		= 6;
-	repeated animData_proto		pAnimData		= 7;
-	repeated textureData_proto	pTextureData	= 8;
+			 uint32				fontCount		= 6;
+	repeated meshData_proto		pMeshData		= 7;
+	repeated animData_proto		pAnimData		= 8;
+	repeated textureData_proto	pTextureData	= 9;
+	repeated fontData_proto		pFontData		= 10;
 }

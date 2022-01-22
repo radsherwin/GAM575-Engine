@@ -112,6 +112,14 @@ StringThis::StringThis(Mesh::Name status)
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::CUBE));
 		break;
 
+    case Mesh::Name::DOG_HOUSE:
+        strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::DOG_HOUSE));
+        break;
+
+    case Mesh::Name::AVOCADO:
+        strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::AVOCADO));
+        break;
+
     case Mesh::Name::ANTIQUE_CAMERA:
         strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Mesh::ANTIQUE_CAMERA));
         break;

@@ -4,7 +4,8 @@
 #include "meshData.h"
 
 meshData::meshData()
-    : pName{ 0 },
+    : enabled{false}, 
+    pName{ 0 },
     mode{ RENDER_MODE::DEFAULT },
     triCount(0),
     vertCount(0),
@@ -16,7 +17,8 @@ meshData::meshData()
 }
 
 meshData::meshData(const meshData &r)
-    : mode(r.mode),
+    : enabled{r.enabled},
+      mode(r.mode),
       vbo_vert(r.vbo_vert),
       vbo_norm(r.vbo_norm),
       vbo_uv(r.vbo_uv),
@@ -35,6 +37,7 @@ meshData & meshData::operator=(const meshData &r)
 {
     if(this != &r)
     {
+        this->enabled = r.enabled;
         this->mode = r.mode;
         this->vbo_vert = r.vbo_vert;
         this->vbo_norm = r.vbo_norm;
@@ -62,7 +65,7 @@ void meshData::Serialize(meshData_proto &out) const
 
     std::string sName((const char *)this->pName, meshData::FILE_NAME_SIZE);
     out.set_pname(sName);
-
+    out.set_enabled(this->enabled);
     out.set_tricount(this->triCount);
     out.set_vertcount(this->vertCount);
     out.set_materialindex(this->materialIndex);
@@ -94,6 +97,7 @@ void meshData::Serialize(meshData_proto &out) const
 
 void meshData::Deserialize(const meshData_proto &in)
 {
+    this->enabled = in.enabled();
     memcpy_s(this->pName, meshData::FILE_NAME_SIZE, in.pname().data(), meshData::FILE_NAME_SIZE);
 
     this->triCount = in.tricount();

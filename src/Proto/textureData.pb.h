@@ -582,13 +582,13 @@ class textureData_proto final :
   std::string* _internal_mutable_podata();
   public:
 
-  // uint32 enabled = 1;
+  // bool enabled = 1;
   void clear_enabled();
-  ::PROTOBUF_NAMESPACE_ID::uint32 enabled() const;
-  void set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  bool enabled() const;
+  void set_enabled(bool value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_enabled() const;
-  void _internal_set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
   public:
 
   // .textureData_proto.TEXTURE_TYPE textType = 2;
@@ -744,7 +744,7 @@ class textureData_proto final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filenamedata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr podata_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 enabled_;
+  bool enabled_;
   int texttype_;
   int magfilter_;
   int minfilter_;
@@ -775,22 +775,22 @@ class textureData_proto final :
 #endif  // __GNUC__
 // textureData_proto
 
-// uint32 enabled = 1;
+// bool enabled = 1;
 inline void textureData_proto::clear_enabled() {
-  enabled_ = 0u;
+  enabled_ = false;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 textureData_proto::_internal_enabled() const {
+inline bool textureData_proto::_internal_enabled() const {
   return enabled_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 textureData_proto::enabled() const {
+inline bool textureData_proto::enabled() const {
   // @@protoc_insertion_point(field_get:textureData_proto.enabled)
   return _internal_enabled();
 }
-inline void textureData_proto::_internal_set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void textureData_proto::_internal_set_enabled(bool value) {
   
   enabled_ = value;
 }
-inline void textureData_proto::set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void textureData_proto::set_enabled(bool value) {
   _internal_set_enabled(value);
   // @@protoc_insertion_point(field_set:textureData_proto.enabled)
 }

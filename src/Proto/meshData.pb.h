@@ -223,20 +223,21 @@ class meshData_proto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPNameFieldNumber = 1,
-    kVboVertFieldNumber = 3,
-    kVboNormFieldNumber = 4,
-    kVboUvFieldNumber = 5,
-    kVboIndexFieldNumber = 6,
-    kVboColorFieldNumber = 7,
-    kModeFieldNumber = 2,
-    kTriCountFieldNumber = 8,
-    kVertCountFieldNumber = 9,
-    kMaterialIndexFieldNumber = 10,
-    kJointIndexFieldNumber = 11,
-    kParentJointIndexFieldNumber = 12,
+    kPNameFieldNumber = 2,
+    kVboVertFieldNumber = 4,
+    kVboNormFieldNumber = 5,
+    kVboUvFieldNumber = 6,
+    kVboIndexFieldNumber = 7,
+    kVboColorFieldNumber = 8,
+    kEnabledFieldNumber = 1,
+    kModeFieldNumber = 3,
+    kTriCountFieldNumber = 9,
+    kVertCountFieldNumber = 10,
+    kMaterialIndexFieldNumber = 11,
+    kJointIndexFieldNumber = 12,
+    kParentJointIndexFieldNumber = 13,
   };
-  // bytes pName = 1;
+  // bytes pName = 2;
   void clear_pname();
   const std::string& pname() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -250,7 +251,7 @@ class meshData_proto final :
   std::string* _internal_mutable_pname();
   public:
 
-  // .vboData_proto vbo_vert = 3;
+  // .vboData_proto vbo_vert = 4;
   bool has_vbo_vert() const;
   private:
   bool _internal_has_vbo_vert() const;
@@ -268,7 +269,7 @@ class meshData_proto final :
       ::vboData_proto* vbo_vert);
   ::vboData_proto* unsafe_arena_release_vbo_vert();
 
-  // .vboData_proto vbo_norm = 4;
+  // .vboData_proto vbo_norm = 5;
   bool has_vbo_norm() const;
   private:
   bool _internal_has_vbo_norm() const;
@@ -286,7 +287,7 @@ class meshData_proto final :
       ::vboData_proto* vbo_norm);
   ::vboData_proto* unsafe_arena_release_vbo_norm();
 
-  // .vboData_proto vbo_uv = 5;
+  // .vboData_proto vbo_uv = 6;
   bool has_vbo_uv() const;
   private:
   bool _internal_has_vbo_uv() const;
@@ -304,7 +305,7 @@ class meshData_proto final :
       ::vboData_proto* vbo_uv);
   ::vboData_proto* unsafe_arena_release_vbo_uv();
 
-  // .vboData_proto vbo_index = 6;
+  // .vboData_proto vbo_index = 7;
   bool has_vbo_index() const;
   private:
   bool _internal_has_vbo_index() const;
@@ -322,7 +323,7 @@ class meshData_proto final :
       ::vboData_proto* vbo_index);
   ::vboData_proto* unsafe_arena_release_vbo_index();
 
-  // .vboData_proto vbo_color = 7;
+  // .vboData_proto vbo_color = 8;
   bool has_vbo_color() const;
   private:
   bool _internal_has_vbo_color() const;
@@ -340,7 +341,16 @@ class meshData_proto final :
       ::vboData_proto* vbo_color);
   ::vboData_proto* unsafe_arena_release_vbo_color();
 
-  // .meshData_proto.RENDER_MODE mode = 2;
+  // bool enabled = 1;
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // .meshData_proto.RENDER_MODE mode = 3;
   void clear_mode();
   ::meshData_proto_RENDER_MODE mode() const;
   void set_mode(::meshData_proto_RENDER_MODE value);
@@ -349,7 +359,7 @@ class meshData_proto final :
   void _internal_set_mode(::meshData_proto_RENDER_MODE value);
   public:
 
-  // uint32 triCount = 8;
+  // uint32 triCount = 9;
   void clear_tricount();
   ::PROTOBUF_NAMESPACE_ID::uint32 tricount() const;
   void set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -358,7 +368,7 @@ class meshData_proto final :
   void _internal_set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 vertCount = 9;
+  // uint32 vertCount = 10;
   void clear_vertcount();
   ::PROTOBUF_NAMESPACE_ID::uint32 vertcount() const;
   void set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -367,7 +377,7 @@ class meshData_proto final :
   void _internal_set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 materialIndex = 10;
+  // uint32 materialIndex = 11;
   void clear_materialindex();
   ::PROTOBUF_NAMESPACE_ID::uint32 materialindex() const;
   void set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -376,7 +386,7 @@ class meshData_proto final :
   void _internal_set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // sint32 jointIndex = 11;
+  // sint32 jointIndex = 12;
   void clear_jointindex();
   ::PROTOBUF_NAMESPACE_ID::int32 jointindex() const;
   void set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -385,7 +395,7 @@ class meshData_proto final :
   void _internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // sint32 parentJointIndex = 12;
+  // sint32 parentJointIndex = 13;
   void clear_parentjointindex();
   ::PROTOBUF_NAMESPACE_ID::int32 parentjointindex() const;
   void set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -407,6 +417,7 @@ class meshData_proto final :
   ::vboData_proto* vbo_uv_;
   ::vboData_proto* vbo_index_;
   ::vboData_proto* vbo_color_;
+  bool enabled_;
   int mode_;
   ::PROTOBUF_NAMESPACE_ID::uint32 tricount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 vertcount_;
@@ -427,7 +438,27 @@ class meshData_proto final :
 #endif  // __GNUC__
 // meshData_proto
 
-// bytes pName = 1;
+// bool enabled = 1;
+inline void meshData_proto::clear_enabled() {
+  enabled_ = false;
+}
+inline bool meshData_proto::_internal_enabled() const {
+  return enabled_;
+}
+inline bool meshData_proto::enabled() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.enabled)
+  return _internal_enabled();
+}
+inline void meshData_proto::_internal_set_enabled(bool value) {
+  
+  enabled_ = value;
+}
+inline void meshData_proto::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.enabled)
+}
+
+// bytes pName = 2;
 inline void meshData_proto::clear_pname() {
   pname_.ClearToEmpty();
 }
@@ -473,7 +504,7 @@ inline void meshData_proto::set_allocated_pname(std::string* pname) {
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.pName)
 }
 
-// .meshData_proto.RENDER_MODE mode = 2;
+// .meshData_proto.RENDER_MODE mode = 3;
 inline void meshData_proto::clear_mode() {
   mode_ = 0;
 }
@@ -493,7 +524,7 @@ inline void meshData_proto::set_mode(::meshData_proto_RENDER_MODE value) {
   // @@protoc_insertion_point(field_set:meshData_proto.mode)
 }
 
-// .vboData_proto vbo_vert = 3;
+// .vboData_proto vbo_vert = 4;
 inline bool meshData_proto::_internal_has_vbo_vert() const {
   return this != internal_default_instance() && vbo_vert_ != nullptr;
 }
@@ -579,7 +610,7 @@ inline void meshData_proto::set_allocated_vbo_vert(::vboData_proto* vbo_vert) {
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_vert)
 }
 
-// .vboData_proto vbo_norm = 4;
+// .vboData_proto vbo_norm = 5;
 inline bool meshData_proto::_internal_has_vbo_norm() const {
   return this != internal_default_instance() && vbo_norm_ != nullptr;
 }
@@ -665,7 +696,7 @@ inline void meshData_proto::set_allocated_vbo_norm(::vboData_proto* vbo_norm) {
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_norm)
 }
 
-// .vboData_proto vbo_uv = 5;
+// .vboData_proto vbo_uv = 6;
 inline bool meshData_proto::_internal_has_vbo_uv() const {
   return this != internal_default_instance() && vbo_uv_ != nullptr;
 }
@@ -751,7 +782,7 @@ inline void meshData_proto::set_allocated_vbo_uv(::vboData_proto* vbo_uv) {
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_uv)
 }
 
-// .vboData_proto vbo_index = 6;
+// .vboData_proto vbo_index = 7;
 inline bool meshData_proto::_internal_has_vbo_index() const {
   return this != internal_default_instance() && vbo_index_ != nullptr;
 }
@@ -837,7 +868,7 @@ inline void meshData_proto::set_allocated_vbo_index(::vboData_proto* vbo_index) 
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_index)
 }
 
-// .vboData_proto vbo_color = 7;
+// .vboData_proto vbo_color = 8;
 inline bool meshData_proto::_internal_has_vbo_color() const {
   return this != internal_default_instance() && vbo_color_ != nullptr;
 }
@@ -923,7 +954,7 @@ inline void meshData_proto::set_allocated_vbo_color(::vboData_proto* vbo_color) 
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_color)
 }
 
-// uint32 triCount = 8;
+// uint32 triCount = 9;
 inline void meshData_proto::clear_tricount() {
   tricount_ = 0u;
 }
@@ -943,7 +974,7 @@ inline void meshData_proto::set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value) 
   // @@protoc_insertion_point(field_set:meshData_proto.triCount)
 }
 
-// uint32 vertCount = 9;
+// uint32 vertCount = 10;
 inline void meshData_proto::clear_vertcount() {
   vertcount_ = 0u;
 }
@@ -963,7 +994,7 @@ inline void meshData_proto::set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value)
   // @@protoc_insertion_point(field_set:meshData_proto.vertCount)
 }
 
-// uint32 materialIndex = 10;
+// uint32 materialIndex = 11;
 inline void meshData_proto::clear_materialindex() {
   materialindex_ = 0u;
 }
@@ -983,7 +1014,7 @@ inline void meshData_proto::set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 va
   // @@protoc_insertion_point(field_set:meshData_proto.materialIndex)
 }
 
-// sint32 jointIndex = 11;
+// sint32 jointIndex = 12;
 inline void meshData_proto::clear_jointindex() {
   jointindex_ = 0;
 }
@@ -1003,7 +1034,7 @@ inline void meshData_proto::set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value)
   // @@protoc_insertion_point(field_set:meshData_proto.jointIndex)
 }
 
-// sint32 parentJointIndex = 12;
+// sint32 parentJointIndex = 13;
 inline void meshData_proto::clear_parentjointindex() {
   parentjointindex_ = 0;
 }

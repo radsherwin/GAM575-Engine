@@ -110,6 +110,9 @@
     <Filter Include="Source Files\Mesh\Sprites">
       <UniqueIdentifier>{9a6a21c3-a87a-4b4a-ac6d-9d60407e6177}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Font">
+      <UniqueIdentifier>{8dec6080-cda9-4c69-a928-0c01768e9840}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Framework\__DO NOT MODIFY__">
@@ -918,6 +921,18 @@
     <ClInclude Include="ProtoBuffMesh.h">
       <Filter>Source Files\ProtoBuff</Filter>
     </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Source Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Source Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Glyph.h">
+      <Filter>Source Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="GlyphManager.h">
+      <Filter>Source Files\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1144,6 +1159,18 @@
     </ClCompile>
     <ClCompile Include="ProtoBuffMesh.cpp">
       <Filter>Source Files\ProtoBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Source Files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Glyph.cpp">
+      <Filter>Source Files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="GlyphManager.cpp">
+      <Filter>Source Files\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

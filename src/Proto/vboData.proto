@@ -39,14 +39,14 @@ message vboData_proto
 		MATRIX = 8;
 	};
 
-	optional uint32			enabled		  = 1;
-	optional VBO_TARGET     targetType    = 2;
-	optional VBO_COMPONENT  componentType = 3;
-	optional VBO_TYPE       vboType       = 4;
-	optional uint32         attribIndex   = 5;
-	optional uint32         count         = 6;
-	optional uint32         dataSize      = 7;
-	optional bytes          poData        = 8;
+	bool		   enabled		  = 1;
+	VBO_TARGET     targetType    = 2;
+	VBO_COMPONENT  componentType = 3;
+	VBO_TYPE       vboType       = 4;
+	uint32         attribIndex   = 5;
+	uint32         count         = 6;
+	uint32         dataSize      = 7;
+	bytes          poData        = 8;
 
 }
 

@@ -168,7 +168,7 @@ void textureData::Serialize(textureData_proto &out) const
 
 void textureData::Deserialize(const textureData_proto &in)
 {
-	this->enabled = (bool)in.enabled();
+	this->enabled = in.enabled();
 	this->textType = (TEXTURE_TYPE)in.texttype();
 	this->magFilter = (TEXTURE_MAG_FILTER)in.magfilter();
 	this->minFilter = (TEXTURE_MIN_FILTER)in.minfilter();

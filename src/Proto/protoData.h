@@ -5,13 +5,14 @@
 #include "meshData.h"
 #include "textureData.h"
 #include "animData.h"
+#include "fontData.h"
 
 class protoData
 {
 public:
     static const unsigned int FILE_NAME_SIZE = 64;
 
-    static constexpr const char *PROTO_VERSION = "1.2.1"; // Major.Version.Rev
+    static constexpr const char *PROTO_VERSION = "1.3.0"; // Major.Version.Rev
     static const unsigned int VERSION_NUM_BYTES = 8;
 
 public:
@@ -33,10 +34,11 @@ public:
     unsigned int        meshCount;
     unsigned int        textureCount;
     unsigned int        animCount;
+    unsigned int        fontCount;
     meshData            *pMeshData;
     animData            *pAnimData;
     textureData         *pTextureData;
-    //font data here
+    fontData            *pFontData;
 
 };
 

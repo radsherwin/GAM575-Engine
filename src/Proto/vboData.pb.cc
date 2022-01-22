@@ -16,7 +16,7 @@ PROTOBUF_PRAGMA_INIT_SEG
 constexpr vboData_proto::vboData_proto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : podata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , enabled_(0u)
+  , enabled_(false)
   , targettype_(0)
 
   , componenttype_(0)
@@ -279,31 +279,6 @@ constexpr int vboData_proto::VBO_TYPE_ARRAYSIZE;
 
 class vboData_proto::_Internal {
  public:
-  using HasBits = decltype(std::declval<vboData_proto>()._has_bits_);
-  static void set_has_enabled(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_targettype(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_componenttype(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static void set_has_vbotype(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
-  static void set_has_attribindex(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_count(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
-  }
-  static void set_has_datasize(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
-  }
-  static void set_has_podata(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
 };
 
 vboData_proto::vboData_proto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -316,11 +291,10 @@ vboData_proto::vboData_proto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:vboData_proto)
 }
 vboData_proto::vboData_proto(const vboData_proto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   podata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_podata()) {
+  if (!from._internal_podata().empty()) {
     podata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_podata(), 
       GetArenaForAllocation());
   }
@@ -366,35 +340,27 @@ void vboData_proto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    podata_.ClearNonDefaultToEmpty();
-  }
-  if (cached_has_bits & 0x000000feu) {
-    ::memset(&enabled_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&datasize_) -
-        reinterpret_cast<char*>(&enabled_)) + sizeof(datasize_));
-  }
-  _has_bits_.Clear();
+  podata_.ClearToEmpty();
+  ::memset(&enabled_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&datasize_) -
+      reinterpret_cast<char*>(&enabled_)) + sizeof(datasize_));
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* vboData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional uint32 enabled = 1;
+      // bool enabled = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_enabled(&has_bits);
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // optional .vboData_proto.VBO_TARGET targetType = 2;
+      // .vboData_proto.VBO_TARGET targetType = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -402,7 +368,7 @@ const char* vboData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           _internal_set_targettype(static_cast<::vboData_proto_VBO_TARGET>(val));
         } else goto handle_unusual;
         continue;
-      // optional .vboData_proto.VBO_COMPONENT componentType = 3;
+      // .vboData_proto.VBO_COMPONENT componentType = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -410,7 +376,7 @@ const char* vboData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           _internal_set_componenttype(static_cast<::vboData_proto_VBO_COMPONENT>(val));
         } else goto handle_unusual;
         continue;
-      // optional .vboData_proto.VBO_TYPE vboType = 4;
+      // .vboData_proto.VBO_TYPE vboType = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -418,31 +384,28 @@ const char* vboData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           _internal_set_vbotype(static_cast<::vboData_proto_VBO_TYPE>(val));
         } else goto handle_unusual;
         continue;
-      // optional uint32 attribIndex = 5;
+      // uint32 attribIndex = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_attribindex(&has_bits);
           attribindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // optional uint32 count = 6;
+      // uint32 count = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          _Internal::set_has_count(&has_bits);
           count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // optional uint32 dataSize = 7;
+      // uint32 dataSize = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_datasize(&has_bits);
           datasize_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // optional bytes poData = 8;
+      // bytes poData = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
           auto str = _internal_mutable_podata();
@@ -466,7 +429,6 @@ const char* vboData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     }  // switch
   }  // while
 success:
-  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -480,53 +442,53 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional uint32 enabled = 1;
-  if (_internal_has_enabled()) {
+  // bool enabled = 1;
+  if (this->_internal_enabled() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_enabled(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
   }
 
-  // optional .vboData_proto.VBO_TARGET targetType = 2;
-  if (_internal_has_targettype()) {
+  // .vboData_proto.VBO_TARGET targetType = 2;
+  if (this->_internal_targettype() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->_internal_targettype(), target);
   }
 
-  // optional .vboData_proto.VBO_COMPONENT componentType = 3;
-  if (_internal_has_componenttype()) {
+  // .vboData_proto.VBO_COMPONENT componentType = 3;
+  if (this->_internal_componenttype() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       3, this->_internal_componenttype(), target);
   }
 
-  // optional .vboData_proto.VBO_TYPE vboType = 4;
-  if (_internal_has_vbotype()) {
+  // .vboData_proto.VBO_TYPE vboType = 4;
+  if (this->_internal_vbotype() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       4, this->_internal_vbotype(), target);
   }
 
-  // optional uint32 attribIndex = 5;
-  if (_internal_has_attribindex()) {
+  // uint32 attribIndex = 5;
+  if (this->_internal_attribindex() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(5, this->_internal_attribindex(), target);
   }
 
-  // optional uint32 count = 6;
-  if (_internal_has_count()) {
+  // uint32 count = 6;
+  if (this->_internal_count() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(6, this->_internal_count(), target);
   }
 
-  // optional uint32 dataSize = 7;
-  if (_internal_has_datasize()) {
+  // uint32 dataSize = 7;
+  if (this->_internal_datasize() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(7, this->_internal_datasize(), target);
   }
 
-  // optional bytes poData = 8;
-  if (_internal_has_podata()) {
+  // bytes poData = 8;
+  if (!this->_internal_podata().empty()) {
     target = stream->WriteBytesMaybeAliased(
         8, this->_internal_podata(), target);
   }
@@ -547,62 +509,57 @@ size_t vboData_proto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
-    // optional bytes poData = 8;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_podata());
-    }
-
-    // optional uint32 enabled = 1;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-          this->_internal_enabled());
-    }
-
-    // optional .vboData_proto.VBO_TARGET targetType = 2;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_targettype());
-    }
-
-    // optional .vboData_proto.VBO_COMPONENT componentType = 3;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_componenttype());
-    }
-
-    // optional .vboData_proto.VBO_TYPE vboType = 4;
-    if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_vbotype());
-    }
-
-    // optional uint32 attribIndex = 5;
-    if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-          this->_internal_attribindex());
-    }
-
-    // optional uint32 count = 6;
-    if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-          this->_internal_count());
-    }
-
-    // optional uint32 dataSize = 7;
-    if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-          this->_internal_datasize());
-    }
-
+  // bytes poData = 8;
+  if (!this->_internal_podata().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_podata());
   }
+
+  // bool enabled = 1;
+  if (this->_internal_enabled() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // .vboData_proto.VBO_TARGET targetType = 2;
+  if (this->_internal_targettype() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_targettype());
+  }
+
+  // .vboData_proto.VBO_COMPONENT componentType = 3;
+  if (this->_internal_componenttype() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_componenttype());
+  }
+
+  // .vboData_proto.VBO_TYPE vboType = 4;
+  if (this->_internal_vbotype() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_vbotype());
+  }
+
+  // uint32 attribIndex = 5;
+  if (this->_internal_attribindex() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_attribindex());
+  }
+
+  // uint32 count = 6;
+  if (this->_internal_count() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_count());
+  }
+
+  // uint32 dataSize = 7;
+  if (this->_internal_datasize() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_datasize());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -623,33 +580,29 @@ void vboData_proto::MergeFrom(const vboData_proto& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_set_podata(from._internal_podata());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      enabled_ = from.enabled_;
-    }
-    if (cached_has_bits & 0x00000004u) {
-      targettype_ = from.targettype_;
-    }
-    if (cached_has_bits & 0x00000008u) {
-      componenttype_ = from.componenttype_;
-    }
-    if (cached_has_bits & 0x00000010u) {
-      vbotype_ = from.vbotype_;
-    }
-    if (cached_has_bits & 0x00000020u) {
-      attribindex_ = from.attribindex_;
-    }
-    if (cached_has_bits & 0x00000040u) {
-      count_ = from.count_;
-    }
-    if (cached_has_bits & 0x00000080u) {
-      datasize_ = from.datasize_;
-    }
-    _has_bits_[0] |= cached_has_bits;
+  if (!from._internal_podata().empty()) {
+    _internal_set_podata(from._internal_podata());
+  }
+  if (from._internal_enabled() != 0) {
+    _internal_set_enabled(from._internal_enabled());
+  }
+  if (from._internal_targettype() != 0) {
+    _internal_set_targettype(from._internal_targettype());
+  }
+  if (from._internal_componenttype() != 0) {
+    _internal_set_componenttype(from._internal_componenttype());
+  }
+  if (from._internal_vbotype() != 0) {
+    _internal_set_vbotype(from._internal_vbotype());
+  }
+  if (from._internal_attribindex() != 0) {
+    _internal_set_attribindex(from._internal_attribindex());
+  }
+  if (from._internal_count() != 0) {
+    _internal_set_count(from._internal_count());
+  }
+  if (from._internal_datasize() != 0) {
+    _internal_set_datasize(from._internal_datasize());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -668,7 +621,6 @@ bool vboData_proto::IsInitialized() const {
 void vboData_proto::InternalSwap(vboData_proto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &podata_, GetArenaForAllocation(),

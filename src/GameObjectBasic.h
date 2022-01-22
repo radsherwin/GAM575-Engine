@@ -11,41 +11,41 @@
 
 namespace Azul
 {
-	class GameObjectBasic : public GameObjectRigid
-	{
-	public:
-		GameObjectBasic(GraphicsObjectHdr* pGraphicsObjectHdr);
+class GameObjectBasic : public GameObjectRigid
+{
+public:
+    GameObjectBasic(GraphicsObjectHdr *pGraphicsObjectHdr);
 
-		// Big four
-		GameObjectBasic() = delete;
-		GameObjectBasic(const GameObjectBasic&) = delete;
-		GameObjectBasic& operator=(GameObjectBasic&) = delete;
-		virtual ~GameObjectBasic();
+    // Big four
+    GameObjectBasic() = delete;
+    GameObjectBasic(const GameObjectBasic &) = delete;
+    GameObjectBasic &operator=(GameObjectBasic &) = delete;
+    virtual ~GameObjectBasic();
 
-		virtual void Update(AnimTime currTime);
+    virtual void Update(AnimTime currTime);
 
-		void SetScale(float sx, float sy, float sz);
-		void SetQuat(float qx, float qy, float qz, float qw);
-		void SetTrans(float x, float y, float z);
+    void SetScale(float sx, float sy, float sz);
+    void SetQuat(float qx, float qy, float qz, float qw);
+    void SetTrans(float x, float y, float z);
 
-		void SetScale(Vect& r);
-		void SetQuat(Quat& r);
-		void SetTrans(Vect& r);
+    void SetScale(Vect &r);
+    void SetQuat(Quat &r);
+    void SetTrans(Vect &r);
 
-	private:
-		void privUpdate(AnimTime currTime);
+private:
+    void privUpdate(AnimTime currTime);
 
-	public:   // add accessors later
-		Vect* poScale;
-		Quat* poQuat;
-		Vect* poTrans;
-		float deltaX;
-		float deltaY;
-		float deltaZ;
-		float curRotX;
-		float curRotY;
-		float curRotZ;
-	};
+public:   // add accessors later
+    Vect *poScale;
+    Quat *poQuat;
+    Vect *poTrans;
+    float deltaX;
+    float deltaY;
+    float deltaZ;
+    float curRotX;
+    float curRotY;
+    float curRotZ;
+};
 }
 
 #endif

@@ -349,11 +349,7 @@ class vboData_proto final :
     kCountFieldNumber = 6,
     kDataSizeFieldNumber = 7,
   };
-  // optional bytes poData = 8;
-  bool has_podata() const;
-  private:
-  bool _internal_has_podata() const;
-  public:
+  // bytes poData = 8;
   void clear_podata();
   const std::string& podata() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -367,24 +363,16 @@ class vboData_proto final :
   std::string* _internal_mutable_podata();
   public:
 
-  // optional uint32 enabled = 1;
-  bool has_enabled() const;
-  private:
-  bool _internal_has_enabled() const;
-  public:
+  // bool enabled = 1;
   void clear_enabled();
-  ::PROTOBUF_NAMESPACE_ID::uint32 enabled() const;
-  void set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  bool enabled() const;
+  void set_enabled(bool value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_enabled() const;
-  void _internal_set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
   public:
 
-  // optional .vboData_proto.VBO_TARGET targetType = 2;
-  bool has_targettype() const;
-  private:
-  bool _internal_has_targettype() const;
-  public:
+  // .vboData_proto.VBO_TARGET targetType = 2;
   void clear_targettype();
   ::vboData_proto_VBO_TARGET targettype() const;
   void set_targettype(::vboData_proto_VBO_TARGET value);
@@ -393,11 +381,7 @@ class vboData_proto final :
   void _internal_set_targettype(::vboData_proto_VBO_TARGET value);
   public:
 
-  // optional .vboData_proto.VBO_COMPONENT componentType = 3;
-  bool has_componenttype() const;
-  private:
-  bool _internal_has_componenttype() const;
-  public:
+  // .vboData_proto.VBO_COMPONENT componentType = 3;
   void clear_componenttype();
   ::vboData_proto_VBO_COMPONENT componenttype() const;
   void set_componenttype(::vboData_proto_VBO_COMPONENT value);
@@ -406,11 +390,7 @@ class vboData_proto final :
   void _internal_set_componenttype(::vboData_proto_VBO_COMPONENT value);
   public:
 
-  // optional .vboData_proto.VBO_TYPE vboType = 4;
-  bool has_vbotype() const;
-  private:
-  bool _internal_has_vbotype() const;
-  public:
+  // .vboData_proto.VBO_TYPE vboType = 4;
   void clear_vbotype();
   ::vboData_proto_VBO_TYPE vbotype() const;
   void set_vbotype(::vboData_proto_VBO_TYPE value);
@@ -419,11 +399,7 @@ class vboData_proto final :
   void _internal_set_vbotype(::vboData_proto_VBO_TYPE value);
   public:
 
-  // optional uint32 attribIndex = 5;
-  bool has_attribindex() const;
-  private:
-  bool _internal_has_attribindex() const;
-  public:
+  // uint32 attribIndex = 5;
   void clear_attribindex();
   ::PROTOBUF_NAMESPACE_ID::uint32 attribindex() const;
   void set_attribindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -432,11 +408,7 @@ class vboData_proto final :
   void _internal_set_attribindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // optional uint32 count = 6;
-  bool has_count() const;
-  private:
-  bool _internal_has_count() const;
-  public:
+  // uint32 count = 6;
   void clear_count();
   ::PROTOBUF_NAMESPACE_ID::uint32 count() const;
   void set_count(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -445,11 +417,7 @@ class vboData_proto final :
   void _internal_set_count(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // optional uint32 dataSize = 7;
-  bool has_datasize() const;
-  private:
-  bool _internal_has_datasize() const;
-  public:
+  // uint32 dataSize = 7;
   void clear_datasize();
   ::PROTOBUF_NAMESPACE_ID::uint32 datasize() const;
   void set_datasize(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -465,16 +433,15 @@ class vboData_proto final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr podata_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 enabled_;
+  bool enabled_;
   int targettype_;
   int componenttype_;
   int vbotype_;
   ::PROTOBUF_NAMESPACE_ID::uint32 attribindex_;
   ::PROTOBUF_NAMESPACE_ID::uint32 count_;
   ::PROTOBUF_NAMESPACE_ID::uint32 datasize_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_vboData_2eproto;
 };
 // ===================================================================
@@ -488,45 +455,29 @@ class vboData_proto final :
 #endif  // __GNUC__
 // vboData_proto
 
-// optional uint32 enabled = 1;
-inline bool vboData_proto::_internal_has_enabled() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_enabled() const {
-  return _internal_has_enabled();
-}
+// bool enabled = 1;
 inline void vboData_proto::clear_enabled() {
-  enabled_ = 0u;
-  _has_bits_[0] &= ~0x00000002u;
+  enabled_ = false;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::_internal_enabled() const {
+inline bool vboData_proto::_internal_enabled() const {
   return enabled_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::enabled() const {
+inline bool vboData_proto::enabled() const {
   // @@protoc_insertion_point(field_get:vboData_proto.enabled)
   return _internal_enabled();
 }
-inline void vboData_proto::_internal_set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _has_bits_[0] |= 0x00000002u;
+inline void vboData_proto::_internal_set_enabled(bool value) {
+  
   enabled_ = value;
 }
-inline void vboData_proto::set_enabled(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void vboData_proto::set_enabled(bool value) {
   _internal_set_enabled(value);
   // @@protoc_insertion_point(field_set:vboData_proto.enabled)
 }
 
-// optional .vboData_proto.VBO_TARGET targetType = 2;
-inline bool vboData_proto::_internal_has_targettype() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_targettype() const {
-  return _internal_has_targettype();
-}
+// .vboData_proto.VBO_TARGET targetType = 2;
 inline void vboData_proto::clear_targettype() {
   targettype_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::vboData_proto_VBO_TARGET vboData_proto::_internal_targettype() const {
   return static_cast< ::vboData_proto_VBO_TARGET >(targettype_);
@@ -536,7 +487,7 @@ inline ::vboData_proto_VBO_TARGET vboData_proto::targettype() const {
   return _internal_targettype();
 }
 inline void vboData_proto::_internal_set_targettype(::vboData_proto_VBO_TARGET value) {
-  _has_bits_[0] |= 0x00000004u;
+  
   targettype_ = value;
 }
 inline void vboData_proto::set_targettype(::vboData_proto_VBO_TARGET value) {
@@ -544,17 +495,9 @@ inline void vboData_proto::set_targettype(::vboData_proto_VBO_TARGET value) {
   // @@protoc_insertion_point(field_set:vboData_proto.targetType)
 }
 
-// optional .vboData_proto.VBO_COMPONENT componentType = 3;
-inline bool vboData_proto::_internal_has_componenttype() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_componenttype() const {
-  return _internal_has_componenttype();
-}
+// .vboData_proto.VBO_COMPONENT componentType = 3;
 inline void vboData_proto::clear_componenttype() {
   componenttype_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::vboData_proto_VBO_COMPONENT vboData_proto::_internal_componenttype() const {
   return static_cast< ::vboData_proto_VBO_COMPONENT >(componenttype_);
@@ -564,7 +507,7 @@ inline ::vboData_proto_VBO_COMPONENT vboData_proto::componenttype() const {
   return _internal_componenttype();
 }
 inline void vboData_proto::_internal_set_componenttype(::vboData_proto_VBO_COMPONENT value) {
-  _has_bits_[0] |= 0x00000008u;
+  
   componenttype_ = value;
 }
 inline void vboData_proto::set_componenttype(::vboData_proto_VBO_COMPONENT value) {
@@ -572,17 +515,9 @@ inline void vboData_proto::set_componenttype(::vboData_proto_VBO_COMPONENT value
   // @@protoc_insertion_point(field_set:vboData_proto.componentType)
 }
 
-// optional .vboData_proto.VBO_TYPE vboType = 4;
-inline bool vboData_proto::_internal_has_vbotype() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_vbotype() const {
-  return _internal_has_vbotype();
-}
+// .vboData_proto.VBO_TYPE vboType = 4;
 inline void vboData_proto::clear_vbotype() {
   vbotype_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::vboData_proto_VBO_TYPE vboData_proto::_internal_vbotype() const {
   return static_cast< ::vboData_proto_VBO_TYPE >(vbotype_);
@@ -592,7 +527,7 @@ inline ::vboData_proto_VBO_TYPE vboData_proto::vbotype() const {
   return _internal_vbotype();
 }
 inline void vboData_proto::_internal_set_vbotype(::vboData_proto_VBO_TYPE value) {
-  _has_bits_[0] |= 0x00000010u;
+  
   vbotype_ = value;
 }
 inline void vboData_proto::set_vbotype(::vboData_proto_VBO_TYPE value) {
@@ -600,17 +535,9 @@ inline void vboData_proto::set_vbotype(::vboData_proto_VBO_TYPE value) {
   // @@protoc_insertion_point(field_set:vboData_proto.vboType)
 }
 
-// optional uint32 attribIndex = 5;
-inline bool vboData_proto::_internal_has_attribindex() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_attribindex() const {
-  return _internal_has_attribindex();
-}
+// uint32 attribIndex = 5;
 inline void vboData_proto::clear_attribindex() {
   attribindex_ = 0u;
-  _has_bits_[0] &= ~0x00000020u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::_internal_attribindex() const {
   return attribindex_;
@@ -620,7 +547,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::attribindex() const {
   return _internal_attribindex();
 }
 inline void vboData_proto::_internal_set_attribindex(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _has_bits_[0] |= 0x00000020u;
+  
   attribindex_ = value;
 }
 inline void vboData_proto::set_attribindex(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -628,17 +555,9 @@ inline void vboData_proto::set_attribindex(::PROTOBUF_NAMESPACE_ID::uint32 value
   // @@protoc_insertion_point(field_set:vboData_proto.attribIndex)
 }
 
-// optional uint32 count = 6;
-inline bool vboData_proto::_internal_has_count() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_count() const {
-  return _internal_has_count();
-}
+// uint32 count = 6;
 inline void vboData_proto::clear_count() {
   count_ = 0u;
-  _has_bits_[0] &= ~0x00000040u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::_internal_count() const {
   return count_;
@@ -648,7 +567,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::count() const {
   return _internal_count();
 }
 inline void vboData_proto::_internal_set_count(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _has_bits_[0] |= 0x00000040u;
+  
   count_ = value;
 }
 inline void vboData_proto::set_count(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -656,17 +575,9 @@ inline void vboData_proto::set_count(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:vboData_proto.count)
 }
 
-// optional uint32 dataSize = 7;
-inline bool vboData_proto::_internal_has_datasize() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_datasize() const {
-  return _internal_has_datasize();
-}
+// uint32 dataSize = 7;
 inline void vboData_proto::clear_datasize() {
   datasize_ = 0u;
-  _has_bits_[0] &= ~0x00000080u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::_internal_datasize() const {
   return datasize_;
@@ -676,7 +587,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 vboData_proto::datasize() const {
   return _internal_datasize();
 }
 inline void vboData_proto::_internal_set_datasize(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _has_bits_[0] |= 0x00000080u;
+  
   datasize_ = value;
 }
 inline void vboData_proto::set_datasize(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -684,17 +595,9 @@ inline void vboData_proto::set_datasize(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:vboData_proto.dataSize)
 }
 
-// optional bytes poData = 8;
-inline bool vboData_proto::_internal_has_podata() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool vboData_proto::has_podata() const {
-  return _internal_has_podata();
-}
+// bytes poData = 8;
 inline void vboData_proto::clear_podata() {
   podata_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& vboData_proto::podata() const {
   // @@protoc_insertion_point(field_get:vboData_proto.poData)
@@ -703,7 +606,7 @@ inline const std::string& vboData_proto::podata() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void vboData_proto::set_podata(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  podata_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:vboData_proto.poData)
 }
@@ -716,26 +619,22 @@ inline const std::string& vboData_proto::_internal_podata() const {
   return podata_.Get();
 }
 inline void vboData_proto::_internal_set_podata(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   podata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* vboData_proto::_internal_mutable_podata() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return podata_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* vboData_proto::release_podata() {
   // @@protoc_insertion_point(field_release:vboData_proto.poData)
-  if (!_internal_has_podata()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return podata_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return podata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void vboData_proto::set_allocated_podata(std::string* podata) {
   if (podata != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   podata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), podata,
       GetArenaForAllocation());

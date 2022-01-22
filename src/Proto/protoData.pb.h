@@ -32,6 +32,7 @@
 #include "meshData.pb.h"
 #include "textureData.pb.h"
 #include "animData.pb.h"
+#include "fontData.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_protoData_2eproto
@@ -162,16 +163,18 @@ class protoData_proto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPMeshDataFieldNumber = 6,
-    kPAnimDataFieldNumber = 7,
-    kPTextureDataFieldNumber = 8,
+    kPMeshDataFieldNumber = 7,
+    kPAnimDataFieldNumber = 8,
+    kPTextureDataFieldNumber = 9,
+    kPFontDataFieldNumber = 10,
     kPVersionFieldNumber = 1,
     kPNameFieldNumber = 2,
     kMeshCountFieldNumber = 3,
     kAnimCountFieldNumber = 4,
     kTextureCountFieldNumber = 5,
+    kFontCountFieldNumber = 6,
   };
-  // repeated .meshData_proto pMeshData = 6;
+  // repeated .meshData_proto pMeshData = 7;
   int pmeshdata_size() const;
   private:
   int _internal_pmeshdata_size() const;
@@ -189,7 +192,7 @@ class protoData_proto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::meshData_proto >&
       pmeshdata() const;
 
-  // repeated .animData_proto pAnimData = 7;
+  // repeated .animData_proto pAnimData = 8;
   int panimdata_size() const;
   private:
   int _internal_panimdata_size() const;
@@ -207,7 +210,7 @@ class protoData_proto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto >&
       panimdata() const;
 
-  // repeated .textureData_proto pTextureData = 8;
+  // repeated .textureData_proto pTextureData = 9;
   int ptexturedata_size() const;
   private:
   int _internal_ptexturedata_size() const;
@@ -224,6 +227,24 @@ class protoData_proto final :
   ::textureData_proto* add_ptexturedata();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >&
       ptexturedata() const;
+
+  // repeated .fontData_proto pFontData = 10;
+  int pfontdata_size() const;
+  private:
+  int _internal_pfontdata_size() const;
+  public:
+  void clear_pfontdata();
+  ::fontData_proto* mutable_pfontdata(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fontData_proto >*
+      mutable_pfontdata();
+  private:
+  const ::fontData_proto& _internal_pfontdata(int index) const;
+  ::fontData_proto* _internal_add_pfontdata();
+  public:
+  const ::fontData_proto& pfontdata(int index) const;
+  ::fontData_proto* add_pfontdata();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fontData_proto >&
+      pfontdata() const;
 
   // bytes pVersion = 1;
   void clear_pversion();
@@ -280,6 +301,15 @@ class protoData_proto final :
   void _internal_set_texturecount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
+  // uint32 fontCount = 6;
+  void clear_fontcount();
+  ::PROTOBUF_NAMESPACE_ID::uint32 fontcount() const;
+  void set_fontcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_fontcount() const;
+  void _internal_set_fontcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:protoData_proto)
  private:
   class _Internal;
@@ -290,11 +320,13 @@ class protoData_proto final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::meshData_proto > pmeshdata_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto > panimdata_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto > ptexturedata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fontData_proto > pfontdata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pversion_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pname_;
   ::PROTOBUF_NAMESPACE_ID::uint32 meshcount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 animcount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 texturecount_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 fontcount_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_protoData_2eproto;
 };
@@ -461,7 +493,27 @@ inline void protoData_proto::set_texturecount(::PROTOBUF_NAMESPACE_ID::uint32 va
   // @@protoc_insertion_point(field_set:protoData_proto.textureCount)
 }
 
-// repeated .meshData_proto pMeshData = 6;
+// uint32 fontCount = 6;
+inline void protoData_proto::clear_fontcount() {
+  fontcount_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 protoData_proto::_internal_fontcount() const {
+  return fontcount_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 protoData_proto::fontcount() const {
+  // @@protoc_insertion_point(field_get:protoData_proto.fontCount)
+  return _internal_fontcount();
+}
+inline void protoData_proto::_internal_set_fontcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  fontcount_ = value;
+}
+inline void protoData_proto::set_fontcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_fontcount(value);
+  // @@protoc_insertion_point(field_set:protoData_proto.fontCount)
+}
+
+// repeated .meshData_proto pMeshData = 7;
 inline int protoData_proto::_internal_pmeshdata_size() const {
   return pmeshdata_.size();
 }
@@ -498,7 +550,7 @@ protoData_proto::pmeshdata() const {
   return pmeshdata_;
 }
 
-// repeated .animData_proto pAnimData = 7;
+// repeated .animData_proto pAnimData = 8;
 inline int protoData_proto::_internal_panimdata_size() const {
   return panimdata_.size();
 }
@@ -535,7 +587,7 @@ protoData_proto::panimdata() const {
   return panimdata_;
 }
 
-// repeated .textureData_proto pTextureData = 8;
+// repeated .textureData_proto pTextureData = 9;
 inline int protoData_proto::_internal_ptexturedata_size() const {
   return ptexturedata_.size();
 }
@@ -570,6 +622,43 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >&
 protoData_proto::ptexturedata() const {
   // @@protoc_insertion_point(field_list:protoData_proto.pTextureData)
   return ptexturedata_;
+}
+
+// repeated .fontData_proto pFontData = 10;
+inline int protoData_proto::_internal_pfontdata_size() const {
+  return pfontdata_.size();
+}
+inline int protoData_proto::pfontdata_size() const {
+  return _internal_pfontdata_size();
+}
+inline ::fontData_proto* protoData_proto::mutable_pfontdata(int index) {
+  // @@protoc_insertion_point(field_mutable:protoData_proto.pFontData)
+  return pfontdata_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fontData_proto >*
+protoData_proto::mutable_pfontdata() {
+  // @@protoc_insertion_point(field_mutable_list:protoData_proto.pFontData)
+  return &pfontdata_;
+}
+inline const ::fontData_proto& protoData_proto::_internal_pfontdata(int index) const {
+  return pfontdata_.Get(index);
+}
+inline const ::fontData_proto& protoData_proto::pfontdata(int index) const {
+  // @@protoc_insertion_point(field_get:protoData_proto.pFontData)
+  return _internal_pfontdata(index);
+}
+inline ::fontData_proto* protoData_proto::_internal_add_pfontdata() {
+  return pfontdata_.Add();
+}
+inline ::fontData_proto* protoData_proto::add_pfontdata() {
+  ::fontData_proto* _add = _internal_add_pfontdata();
+  // @@protoc_insertion_point(field_add:protoData_proto.pFontData)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fontData_proto >&
+protoData_proto::pfontdata() const {
+  // @@protoc_insertion_point(field_list:protoData_proto.pFontData)
+  return pfontdata_;
 }
 
 #ifdef __GNUC__

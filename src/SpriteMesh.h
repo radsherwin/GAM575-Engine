@@ -2,6 +2,7 @@
 #define SPRITE_MESH_H
 
 #include "Mesh.h"
+#include "protoData.h"
 
 namespace Azul
 {
@@ -15,7 +16,7 @@ public:
 	SpriteMesh(const SpriteMesh &) = delete;
 	SpriteMesh &operator=(const SpriteMesh &) = delete;
 private:
-	void privCreateVAO(const char *const modelFileName);
+	void privCreateVAO(protoData &pD);
 };
 
 } //namespace Azul

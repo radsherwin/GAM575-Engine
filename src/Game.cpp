@@ -102,7 +102,7 @@ void Game::LoadContent()
     Camera *pCam0 = new Camera(Camera::Type::PERSPECTIVE_3D);
     pCam0->setViewport(0, 0, this->info.windowWidth, this->info.windowHeight);
     pCam0->setPerspective(35.0f, float(pCam0->getScreenWidth()) / float(pCam0->getScreenHeight()), 1.f, 10000.f);
-    pCam0->setOrientAndPosition(Vect(1.0f, 0.0f, 0.0f), Vect(-1.0f, 0.0f, 0.0f), Vect(-1.0f, 12.0f, 0.0f));
+    pCam0->setOrientAndPosition(Vect(0.0f, 1.0f, 0.0f), Vect(0.0f, 0.0f, 0.0f), Vect(0.0f, 0.0f, 14.5f));
     pCam0->updateCamera();
     CameraManager::Add(Camera::ID::CAMERA_0, pCam0);
     CameraManager::SetCurrent(Camera::ID::CAMERA_0, Camera::Type::PERSPECTIVE_3D);
@@ -118,6 +118,17 @@ void Game::LoadContent()
     CameraManager::SetCurrent(Camera::ID::CAMERA_1, Camera::Type::ORTHOGRAPHIC_2D);
 
     //-----------------------------------------------------------------------------
+    //	    Load Textures
+    //-----------------------------------------------------------------------------
+
+    TextureManager::Add("../src/Textures/HotPink.t.proto.azul", Texture::Name::PINK_ERROR);
+    TextureManager::Add("../src/Textures/Rocks.t.proto.azul", Texture::Name::ROCKS);
+    TextureManager::Add("../src/Textures/Stone.t.proto.azul", Texture::Name::STONES);
+    TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);
+    TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
+    TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
+
+    //-----------------------------------------------------------------------------
     //	    Load Basic Mesh
     //-----------------------------------------------------------------------------
 
@@ -131,6 +142,11 @@ void Game::LoadContent()
     Mesh *pNullMesh = new NullMesh(nullptr);
     MeshNodeManager::Add(Mesh::Name::NULL_MESH, pNullMesh);
 
+    // SPRITE
+    SpriteMesh *pSpriteMesh = new SpriteMesh("SpriteMesh.m.proto.azul");
+    assert(pSpriteMesh);
+    MeshNodeManager::Add(Mesh::Name::SPRITE, pSpriteMesh);
+
     // Corset
     Mesh *pCorsetMesh;
     ProtoMeshFactory::CreateMeshSingle("Corset.mt.proto.azul", pCorsetMesh, Texture::Name::CORSET);
@@ -140,6 +156,11 @@ void Game::LoadContent()
     Mesh *pAntigueCamera[2];
     ProtoMeshFactory::CreateMeshArray("AntiqueCamera.mt.proto.azul", pAntigueCamera, Texture::Name::ANTIQUE_CAMERA);
     MeshNodeManager::Add(Mesh::Name::ANTIQUE_CAMERA, pAntigueCamera, 2);
+
+    // DogHouse
+    Mesh *pDogHouseMesh;
+    ProtoMeshFactory::CreateMeshSingle("DogHouse.mt.proto.azul", pDogHouseMesh, Texture::Name::DOG_HOUSE);
+    MeshNodeManager::Add(Mesh::Name::DOG_HOUSE, pDogHouseMesh);
 
     Mesh *chickenBotMesh[8];
     ProtoMeshFactory::CreateMeshArray("walk_mesh.mat.proto.azul", chickenBotMesh, Texture::Name::CHICKEN_BOT);
@@ -165,15 +186,7 @@ void Game::LoadContent()
     ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
     Animation *Anim_Run[8];
-    ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
-
-    //-----------------------------------------------------------------------------
-    //	    Load Sprites
-    //-----------------------------------------------------------------------------
-
-    SpriteMesh *pSpriteMesh = new SpriteMesh("SpriteModel.azul");
-    assert(pSpriteMesh);
-    MeshNodeManager::Add(Mesh::Name::SPRITE, pSpriteMesh);
+    ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);   
 
     //-----------------------------------------------------------------------------
     //	    Create/Load Shaders
@@ -202,14 +215,6 @@ void Game::LoadContent()
     ShaderObject *pShaderObject_colorSingle = ShaderManager::Add(ShaderObject::Name::COLOR_SINGLE, "../src/GLSL/colorSingleRender");
     assert(pShaderObject_colorSingle);
 
-    // Textures
-    TextureManager::Add("../src/Textures/HotPink.t.proto.azul", Texture::Name::PINK_ERROR);
-    TextureManager::Add("../src/Textures/Rocks.t.proto.azul", Texture::Name::ROCKS);
-    TextureManager::Add("../src/Textures/Stone.t.proto.azul", Texture::Name::STONES);
-    TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);
-    TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
-    TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
-
     ////-----------------------------------------------------------------------------
     ////	    Create Image
     ////-----------------------------------------------------------------------------
@@ -227,26 +232,44 @@ void Game::LoadContent()
 
     GameObject2D *pA1 = new GameObject2D(pGraphicsHdr_Sprite);
     GameObjectManager::Add(pA1, GameObjectManager::GetRoot());
-    //pA1->posX = 900.f;
-    //pA1->posY = 450.f;
+    pA1->posX = 1000.f;
+    pA1->posY = 300.f;
     pA1->SetName("ALIEN");
 
     ////-----------------------------------------------------------------------------
     ////	    Basic GameObjects
     ////-----------------------------------------------------------------------------
 
+    // CUBE
     GraphicsObjectHdr *pGraphicsHdr = new GraphicsObjectHdr();
-    pGraphicsHdr->Set_FlatTexture(pCubeMesh, pShaderObject_texture, Texture::Name::RED_BRICK);
+    pGraphicsHdr->Set_FlatTexture(pCubeMesh, pShaderObject_texture, Texture::Name::STONES);
     GameObjectBasic *pGameObject = new GameObjectBasic(pGraphicsHdr);
+    pGameObject->SetTrans(-2.f, -1.f, 0.f);
+    pGameObject->SetScale(Vect(1.5f, 1.5f, 1.5f));
+    pGameObject->deltaZ = 0.02f;
+    pGameObject->deltaY = 0.02f;
     GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
 
+    // CORSET
     pGraphicsHdr = new GraphicsObjectHdr();
     pGraphicsHdr->Set_FlatTexture(pCorsetMesh, pShaderObject_texture, Texture::Name::CORSET);
     pGameObject = new GameObjectBasic(pGraphicsHdr);
-    pGameObject->SetTrans(2.f, 2.f, 0.f);
-    pGameObject->SetScale(Vect(10.f, 10.f, 10.f));
+    pGameObject->SetTrans(4.f, 1.f, 0.f);
+    pGameObject->SetScale(Vect(17.f, 17.f, 17.f));
+    pGameObject->deltaY = 0.01f;
     GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
 
+    // DOG HOUSE
+    pGraphicsHdr = new GraphicsObjectHdr();
+    pGraphicsHdr->Set_FlatTexture(pDogHouseMesh, pShaderObject_texture, Texture::Name::DOG_HOUSE);
+    pGameObject = new GameObjectBasic(pGraphicsHdr);
+    pGameObject->SetTrans(-3.f, 3.f, 0.f);
+    pGameObject->SetScale(Vect(100.f, 100.f, 100.f));
+    pGameObject->curRotZ = 0.5f;
+    pGameObject->deltaY = 0.01f;
+    GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
+
+    // CAMERA
     pGraphicsHdr = new GraphicsObjectHdr();
     pGraphicsHdr->Set_FlatTexture(pAntigueCamera, 2, pShaderObject_texture, Texture::Name::ANTIQUE_CAMERA);
     pGameObject = new GameObjectBasic(pGraphicsHdr);
@@ -264,12 +287,6 @@ void Game::LoadContent()
     Skeleton *pSkel2 = new Skeleton(chickenBotMesh, NUM_BONES);
     pSkel2->SetPos(0, 0, 0);
 
-    Skeleton *pSkel3 = new Skeleton(chickenBotMesh, NUM_BONES);
-    pSkel3->SetPos(1.3f, 0, 0);
-
-    Skeleton *pSkel4 = new Skeleton(chickenBotMesh, NUM_BONES);
-    pSkel4->SetPos(0, 1.4f, 0);
-
     AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT, NUM_BONES);
     AnimationManager::Add(Anim_Walk, Clip::Name::WALK, NUM_BONES);
     AnimationManager::Add(Anim_Shot_Down, Clip::Name::SHOT_DOWN, NUM_BONES);
@@ -278,12 +295,8 @@ void Game::LoadContent()
 
     AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
     AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
-    AnimationManager::AddController(AnimController::AnimName::MESH3, pSkel3, Clip::Name::SHOT_DOWN);
-    AnimationManager::AddController(AnimController::AnimName::MESH4, pSkel4, Clip::Name::HIT_RIGHT);
 
-    AnimationManager::Demo();
-
-    pSkel2->Hide();
+    //AnimationManager::Demo();
 
     CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
     CameraManager::Update(Camera::Type::ORTHOGRAPHIC_2D);
@@ -354,8 +367,6 @@ void Game::UnLoadContent()
     ImageManager::Destroy();
     CameraInput::Destroy();
     AnimationManager::Destroy();
-    //delete pAnimController;
-    //delete pWalkClip;
 }
 
 //------------------------------------------------------------------

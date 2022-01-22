@@ -5,39 +5,39 @@ namespace Azul
 ImageManager *ImageManager::posInstance = nullptr;
 
 ImageManager::ImageManager(int reserveNum, int reserveGrow)
-	: ManBase(reserveGrow)
+    : ManBase(reserveGrow)
 {
-	this->proFillReservedPool(reserveNum);
+    this->proFillReservedPool(reserveNum);
 
-	this->poNodeCompare = new Image();
+    this->poNodeCompare = new Image();
 }
 
 ImageManager::~ImageManager()
 {
-	delete this->poNodeCompare;
-	this->poNodeCompare = nullptr;
+    delete this->poNodeCompare;
+    this->poNodeCompare = nullptr;
 
-	Iterator *pIt = this->baseGetActiveIterator();
+    Iterator *pIt = this->baseGetActiveIterator();
 
-	DLink *pNode = pIt->First();
+    DLink *pNode = pIt->First();
 
-	while (!pIt->IsDone())
-	{
-		Image *pDeleteMe = (Image *)pIt->Curr();
-		pNode = pIt->Next();
-		delete pDeleteMe;
-	}
+    while (!pIt->IsDone())
+    {
+        Image *pDeleteMe = (Image *)pIt->Curr();
+        pNode = pIt->Next();
+        delete pDeleteMe;
+    }
 
-	pIt = this->baseGetReserveIterator();
+    pIt = this->baseGetReserveIterator();
 
-	pNode = pIt->First();
+    pNode = pIt->First();
 
-	while (!pIt->IsDone())
-	{
-		Image *pDeleteMe = (Image *)pIt->Curr();
-		pNode = pIt->Next();
-		delete pDeleteMe;
-	}
+    while (!pIt->IsDone())
+    {
+        Image *pDeleteMe = (Image *)pIt->Curr();
+        pNode = pIt->Next();
+        delete pDeleteMe;
+    }
 }
 
 //----------------------------------------------------------------------
@@ -45,54 +45,41 @@ ImageManager::~ImageManager()
 //----------------------------------------------------------------------
 void ImageManager::Create(int reserveNum, int reserveGrow)
 {
-	// make sure values are ressonable
-	assert(reserveNum >= 0);
-	assert(reserveGrow > 0);
+    // make sure values are ressonable
+    assert(reserveNum >= 0);
+    assert(reserveGrow > 0);
 
-	// initialize the singleton here
-	assert(posInstance == nullptr);
+    // initialize the singleton here
+    assert(posInstance == nullptr);
 
-	// Do the initialization
-	if (posInstance == nullptr)
-	{
-		posInstance = new ImageManager(reserveNum, reserveGrow);
-	}
+    // Do the initialization
+    if (posInstance == nullptr)
+    {
+        posInstance = new ImageManager(reserveNum, reserveGrow);
+    }
 }
 
 void ImageManager::Destroy()
 {
-	ImageManager *pMan = ImageManager::privGetInstance();
-	assert(pMan != nullptr);
-	AZUL_UNUSED_VAR(pMan);
+    ImageManager *pMan = ImageManager::privGetInstance();
+    assert(pMan != nullptr);
+    AZUL_UNUSED_VAR(pMan);
 
-	delete ImageManager::posInstance;
-	ImageManager::posInstance = nullptr;
+    delete ImageManager::posInstance;
+    ImageManager::posInstance = nullptr;
 }
-
-//Image *ImageManager::Add(Image *pImage)
-//{
-//	ImageManager *pMan = ImageManager::privGetInstance();
-//
-//	Image *pNode = (Image *)pMan->baseAddToFront();
-//	assert(pNode != nullptr);
-//
-//	// Initialize the date
-//	pNode->Set(pImage->imageName, pImage->pText, pImage->imageRect);
-//
-//	return pNode;
-//}
 
 Image *ImageManager::Add(Image::Name imageName, Texture::Name texName, Rect rec)
 {
-	ImageManager *pMan = ImageManager::privGetInstance();
+    ImageManager *pMan = ImageManager::privGetInstance();
 
-	Image *pNode = (Image *)pMan->baseAddToFront();
-	assert(pNode != nullptr);
+    Image *pNode = (Image *)pMan->baseAddToFront();
+    assert(pNode != nullptr);
 
-	// Initialize the date
-	pNode->Set(imageName, texName, rec);
+    // Initialize the date
+    pNode->Set(imageName, texName, rec);
 
-	return pNode;
+    return pNode;
 }
 
 Image *ImageManager::Find(Image::Name _name)
@@ -109,7 +96,6 @@ Image *ImageManager::Find(Image::Name _name)
     Image *pData = (Image *)pMan->baseFind(pMan->poNodeCompare);
     return pData;
 }
-
 
 void ImageManager::Remove(Image *pNode)
 {
@@ -132,18 +118,17 @@ void ImageManager::Dump()
 //Private Methods
 ImageManager *ImageManager::privGetInstance()
 {
-	//Safety
-	assert(posInstance != nullptr);
+    //Safety
+    assert(posInstance != nullptr);
 
-	return posInstance;
+    return posInstance;
 }
 
 DLink *ImageManager::derivedCreateNode()
 {
-	DLink *pNodeBase = new Image();
-	assert(pNodeBase != nullptr);
+    DLink *pNodeBase = new Image();
+    assert(pNodeBase != nullptr);
 
-	return pNodeBase;
+    return pNodeBase;
 }
-
 } //namespace Azul

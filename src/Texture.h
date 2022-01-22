@@ -67,7 +67,6 @@ public:
 	virtual void Wash() override;
 
 private:
-	//char assetName[TEXTURE_ASSET_NAME_SIZE];
 	std::vector<std::array<char, TEXTURE_ASSET_NAME_SIZE>> assetName;
 
 public:

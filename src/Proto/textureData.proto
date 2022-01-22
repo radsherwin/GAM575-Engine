@@ -66,7 +66,7 @@ message textureData_proto
 		DOUBLE = 7;
 	};
 
-	uint32				enabled		 = 1;
+	bool				enabled		 = 1;
 	TEXTURE_TYPE        textType     = 2;
 	TEXTURE_MAG_FILTER  magFilter    = 3;
 	TEXTURE_MIN_FILTER  minFilter    = 4;

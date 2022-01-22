@@ -2,8 +2,8 @@
 
 protoData::protoData()
     : pVersion{ 0 }, pName{0}, meshCount(0), textureCount(0),
-    animCount(0), pMeshData(nullptr), pAnimData(nullptr),
-    pTextureData(nullptr)
+    animCount(0), fontCount(0),pMeshData(nullptr), pAnimData(nullptr),
+    pTextureData(nullptr), pFontData(nullptr)
 {
     strcpy_s(this->pVersion, protoData::VERSION_NUM_BYTES, PROTO_VERSION);
     assert(strlen(this->pVersion) < VERSION_NUM_BYTES);
@@ -14,6 +14,7 @@ protoData::~protoData()
     delete[] this->pMeshData;
     delete[] this->pAnimData;
     delete[] this->pTextureData;
+    delete[] this->pFontData;
 }
 
 void protoData::Serialize(protoData_proto &out) const
@@ -47,6 +48,13 @@ void protoData::Serialize(protoData_proto &out) const
         textureData_proto *pTexture = new textureData_proto();
         this->pTextureData[i].Serialize(*pTexture);
         out.mutable_ptexturedata()->AddAllocated(pTexture);
+    }
+
+    for (int i = 0; i < this->fontCount; i++)
+    {
+        fontData_proto *pFont = new fontData_proto();
+        this->pFontData[i].Serialize(*pFont);
+        out.mutable_pfontdata()->AddAllocated(pFont);
     }
 }
 
@@ -100,6 +108,19 @@ void protoData::Deserialize(const protoData_proto &in)
             this->pTextureData[i].Deserialize(in.ptexturedata(i));
         }
     }
+
+    if (this->fontCount == 0)
+    {
+        this->pFontData = nullptr;
+    }
+    else
+    {
+        this->pFontData = new fontData[this->fontCount];
+        for (int i = 0; i < this->fontCount; i++)
+        {
+            this->pFontData[i].Deserialize(in.pfontdata(i));
+        }
+    }
 }
 
 void protoData::Print(const char *const _pName) const
@@ -108,4 +129,5 @@ void protoData::Print(const char *const _pName) const
     Trace::out("meshCount: %d \n", this->meshCount);
     Trace::out("animCount: %d \n", this->animCount);
     Trace::out("textureCount: %d \n", this->textureCount);
+    Trace::out("fontCount: %d \n", this->fontCount);
 }

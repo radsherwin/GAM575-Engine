@@ -17,7 +17,7 @@ constexpr textureData_proto::textureData_proto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : filenamedata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , podata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , enabled_(0u)
+  , enabled_(false)
   , texttype_(0)
 
   , magfilter_(0)
@@ -619,10 +619,10 @@ const char* textureData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 enabled = 1;
+      // bool enabled = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -791,10 +791,10 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 enabled = 1;
+  // bool enabled = 1;
   if (this->_internal_enabled() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_enabled(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
   }
 
   // .textureData_proto.TEXTURE_TYPE textType = 2;
@@ -943,11 +943,9 @@ size_t textureData_proto::ByteSizeLong() const {
         this->_internal_podata());
   }
 
-  // uint32 enabled = 1;
+  // bool enabled = 1;
   if (this->_internal_enabled() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_enabled());
+    total_size += 1 + 1;
   }
 
   // .textureData_proto.TEXTURE_TYPE textType = 2;

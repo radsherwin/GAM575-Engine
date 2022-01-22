@@ -102,7 +102,7 @@ void vboData::Serialize(vboData_proto &out) const
 
 void vboData::Deserialize(const vboData_proto &in)
 {
-	this->enabled = (bool)in.enabled();
+	this->enabled = in.enabled();
 	this->targetType = (VBO_TARGET)in.targettype();
 	this->componentType = (VBO_COMPONENT)in.componenttype();
 	this->vboType = (VBO_TYPE)in.vbotype();

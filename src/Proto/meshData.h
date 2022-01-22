@@ -32,6 +32,10 @@ public:
     meshData &operator = (const meshData &);
     ~meshData();
 
+    /*meshData( char *_pName,
+              RENDER_MODE _mode,
+              )*/
+
     // Serialization
     void Serialize(meshData_proto &out) const;
     void Deserialize(const meshData_proto &in);
@@ -39,6 +43,7 @@ public:
     void Print(const char *const pName) const;
 
 public:
+    bool                enabled;
     char                pName[FILE_NAME_SIZE]; //gltfModel->meshes[i]->name
     RENDER_MODE         mode;
 

@@ -21,6 +21,7 @@ constexpr meshData_proto::meshData_proto(
   , vbo_uv_(nullptr)
   , vbo_index_(nullptr)
   , vbo_color_(nullptr)
+  , enabled_(false)
   , mode_(0)
 
   , tricount_(0u)
@@ -224,9 +225,9 @@ meshData_proto::meshData_proto(const meshData_proto& from)
   } else {
     vbo_color_ = nullptr;
   }
-  ::memcpy(&mode_, &from.mode_,
+  ::memcpy(&enabled_, &from.enabled_,
     static_cast<size_t>(reinterpret_cast<char*>(&parentjointindex_) -
-    reinterpret_cast<char*>(&mode_)) + sizeof(parentjointindex_));
+    reinterpret_cast<char*>(&enabled_)) + sizeof(parentjointindex_));
   // @@protoc_insertion_point(copy_constructor:meshData_proto)
 }
 
@@ -292,9 +293,9 @@ void meshData_proto::Clear() {
     delete vbo_color_;
   }
   vbo_color_ = nullptr;
-  ::memset(&mode_, 0, static_cast<size_t>(
+  ::memset(&enabled_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&parentjointindex_) -
-      reinterpret_cast<char*>(&mode_)) + sizeof(parentjointindex_));
+      reinterpret_cast<char*>(&enabled_)) + sizeof(parentjointindex_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -304,88 +305,95 @@ const char* meshData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bytes pName = 1;
+      // bool enabled = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes pName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_pname();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .meshData_proto.RENDER_MODE mode = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+      // .meshData_proto.RENDER_MODE mode = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_mode(static_cast<::meshData_proto_RENDER_MODE>(val));
         } else goto handle_unusual;
         continue;
-      // .vboData_proto vbo_vert = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // .vboData_proto vbo_vert = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_vbo_vert(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vboData_proto vbo_norm = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // .vboData_proto vbo_norm = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_vbo_norm(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vboData_proto vbo_uv = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+      // .vboData_proto vbo_uv = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_vbo_uv(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vboData_proto vbo_index = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+      // .vboData_proto vbo_index = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_vbo_index(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vboData_proto vbo_color = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+      // .vboData_proto vbo_color = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_vbo_color(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 triCount = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+      // uint32 triCount = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
           tricount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 vertCount = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+      // uint32 vertCount = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
           vertcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 materialIndex = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+      // uint32 materialIndex = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
           materialindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // sint32 jointIndex = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+      // sint32 jointIndex = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
           jointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // sint32 parentJointIndex = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
+      // sint32 parentJointIndex = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 104)) {
           parentjointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -419,87 +427,93 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bytes pName = 1;
-  if (!this->_internal_pname().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_pname(), target);
+  // bool enabled = 1;
+  if (this->_internal_enabled() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
   }
 
-  // .meshData_proto.RENDER_MODE mode = 2;
+  // bytes pName = 2;
+  if (!this->_internal_pname().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_pname(), target);
+  }
+
+  // .meshData_proto.RENDER_MODE mode = 3;
   if (this->_internal_mode() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_mode(), target);
+      3, this->_internal_mode(), target);
   }
 
-  // .vboData_proto vbo_vert = 3;
+  // .vboData_proto vbo_vert = 4;
   if (this->_internal_has_vbo_vert()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::vbo_vert(this), target, stream);
+        4, _Internal::vbo_vert(this), target, stream);
   }
 
-  // .vboData_proto vbo_norm = 4;
+  // .vboData_proto vbo_norm = 5;
   if (this->_internal_has_vbo_norm()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        4, _Internal::vbo_norm(this), target, stream);
+        5, _Internal::vbo_norm(this), target, stream);
   }
 
-  // .vboData_proto vbo_uv = 5;
+  // .vboData_proto vbo_uv = 6;
   if (this->_internal_has_vbo_uv()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        5, _Internal::vbo_uv(this), target, stream);
+        6, _Internal::vbo_uv(this), target, stream);
   }
 
-  // .vboData_proto vbo_index = 6;
+  // .vboData_proto vbo_index = 7;
   if (this->_internal_has_vbo_index()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        6, _Internal::vbo_index(this), target, stream);
+        7, _Internal::vbo_index(this), target, stream);
   }
 
-  // .vboData_proto vbo_color = 7;
+  // .vboData_proto vbo_color = 8;
   if (this->_internal_has_vbo_color()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        7, _Internal::vbo_color(this), target, stream);
+        8, _Internal::vbo_color(this), target, stream);
   }
 
-  // uint32 triCount = 8;
+  // uint32 triCount = 9;
   if (this->_internal_tricount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(8, this->_internal_tricount(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(9, this->_internal_tricount(), target);
   }
 
-  // uint32 vertCount = 9;
+  // uint32 vertCount = 10;
   if (this->_internal_vertcount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(9, this->_internal_vertcount(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(10, this->_internal_vertcount(), target);
   }
 
-  // uint32 materialIndex = 10;
+  // uint32 materialIndex = 11;
   if (this->_internal_materialindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(10, this->_internal_materialindex(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(11, this->_internal_materialindex(), target);
   }
 
-  // sint32 jointIndex = 11;
+  // sint32 jointIndex = 12;
   if (this->_internal_jointindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(11, this->_internal_jointindex(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(12, this->_internal_jointindex(), target);
   }
 
-  // sint32 parentJointIndex = 12;
+  // sint32 parentJointIndex = 13;
   if (this->_internal_parentjointindex() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(12, this->_internal_parentjointindex(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(13, this->_internal_parentjointindex(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -518,83 +532,88 @@ size_t meshData_proto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bytes pName = 1;
+  // bytes pName = 2;
   if (!this->_internal_pname().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_pname());
   }
 
-  // .vboData_proto vbo_vert = 3;
+  // .vboData_proto vbo_vert = 4;
   if (this->_internal_has_vbo_vert()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *vbo_vert_);
   }
 
-  // .vboData_proto vbo_norm = 4;
+  // .vboData_proto vbo_norm = 5;
   if (this->_internal_has_vbo_norm()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *vbo_norm_);
   }
 
-  // .vboData_proto vbo_uv = 5;
+  // .vboData_proto vbo_uv = 6;
   if (this->_internal_has_vbo_uv()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *vbo_uv_);
   }
 
-  // .vboData_proto vbo_index = 6;
+  // .vboData_proto vbo_index = 7;
   if (this->_internal_has_vbo_index()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *vbo_index_);
   }
 
-  // .vboData_proto vbo_color = 7;
+  // .vboData_proto vbo_color = 8;
   if (this->_internal_has_vbo_color()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *vbo_color_);
   }
 
-  // .meshData_proto.RENDER_MODE mode = 2;
+  // bool enabled = 1;
+  if (this->_internal_enabled() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // .meshData_proto.RENDER_MODE mode = 3;
   if (this->_internal_mode() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_mode());
   }
 
-  // uint32 triCount = 8;
+  // uint32 triCount = 9;
   if (this->_internal_tricount() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_tricount());
   }
 
-  // uint32 vertCount = 9;
+  // uint32 vertCount = 10;
   if (this->_internal_vertcount() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_vertcount());
   }
 
-  // uint32 materialIndex = 10;
+  // uint32 materialIndex = 11;
   if (this->_internal_materialindex() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_materialindex());
   }
 
-  // sint32 jointIndex = 11;
+  // sint32 jointIndex = 12;
   if (this->_internal_jointindex() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
         this->_internal_jointindex());
   }
 
-  // sint32 parentJointIndex = 12;
+  // sint32 parentJointIndex = 13;
   if (this->_internal_parentjointindex() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
@@ -638,6 +657,9 @@ void meshData_proto::MergeFrom(const meshData_proto& from) {
   }
   if (from._internal_has_vbo_color()) {
     _internal_mutable_vbo_color()->::vboData_proto::MergeFrom(from._internal_vbo_color());
+  }
+  if (from._internal_enabled() != 0) {
+    _internal_set_enabled(from._internal_enabled());
   }
   if (from._internal_mode() != 0) {
     _internal_set_mode(from._internal_mode());
