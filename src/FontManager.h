@@ -12,14 +12,14 @@ private:
     FontManager(int reserveNum = 3, int reserveGrow = 1);
     FontManager() = delete;
     FontManager(const FontManager &) = delete;
-    FontManager &operator(const FontManager &) = delete;
+    FontManager &operator=(const FontManager &) = delete;
     virtual ~FontManager();
 
 public:
     static void Create(int reserveNum = 3, int reserveGrow = 1);
     static void Destroy();
 
-    static Font *Add(const char *const pFilePath, Font::Name fontName);
+    static Font *Add(const char *const pText, Glyph::Name glyphName, Font::Name fontName);
 
     static Font *Find(Font::Name fontName);
     static void Remove(Font *pNode);

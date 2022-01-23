@@ -9,6 +9,7 @@
 #include "Mesh.h"
 #include "ShaderObject.h"
 #include "Camera.h"
+#include "Glyph.h"
 
 using namespace Azul;
 
@@ -22,6 +23,7 @@ public:
 	StringThis(Mesh::Name);
 	StringThis(ShaderObject::Name);
 	StringThis(Camera::ID);
+	StringThis(Glyph::Name);
 
 	operator char* ();
 

@@ -23,6 +23,7 @@
 #include "AnimationManager.h"
 #include "ImageManager.h"
 #include "FontManager.h"
+#include "GlyphManager.h"
 
 #include "Camera.h"
 #include "CameraInput.h"
@@ -94,6 +95,8 @@ void Game::LoadContent()
     CameraInput::Create(this->window);
     AnimationManager::Create();
     ImageManager::Create();
+    FontManager::Create();
+    GlyphManager::Create();
 
     //-----------------------------------------------------------------------------
     //	    Load Cameras
@@ -128,14 +131,15 @@ void Game::LoadContent()
     TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);
     TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
     TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
-    TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
     TextureManager::Add("../src/Textures/Font30pt.t.proto.azul", Texture::Name::FONT_30PT);
 
     //-----------------------------------------------------------------------------
-    //	    Load Fonts
+    //	    Load Glyphs and Fonts
     //-----------------------------------------------------------------------------
 
-    FontManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Font::Name::FontMetrics);
+    GlyphManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Glyph::Name::FONT_30PT);
+
+    //FontManager::Add("Testing", Glyph::Name::FONT_30PT, Font::Name::FONT_30PT);
 
     //-----------------------------------------------------------------------------
     //	    Load Basic Mesh
@@ -228,7 +232,7 @@ void Game::LoadContent()
     ////	    Create Image
     ////-----------------------------------------------------------------------------
 
-    ImageManager::Add(Image::Name::Alien_Green, Texture::Name::INVADERS, Rect(554.f, 63.f, 98.f, 64.f));
+    ImageManager::Add(Image::Name::Alien_Red, Texture::Name::INVADERS, Rect(554.f, 63.f, 98.f, 64.f));
 
     ////-----------------------------------------------------------------------------
     ////	    Sprite
@@ -236,7 +240,7 @@ void Game::LoadContent()
     GraphicsObjectHdr_Sprite *pGraphicsHdr_Sprite = new GraphicsObjectHdr_Sprite();
     pGraphicsHdr_Sprite->Set_Sprite(pSpriteMesh,
                                     pShaderObject_sprite,
-                                    ImageManager::Find(Image::Name::Alien_Green),
+                                    ImageManager::Find(Image::Name::Alien_Red),
                                     Rect(455, 155, 150, 150));
 
     GameObject2D *pA1 = new GameObject2D(pGraphicsHdr_Sprite);

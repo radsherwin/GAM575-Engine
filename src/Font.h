@@ -1,12 +1,16 @@
 #ifndef FONT_H
 #define FONT_H
 
+#include "DLink.h"
+#include "Glyph.h"
+
 class Font : public DLink
 {
 public:
     enum class Name
     {
-        FONT_30PT
+        FONT_30PT,
+        NOT_INITIALIZED
     };
 
     Font();
@@ -22,12 +26,10 @@ public:
     virtual void Wash() override;
 
 public:
-    Name name;
-    unsigned int  fontSize;
-    unsigned int  *x;
-    unsigned int  *y;
-    unsigned int  *width;
-    unsigned int  *height;
+    Name fontName;
+    Glyph glyph;
+    unsigned int textLength;
+    char *pText;
 };
 
 #endif

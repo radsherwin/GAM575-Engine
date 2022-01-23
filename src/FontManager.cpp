@@ -69,43 +69,15 @@ void FontManager::Destroy()
     FontManager::posInstance = nullptr;
 }
 
-Font *FontManager::Add(const char *const pFilePath, Font::Name fontName)
+Font *FontManager::Add(const char *const pText, Glyph::Name glyphName, Font::Name fontName)
 {
     FontManager *pMan = FontManager::privGetInstance();
 
-    //Read and recreate model data
-    Azul::File::Handle fh;
-    Azul::File::Error err;
-    assert(pFilePath);
-    err = Azul::File::Open(fh, pFilePath, Azul::File::Mode::READ);
-    assert(err == Azul::File::Error::SUCCESS);
-    err = Azul::File::Seek(fh, Azul::File::Position::END, 0);
-    assert(err == Azul::File::Error::SUCCESS);
-    DWORD FileLength;
-    err = Azul::File::Tell(fh, FileLength);
-    assert(err == Azul::File::Error::SUCCESS);
-    char *poNewBuff = new char[FileLength]();
-    assert(poNewBuff);
-    err = Azul::File::Seek(fh, Azul::File::Position::BEGIN, 0);
-    assert(err == Azul::File::Error::SUCCESS);
-    err = Azul::File::Read(fh, poNewBuff, FileLength);
-    assert(err == Azul::File::Error::SUCCESS);
-    err = Azul::File::Close(fh);
-    assert(err == Azul::File::Error::SUCCESS);
-
-    std::string strIn(poNewBuff, FileLength);
-    protoData_proto pB_proto;
-    pB_proto.ParseFromString(strIn);
-    protoData pB;
-    pB.Deserialize(pB_proto);
-
-    delete[] poNewBuff;
+    // Create text from glyph
 
     Font *pNode = (Font *)pMan->baseAddToFront();
-    pNode->name = fontName;
+    pNode->fontName = fontName;
     assert(pNode != nullptr);
-
-    pMan->privLoadFont(pNode, pB);
 
     return pNode;
 }
@@ -115,7 +87,7 @@ Font *FontManager::Find(Font::Name fontName)
     FontManager *pMan = FontManager::privGetInstance();
     assert(pMan != nullptr);
 
-    pMan->poNodeCompare->name = fontName;
+    pMan->poNodeCompare->fontName = fontName;
 
     Font *pData = (Font *)pMan->baseFind(pMan->poNodeCompare);
 
@@ -150,24 +122,7 @@ FontManager *FontManager::privGetInstance()
 
 void FontManager::privLoadFont(Font *pFont, protoData &pD)
 {
-    unsigned int fontCount = pD.fontCount;
-    pFont->fontSize = fontCount;
-
-    // Fill sizes
-    pFont->x = new unsigned int[fontCount];
-    pFont->y = new unsigned int[fontCount];
-    pFont->width = new unsigned int[fontCount];
-    pFont->height = new unsigned int[fontCount];
-
-    for (int i = 0; i < (int)pD.fontCount; i++)
-    {
-        fontData *fD = &pD.pFontData[i];
-
-        pFont->x[i] = fD->x;
-        pFont->y[i] = fD->y;
-        pFont->width[i] = fD->width;
-        pFont->height[i] = fD->height;
-    }
+    
 }
 
 DLink *FontManager::derivedCreateNode()

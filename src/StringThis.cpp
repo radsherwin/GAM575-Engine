@@ -297,6 +297,23 @@ StringThis::StringThis(Camera::ID cameraID)
 	}
 }
 
+StringThis::StringThis(Glyph::Name glyphName)
+{
+	switch (glyphName)
+	{
+	case Glyph::Name::FONT_30PT:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Glyph::FONT_30PT));
+		break;
+
+	case Glyph::Name::NOT_INITIALIZED:
+		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Glyph::NOT_INITIALIZED));
+		break;
+
+	default:
+		assert(false);
+	}
+}
+
 
 StringThis::operator char* ()
 {
