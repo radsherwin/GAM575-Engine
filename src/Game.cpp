@@ -95,8 +95,8 @@ void Game::LoadContent()
     CameraInput::Create(this->window);
     AnimationManager::Create();
     ImageManager::Create();
-    FontManager::Create();
-    GlyphManager::Create();
+    //FontManager::Create();
+    //GlyphManager::Create();
 
     //-----------------------------------------------------------------------------
     //	    Load Cameras
@@ -137,7 +137,7 @@ void Game::LoadContent()
     //	    Load Glyphs and Fonts
     //-----------------------------------------------------------------------------
 
-    GlyphManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Glyph::Name::FONT_30PT);
+    //GlyphManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Glyph::Name::FONT_30PT);
 
     //FontManager::Add("Testing", Glyph::Name::FONT_30PT, Font::Name::FONT_30PT);
 
