@@ -234,6 +234,8 @@ void Game::LoadContent()
 
     ImageManager::Add(Image::Name::Alien_Red, Texture::Name::INVADERS, Rect(554.f, 63.f, 98.f, 64.f));
 
+    ImageManager::Add(Image::Name::Alien_Green, Texture::Name::INVADERS, Rect(136.0f, 64.0f, 85.0f, 63.0f));
+
     ////-----------------------------------------------------------------------------
     ////	    Sprite
     ////-----------------------------------------------------------------------------
@@ -247,7 +249,21 @@ void Game::LoadContent()
     GameObjectManager::Add(pA1, GameObjectManager::GetRoot());
     pA1->posX = 1000.f;
     pA1->posY = 300.f;
-    pA1->SetName("ALIEN");
+    pA1->scaleX = 2.f;
+    pA1->SetName("ALIEN_RED");
+
+    pGraphicsHdr_Sprite = new GraphicsObjectHdr_Sprite();
+    pGraphicsHdr_Sprite->Set_Sprite(pSpriteMesh,
+                                    pShaderObject_sprite,
+                                    ImageManager::Find(Image::Name::Alien_Green),
+                                    Rect(455, 155, 150, 150));
+
+    pA1 = new GameObject2D(pGraphicsHdr_Sprite);
+    GameObjectManager::Add(pA1, GameObjectManager::GetRoot());
+    pA1->posX = 600;
+    pA1->posY = 350.f;
+    pA1->angle = 20.f;
+    pA1->SetName("ALIEN_GREEN");
 
     ////-----------------------------------------------------------------------------
     ////	    Basic GameObjects
