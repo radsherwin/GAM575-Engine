@@ -20,6 +20,7 @@ public:
 	enum class Name
 	{
 		NOT_INITIALIZED,
+		FONT_30PT,
 		STONES,
 		INVADERS,
 		BONE_2,

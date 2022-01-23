@@ -22,6 +22,7 @@
 #include "CameraManager.h"
 #include "AnimationManager.h"
 #include "ImageManager.h"
+#include "FontManager.h"
 
 #include "Camera.h"
 #include "CameraInput.h"
@@ -127,6 +128,14 @@ void Game::LoadContent()
     TextureManager::Add("../src/Textures/RedBrick.t.proto.azul", Texture::Name::RED_BRICK);
     TextureManager::Add("../src/Textures/Duckweed.t.proto.azul", Texture::Name::DUCKWEED);
     TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
+    TextureManager::Add("../src/Textures/Aliens.t.proto.azul", Texture::Name::INVADERS);
+    TextureManager::Add("../src/Textures/Font30pt.t.proto.azul", Texture::Name::FONT_30PT);
+
+    //-----------------------------------------------------------------------------
+    //	    Load Fonts
+    //-----------------------------------------------------------------------------
+
+    FontManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Font::Name::FontMetrics);
 
     //-----------------------------------------------------------------------------
     //	    Load Basic Mesh

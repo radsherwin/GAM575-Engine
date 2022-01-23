@@ -14,6 +14,10 @@ StringThis::StringThis(Texture::Name status)
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Texture::STONES));
 		break;
 
+    case Texture::Name::FONT_30PT:
+        strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Texture::FONT_30PT));
+        break;
+
 	case Texture::Name::INVADERS:
 		strcpy_s(this->buffer, BUFFER_SIZE, STRING_ME(Texture::INVADERS));
 		break;
