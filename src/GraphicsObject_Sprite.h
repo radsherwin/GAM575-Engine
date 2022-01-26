@@ -24,6 +24,8 @@ public:
 	virtual void Draw() override;
 	virtual void RestoreState() override;
 
+	virtual void RenderSprite();
+
 	Image *pImage;
 	Matrix *poMatrix_uv;
 	Matrix *poMatrix_orig;

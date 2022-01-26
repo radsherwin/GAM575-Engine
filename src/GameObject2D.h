@@ -2,16 +2,16 @@
 #define GAME_OBJECT_2D_H
 
 #include "GameObject.h"
-#include "GraphicsObjectHdr.h"
+
 #include "AnimTime.h"
 
 namespace Azul
 {
-
+class GraphicsObjectHdr_Sprite;
 class GameObject2D : public GameObject
 {
 public:
-	GameObject2D(GraphicsObjectHdr *pGraphicsObjectHdr); // needs to be sprite
+	GameObject2D(GraphicsObjectHdr_Sprite *pGraphicsObjectHdr); // needs to be sprite
 
 	//Big 4
 	GameObject2D() = delete;

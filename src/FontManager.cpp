@@ -1,6 +1,7 @@
 #include "FontManager.h"
 #include "File.h"
 #include "protoData.h"
+#include "GlyphManager.h"
 
 FontManager *FontManager::posInstance = nullptr;
 
@@ -69,7 +70,8 @@ void FontManager::Destroy()
     FontManager::posInstance = nullptr;
 }
 
-Font *FontManager::Add(const char *const pText, Glyph::Name glyphName, Font::Name fontName)
+Font *FontManager::Add(const char *const pText,const unsigned int &textLength, Glyph::Name glyphName,
+                       Font::Name fontName, const float &xStart, const float &yStart)
 {
     FontManager *pMan = FontManager::privGetInstance();
 
@@ -79,7 +81,34 @@ Font *FontManager::Add(const char *const pText, Glyph::Name glyphName, Font::Nam
     pNode->fontName = fontName;
     assert(pNode != nullptr);
 
+    pNode->Set(
+        fontName,
+        pText,
+        textLength,
+        glyphName,
+        xStart,
+        yStart
+    );
+
     return pNode;
+}
+
+void FontManager::Draw()
+{
+    FontManager *pMan = FontManager::privGetInstance();
+    assert(pMan != nullptr);
+    // Loop through fonts and call Update on each of them
+    Iterator *pIt = pMan->baseGetActiveIterator();
+
+    DLink *pNode = pIt->First();
+
+    // Walk through the nodes
+    while (!pIt->IsDone())
+    {
+        Font *pDrawMe = (Font *)pIt->Curr();
+        pDrawMe->Render();
+        pNode = pIt->Next();
+    }
 }
 
 Font *FontManager::Find(Font::Name fontName)
@@ -118,11 +147,6 @@ FontManager *FontManager::privGetInstance()
     assert(posInstance != nullptr);
 
     return posInstance;
-}
-
-void FontManager::privLoadFont(Font *pFont, protoData &pD)
-{
-    
 }
 
 DLink *FontManager::derivedCreateNode()

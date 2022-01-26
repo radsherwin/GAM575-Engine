@@ -19,8 +19,8 @@ public:
     static void Create(int reserveNum = 3, int reserveGrow = 1);
     static void Destroy();
 
-    static Font *Add(const char *const pText, Glyph::Name glyphName, Font::Name fontName);
-
+    static Font *Add(const char *const pText, const unsigned int &textLength, Glyph::Name glyphName, Font::Name fontName, const float &xStart, const float &yStart);
+    static void Draw();
     static Font *Find(Font::Name fontName);
     static void Remove(Font *pNode);
     static void Dump();
@@ -28,15 +28,12 @@ public:
 private:
     static FontManager *privGetInstance();
 
-    void privLoadFont(Font *pFont, protoData &pD);
-
 protected:
     DLink *derivedCreateNode() override;
 
 private:
     Font *poNodeCompare;
     static FontManager *posInstance;
-
 };
 
 #endif // !FONT_MANAGER_H

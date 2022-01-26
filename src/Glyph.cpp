@@ -4,19 +4,13 @@
 Glyph::Glyph()
     : glyphName(Name::NOT_INITIALIZED),
     fontSize(0),
-    x{ nullptr },
-    y{ nullptr },
-    width{ nullptr },
-    height{ nullptr }
+    pImage{ nullptr }
 {
 }
 
 Glyph::~Glyph()
 {
-    delete[] x;
-    delete[] y;
-    delete[] width;
-    delete[] height;
+    delete[] pImage;
 }
 
 char *Glyph::GetName()

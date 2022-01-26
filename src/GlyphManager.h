@@ -3,9 +3,10 @@
 
 #include "ManBase.h"
 #include "Glyph.h"
-
+#include "Texture.h"
 class protoData;
-
+namespace Azul
+{
 class GlyphManager : public ManBase
 {
 private:
@@ -19,7 +20,7 @@ public:
     static void Create(int reserveNum = 3, int reserveGrow = 1);
     static void Destroy();
 
-    static Glyph *Add(const char *const pFilePath, Glyph::Name glyphName);
+    static Glyph *Add(const char *const pFilePath, Glyph::Name glyphName, Texture::Name textureName);
 
     static Glyph *Find(Glyph::Name glyphName);
     static Glyph *Find(const char *const pText, Glyph::Name glyphName);
@@ -29,7 +30,7 @@ public:
 private:
     static GlyphManager *privGetInstance();
 
-    void privLoadGlyph(Glyph *pGlyph, protoData &pD);
+    void privLoadGlyph(Glyph *pGlyph, protoData &pD, Texture::Name textureName);
 
 protected:
     DLink *derivedCreateNode() override;
@@ -39,6 +40,6 @@ private:
     static GlyphManager *posInstance;
 
 };
-
+}
 #endif // !Glyph_MANAGER_H
 

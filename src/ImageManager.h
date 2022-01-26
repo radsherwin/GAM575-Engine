@@ -14,6 +14,7 @@ public:
 	static void Destroy();
 	//static Image *Add(Image *pImage);
 	static Image *Add(Image::Name imageName, Texture::Name texName, Rect rec);
+	static void Add(Image *pImage);
 	static Image *Find(Image::Name name);
 	
 	static void Remove(Image *pNode);

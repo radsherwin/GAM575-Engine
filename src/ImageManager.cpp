@@ -82,6 +82,19 @@ Image *ImageManager::Add(Image::Name imageName, Texture::Name texName, Rect rec)
     return pNode;
 }
 
+void ImageManager::Add(Image *pImage)
+{
+    ImageManager *pMan = ImageManager::privGetInstance();
+
+    Image *pNode = (Image *)pMan->baseAddToFront();
+    assert(pNode != nullptr);
+
+    // Initialize the date
+    pNode->Set(pImage->imageName, pImage->pText, pImage->imageRect);
+
+    delete pImage;
+}
+
 Image *ImageManager::Find(Image::Name _name)
 {
     ImageManager *pMan = ImageManager::privGetInstance();

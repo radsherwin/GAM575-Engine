@@ -28,6 +28,7 @@ void protoData::Serialize(protoData_proto &out) const
     out.set_meshcount(this->meshCount);
     out.set_animcount(this->animCount);
     out.set_texturecount(this->textureCount);
+    out.set_fontcount(this->fontCount);
 
     for (int i = 0; i < this->meshCount; i++)
     {
@@ -69,6 +70,7 @@ void protoData::Deserialize(const protoData_proto &in)
     this->meshCount = in.meshcount();
     this->animCount = in.animcount();
     this->textureCount = in.texturecount();
+    this->fontCount = in.fontcount();
 
     if (this->meshCount == 0)
     {

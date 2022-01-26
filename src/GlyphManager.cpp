@@ -1,7 +1,11 @@
 #include "GlyphManager.h"
 #include "File.h"
 #include "protoData.h"
+#include "ImageManager.h"
+#include "TextureManager.h"
 
+namespace Azul
+{
 GlyphManager *GlyphManager::posInstance = nullptr;
 
 GlyphManager::GlyphManager(int reserveNum, int reserveGrow) : ManBase(reserveGrow)
@@ -69,7 +73,7 @@ void GlyphManager::Destroy()
     GlyphManager::posInstance = nullptr;
 }
 
-Glyph *GlyphManager::Add(const char *const pFilePath, Glyph::Name GlyphName)
+Glyph *GlyphManager::Add(const char *const pFilePath, Glyph::Name GlyphName, Texture::Name textureName)
 {
     GlyphManager *pMan = GlyphManager::privGetInstance();
 
@@ -105,7 +109,7 @@ Glyph *GlyphManager::Add(const char *const pFilePath, Glyph::Name GlyphName)
     pNode->glyphName = GlyphName;
     assert(pNode != nullptr);
 
-    pMan->privLoadGlyph(pNode, pB);
+    pMan->privLoadGlyph(pNode, pB, textureName);
 
     return pNode;
 }
@@ -154,25 +158,23 @@ GlyphManager *GlyphManager::privGetInstance()
     return posInstance;
 }
 
-void GlyphManager::privLoadGlyph(Glyph *pGlyph, protoData &pD)
+void GlyphManager::privLoadGlyph(Glyph *pGlyph, protoData &pD, Texture::Name textureName)
 {
     unsigned int GlyphCount = pD.fontCount;
     pGlyph->fontSize = GlyphCount;
+    pGlyph->startingOffset = pD.pFontData[0].key; // So when searching for it we just offset the key by this amount. 
 
     // Fill sizes
-    pGlyph->x = new unsigned int[GlyphCount];
-    pGlyph->y = new unsigned int[GlyphCount];
-    pGlyph->width = new unsigned int[GlyphCount];
-    pGlyph->height = new unsigned int[GlyphCount];
-
+    //pGlyph->pImage = ImageManager::Add(Image::Name::Not_Initialized, textureName, Rect());
+    pGlyph->pImage = new Image[GlyphCount];
+    Rect _rect;
     for (int i = 0; i < (int)pD.fontCount; i++)
     {
         fontData *fD = &pD.pFontData[i];
-
-        pGlyph->x[i] = fD->x;
-        pGlyph->y[i] = fD->y;
-        pGlyph->width[i] = fD->width;
-        pGlyph->height[i] = fD->height;
+        Rect _rect(fD->x, fD->y, fD->width, fD->height);
+        pGlyph->pImage[i].imageRect = _rect;
+        pGlyph->pImage[i].pText = TextureManager::Find(textureName); 
+        // Very much a hack because these images are not in the ImageManager, so destruction of Glyph must destroy them.
     }
 }
 
@@ -182,4 +184,5 @@ DLink *GlyphManager::derivedCreateNode()
     assert(pNodeBase != nullptr);
 
     return pNodeBase;
+}
 }

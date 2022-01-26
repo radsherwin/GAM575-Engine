@@ -1,7 +1,8 @@
 #include "GraphicsObject_Sprite.h"
 #include "CameraManager.h"
 
-//using namespace Azul;
+namespace Azul
+{
 GraphicsObject_Sprite::GraphicsObject_Sprite(const Mesh *const _pMesh, const ShaderObject *const pShaderObj , Image *_pImage, Rect rect)
 	: GraphicsObject(_pMesh, pShaderObj)
 {
@@ -91,4 +92,9 @@ void GraphicsObject_Sprite::RestoreState()
 	glDisable(GL_BLEND);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
+}
+
+void GraphicsObject_Sprite::RenderSprite()
+{
+}
 }

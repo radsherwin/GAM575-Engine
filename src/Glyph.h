@@ -2,7 +2,8 @@
 #define GLYPH_H
 
 #include "DLink.h"
-
+#include "Image.h"
+using namespace Azul;
 class Glyph : public DLink
 {
 public:
@@ -28,10 +29,8 @@ public:
 public:
     Name          glyphName;
     unsigned int  fontSize;
-    unsigned int  *x;
-    unsigned int  *y;
-    unsigned int  *width;
-    unsigned int  *height;
+    unsigned int  startingOffset;
+    Image         *pImage;
 
 };
 

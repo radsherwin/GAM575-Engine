@@ -16,6 +16,7 @@ public:
 	virtual ~GraphicsObjectHdr_Sprite();
 
 	void Set_Sprite(const Mesh *const pMesh, const ShaderObject *const pShaderObj, Image *image, Rect rect);
+	void Set_Font();
 	
 
 };
