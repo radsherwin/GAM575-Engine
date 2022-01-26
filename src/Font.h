@@ -2,7 +2,6 @@
 #define FONT_H
 
 #include "DLink.h"
-#include "FontSprite.h"
 #include "Glyph.h"
 #include "Rect.h"
 
@@ -37,6 +36,7 @@ public:
 public:
     Name fontName;
     Rect rect;
+    Texture *pTexture;
     Glyph::Name glyphName;
     unsigned int textLength;
     char *pText;

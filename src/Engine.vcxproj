@@ -242,6 +242,7 @@
     <ClInclude Include="GraphicsObject_ColorSpecLighting.h" />
     <ClInclude Include="GraphicsObject_ConstColor.h" />
     <ClInclude Include="GraphicsObject_FlatTexture.h" />
+    <ClInclude Include="GraphicsObject_Font.h" />
     <ClInclude Include="GraphicsObject_Null.h" />
     <ClInclude Include="GraphicsObject_Sprite.h" />
     <ClInclude Include="GraphicsObject_TextureLight.h" />
@@ -347,6 +348,7 @@
     <ClCompile Include="GraphicsObject_ColorSpecLighting.cpp" />
     <ClCompile Include="GraphicsObject_ConstColor.cpp" />
     <ClCompile Include="GraphicsObject_FlatTexture.cpp" />
+    <ClCompile Include="GraphicsObject_Font.cpp" />
     <ClCompile Include="GraphicsObject_Null.cpp" />
     <ClCompile Include="GraphicsObject_Sprite.cpp" />
     <ClCompile Include="GraphicsObject_TextureLight.cpp" />

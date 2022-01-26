@@ -163,6 +163,8 @@ void GlyphManager::privLoadGlyph(Glyph *pGlyph, protoData &pD, Texture::Name tex
     unsigned int GlyphCount = pD.fontCount;
     pGlyph->fontSize = GlyphCount;
     pGlyph->startingOffset = pD.pFontData[0].key; // So when searching for it we just offset the key by this amount. 
+    
+    pGlyph->pTexture = TextureManager::Find(textureName);
 
     // Fill sizes
     //pGlyph->pImage = ImageManager::Add(Image::Name::Not_Initialized, textureName, Rect());
@@ -173,7 +175,7 @@ void GlyphManager::privLoadGlyph(Glyph *pGlyph, protoData &pD, Texture::Name tex
         fontData *fD = &pD.pFontData[i];
         Rect _rect(fD->x, fD->y, fD->width, fD->height);
         pGlyph->pImage[i].imageRect = _rect;
-        pGlyph->pImage[i].pText = TextureManager::Find(textureName); 
+        pGlyph->pImage[i].pText = pGlyph->pTexture; 
         // Very much a hack because these images are not in the ImageManager, so destruction of Glyph must destroy them.
     }
 }

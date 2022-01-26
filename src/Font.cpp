@@ -32,6 +32,8 @@ void Font::Set(Name _name,
     this->glyphName = _glyphName;
     this->pText = new char[_textLength+1];
     memcpy(pText, pMessage, _textLength+1);
+
+    this->pTexture = GlyphManager::Find(_glyphName)->pTexture;
 }
 
 void Font::Render()

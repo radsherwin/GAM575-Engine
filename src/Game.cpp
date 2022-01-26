@@ -265,6 +265,10 @@ void Game::LoadContent()
     pA1->angle = 20.f;
     pA1->SetName("ALIEN_GREEN");
 
+    pGraphicsHdr_Sprite = new GraphicsObjectHdr_Sprite();
+    
+    pGraphicsHdr_Sprite->Set_Font(pSpriteMesh, pShaderObject_sprite, Font::Name::FONT_30PT);
+
     ////-----------------------------------------------------------------------------
     ////	    Basic GameObjects
     ////-----------------------------------------------------------------------------

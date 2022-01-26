@@ -93,8 +93,4 @@ void GraphicsObject_Sprite::RestoreState()
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
 }
-
-void GraphicsObject_Sprite::RenderSprite()
-{
-}
 }

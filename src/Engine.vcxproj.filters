@@ -945,6 +945,9 @@
     <ClInclude Include="Proto\fontData.pb.h">
       <Filter>Source Files\ProtoBuff\fontData</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsObject_Font.h">
+      <Filter>Source Files\GraphicsObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1189,6 +1192,9 @@
     </ClCompile>
     <ClCompile Include="Proto\fontData.pb.cc">
       <Filter>Source Files\ProtoBuff\fontData</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsObject_Font.cpp">
+      <Filter>Source Files\GraphicsObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

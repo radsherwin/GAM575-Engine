@@ -22,6 +22,10 @@ void GraphicsObjectHdr_Sprite::Set_Sprite(const Mesh *const pMesh, const ShaderO
 	this->poGraphicsObject = new GraphicsObject_Sprite(pMesh, pShaderObj, image, rect);
 }
 
+void GraphicsObjectHdr_Sprite::Set_Font(const Mesh *const pMesh, const ShaderObject *const pShaderObj, Font::Name fontName)
+{
+}
+
 } //namespace Azul
 
 

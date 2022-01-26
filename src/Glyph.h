@@ -28,6 +28,7 @@ public:
 
 public:
     Name          glyphName;
+    Texture       *pTexture;
     unsigned int  fontSize;
     unsigned int  startingOffset;
     Image         *pImage;
