@@ -106,7 +106,6 @@ void FontManager::Draw()
     while (!pIt->IsDone())
     {
         Font *pDrawMe = (Font *)pIt->Curr();
-        pDrawMe->Render();
         pNode = pIt->Next();
     }
 }

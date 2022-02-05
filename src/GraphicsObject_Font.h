@@ -10,7 +10,7 @@ namespace Azul
 class GraphicsObject_Font : public GraphicsObject
 {
 public:
-    GraphicsObject_Font(const Mesh *const pMesh, const ShaderObject *const pShaderObj, Font::Name _fontName);
+    GraphicsObject_Font(const Mesh *const pMesh, const ShaderObject *const pShaderObj);
     GraphicsObject_Font() = delete;
     GraphicsObject_Font(const GraphicsObject_Font &) = delete;
     GraphicsObject_Font &operator=(const GraphicsObject_Font &) = delete;
@@ -21,7 +21,16 @@ public:
     virtual void Draw() override;
     virtual void RestoreState() override;
 
-    Font *pFont;
+    Matrix *poMatrix_orig;
+    Matrix *poMatrix_uv;
+
+    Texture *pTexture;
+
+	float origWidth;
+	float origHeight;
+
+	float origPosX;
+	float origPosY;
 };
 }
 

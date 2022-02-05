@@ -2,9 +2,11 @@
 #include "StringThis.h"
 #include "GlyphManager.h"
 
+#include "MathEngine.h"
+
 Font::Font()
     : fontName(Name::NOT_INITIALIZED),
-    pText{nullptr}
+    pText{ nullptr }
 
 {
 }
@@ -27,40 +29,13 @@ void Font::Set(Name _name,
     //      For each char, convert to ascii, ascess _glyph[ascii-startingOffset] to get the letter
     this->fontName = _name;
     this->textLength = _textLength;
-    this->startX = startX;
-    this->startY = startY;
+    this->startX = xStart;
+    this->startY = yStart;
     this->glyphName = _glyphName;
-    this->pText = new char[_textLength+1];
-    memcpy(pText, pMessage, _textLength+1);
+    this->pText = new char[_textLength + 1];
+    memcpy(pText, pMessage, _textLength + 1);
 
     this->pTexture = GlyphManager::Find(_glyphName)->pTexture;
-}
-
-void Font::Render()
-{
-    float xTmp = this->startX;
-    float yTmp = this->startY;
-
-    float xEnd = this->startX;
-
-    for (int i = 0; i < (int)textLength; i++)
-    {
-        int key(pText[i]); // gets ascii
-
-        Glyph *pGlyph = GlyphManager::Find(this->glyphName); // Hack
-
-        key -= pGlyph->startingOffset; // set the array offset
-
-        Rect *pRect = &pGlyph->pImage[key].imageRect;
-
-        xTmp = xEnd + ((float)pRect->width / 2.0f);
-        this->rect = Rect(xTmp, yTmp, pRect->width, pRect->height);
-
-        // Call some render function
-
-        // Move the start to the next character
-        xEnd = ((float)pRect->width / 2.0f) + xTmp;
-    }
 }
 
 char *Font::GetName()

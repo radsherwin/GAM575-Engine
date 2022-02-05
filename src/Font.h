@@ -4,6 +4,7 @@
 #include "DLink.h"
 #include "Glyph.h"
 #include "Rect.h"
+#include "Matrix.h"
 
 class Font : public DLink
 {
@@ -25,8 +26,6 @@ public:
              Glyph::Name _glyphName,
              const float &xStart,
              const float &yStart);
-
-    void Render();
 
     virtual char *GetName() override;
     virtual bool Compare(DLink *pTarget) override;

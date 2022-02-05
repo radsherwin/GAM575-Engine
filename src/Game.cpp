@@ -36,6 +36,7 @@
 #include "GraphicsObject_Sprite.h"
 #include "SpriteMesh.h"
 #include "GameObject2D.h"
+#include "GameObjectFont.h"
 
 //Animation
 #include "TimerController.h"
@@ -139,7 +140,7 @@ void Game::LoadContent()
 
     GlyphManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Glyph::Name::FONT_30PT, Texture::Name::FONT_30PT);
 
-    FontManager::Add("Testing", 7, Glyph::Name::FONT_30PT, Font::Name::FONT_30PT, 500, 500);
+    FontManager::Add("Testing", 7, Glyph::Name::FONT_30PT, Font::Name::FONT_30PT, 600, 650);
 
     //-----------------------------------------------------------------------------
     //	    Load Basic Mesh
@@ -265,9 +266,12 @@ void Game::LoadContent()
     pA1->angle = 20.f;
     pA1->SetName("ALIEN_GREEN");
 
+    // Font
     pGraphicsHdr_Sprite = new GraphicsObjectHdr_Sprite();
-    
-    pGraphicsHdr_Sprite->Set_Font(pSpriteMesh, pShaderObject_sprite, Font::Name::FONT_30PT);
+    pGraphicsHdr_Sprite->Set_Font(pSpriteMesh, pShaderObject_sprite);
+    GameObjectFont *pFont = new GameObjectFont(pGraphicsHdr_Sprite, Font::Name::FONT_30PT);
+    GameObjectManager::Add(pFont, GameObjectManager::GetRoot());
+    pFont->SetName("FONT");
 
     ////-----------------------------------------------------------------------------
     ////	    Basic GameObjects
@@ -381,7 +385,7 @@ void Game::Update(float currentTime)
 void Game::Draw()
 {
     GameObjectManager::Draw();
-    FontManager::Draw();
+    //FontManager::Draw();
 }
 
 //------------------- ----------------------------------------------------------

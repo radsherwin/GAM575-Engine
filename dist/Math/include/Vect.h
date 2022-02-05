@@ -11,6 +11,7 @@
 
 #include "Constants.h"
 #include "Debug.h"
+#include "Enum.h"
 
 // This file assumes Framework.h is included in executable for Align16
 

@@ -948,6 +948,9 @@
     <ClInclude Include="GraphicsObject_Font.h">
       <Filter>Source Files\GraphicsObject</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectFont.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mesh.cpp">
@@ -1195,6 +1198,9 @@
     </ClCompile>
     <ClCompile Include="GraphicsObject_Font.cpp">
       <Filter>Source Files\GraphicsObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectFont.cpp">
+      <Filter>Source Files\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
