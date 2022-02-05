@@ -3,6 +3,8 @@
 #include "CameraManager.h"
 #include "GlyphManager.h"
 
+#include "TextureManager.h"
+
 namespace Azul
 {
 GraphicsObject_Font::GraphicsObject_Font(const Mesh *const _pMesh,
