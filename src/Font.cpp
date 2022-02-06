@@ -5,20 +5,17 @@
 #include "MathEngine.h"
 
 Font::Font()
-    : fontName(Name::NOT_INITIALIZED),
-    pText{ nullptr }
+    : fontName(Name::NOT_INITIALIZED)
 
 {
 }
 
 Font::~Font()
 {
-    delete[] pText;
 }
 
 void Font::Set(Name _name,
                const char *const pMessage,
-               const unsigned int &_textLength,
                Glyph::Name _glyphName,
                const float &xStart,
                const float &yStart)
@@ -26,14 +23,14 @@ void Font::Set(Name _name,
     // Create images for each letter in the Glyph;
 
     // Loop through pMessage to get each char
-    //      For each char, convert to ascii, ascess _glyph[ascii-startingOffset] to get the letter
+    //      For each char, convert to ascii, access _glyph[ascii-startingOffset] to get the letter
     this->fontName = _name;
-    this->textLength = _textLength;
     this->startX = xStart;
     this->startY = yStart;
     this->glyphName = _glyphName;
-    this->pText = new char[_textLength + 1];
-    memcpy(pText, pMessage, _textLength + 1);
+    //this->pText = new char[_textLength + 1];
+    //memcpy(pText, pMessage, _textLength + 1);
+    this->pText = pMessage;
 
     this->pTexture = GlyphManager::Find(_glyphName)->pTexture;
 }
@@ -41,7 +38,7 @@ void Font::Set(Name _name,
 char *Font::GetName()
 {
     static char pTmp[128];
-    strcpy_s(pTmp, 128, this->pText);
+    //strcpy_s(pTmp, 128, this->pText);
     return pTmp;
 }
 
@@ -66,7 +63,7 @@ void Font::Dump()
     Trace::out("      Texture(%p)\n", this);
 
     // Data:
-    Trace::out("      Name: %s \n", this->pText);
+    Trace::out("      Name: %s \n", this->pText.c_str());
 
     DLink::Dump();
 }

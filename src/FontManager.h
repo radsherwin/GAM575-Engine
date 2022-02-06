@@ -19,7 +19,8 @@ public:
     static void Create(int reserveNum = 3, int reserveGrow = 1);
     static void Destroy();
 
-    static Font *Add(const char *const pText, const unsigned int &textLength, Glyph::Name glyphName, Font::Name fontName, const float &xStart, const float &yStart);
+    static Font *Add(const char *const pText, Glyph::Name glyphName, Font::Name fontName, const float &xStart, const float &yStart);
+    static void UpdateMessage(Font::Name fontName, std::string pText);
     static void Draw();
     static Font *Find(Font::Name fontName);
     static void Remove(Font *pNode);

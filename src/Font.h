@@ -22,7 +22,6 @@ public:
 
     void Set(Name _name,
              const char *const pMessage,
-             const unsigned int &_textLength,
              Glyph::Name _glyphName,
              const float &xStart,
              const float &yStart);
@@ -37,8 +36,7 @@ public:
     Rect rect;
     Texture *pTexture;
     Glyph::Name glyphName;
-    unsigned int textLength;
-    char *pText;
+    std::string pText;
     float startX;
     float startY;
 };

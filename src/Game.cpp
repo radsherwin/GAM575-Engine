@@ -140,7 +140,7 @@ void Game::LoadContent()
 
     GlyphManager::Add("../src/Fonts/FontMetrics.f.proto.azul", Glyph::Name::FONT_30PT, Texture::Name::FONT_30PT);
 
-    FontManager::Add("Testing", 7, Glyph::Name::FONT_30PT, Font::Name::FONT_30PT, 600, 650);
+    FontManager::Add("Testing", Glyph::Name::FONT_30PT, Font::Name::FONT_30PT, 600, 650);
 
     //-----------------------------------------------------------------------------
     //	    Load Basic Mesh
@@ -333,7 +333,7 @@ void Game::LoadContent()
     AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
     AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
 
-    //AnimationManager::Demo();
+    AnimationManager::Demo();
 
     CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
     CameraManager::Update(Camera::Type::ORTHOGRAPHIC_2D);
@@ -353,6 +353,7 @@ void Game::LoadContent()
 //      Use this function to control process order
 //      Input, AI, Physics, Animation, and Graphics
 //-----------------------------------------------------------------------------
+int count = 0;
 void Game::Update(float currentTime)
 {
     this->intervalTimer.Toc();
@@ -364,6 +365,13 @@ void Game::Update(float currentTime)
     CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
     CameraManager::Update(Camera::Type::ORTHOGRAPHIC_2D);
     CameraInput::Update();
+
+    // ------------------------------------
+    // Font update
+    // ------------------------------------
+    std::string s = "Count: ";
+    s += std::to_string(count++);
+    FontManager::UpdateMessage(Font::Name::FONT_30PT, s);
 
     // ------------------------------------
     // Animate Me

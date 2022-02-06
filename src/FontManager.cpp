@@ -70,7 +70,7 @@ void FontManager::Destroy()
     FontManager::posInstance = nullptr;
 }
 
-Font *FontManager::Add(const char *const pText,const unsigned int &textLength, Glyph::Name glyphName,
+Font *FontManager::Add(const char *const pText, Glyph::Name glyphName,
                        Font::Name fontName, const float &xStart, const float &yStart)
 {
     FontManager *pMan = FontManager::privGetInstance();
@@ -84,7 +84,6 @@ Font *FontManager::Add(const char *const pText,const unsigned int &textLength, G
     pNode->Set(
         fontName,
         pText,
-        textLength,
         glyphName,
         xStart,
         yStart
@@ -108,6 +107,16 @@ void FontManager::Draw()
         Font *pDrawMe = (Font *)pIt->Curr();
         pNode = pIt->Next();
     }
+}
+
+void FontManager::UpdateMessage(Font::Name fontName, std::string pText)
+{
+    FontManager *pMan = FontManager::privGetInstance();
+    assert(pMan != nullptr);
+
+    Font *pFont = Find(fontName);
+
+    pFont->pText = pText;
 }
 
 Font *FontManager::Find(Font::Name fontName)
