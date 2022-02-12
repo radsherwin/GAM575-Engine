@@ -189,7 +189,7 @@ void Game::LoadContent()
 
     Animation *Anim_Die_Left[8];
     ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
-     
+
     Animation *Anim_Walk[8];
     ProtoMeshFactory::GetAnimation("walk_mesh.mat.proto.azul", Anim_Walk);
 
@@ -200,7 +200,7 @@ void Game::LoadContent()
     ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
     Animation *Anim_Run[8];
-    ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);   
+    ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
 
     //-----------------------------------------------------------------------------
     //	    Create/Load Shaders
@@ -312,6 +312,7 @@ void Game::LoadContent()
     pGameObject = new GameObjectBasic(pGraphicsHdr);
     pGameObject->SetTrans(2.f, 2.f, 0.f);
     pGameObject->SetScale(Vect(.2f, .2f, .2f));
+    pGameObject->SetName("Camera");
     GameObjectManager::Add(pGameObject, GameObjectManager::GetRoot());
 
     ////-----------------------------------------------------------------------------

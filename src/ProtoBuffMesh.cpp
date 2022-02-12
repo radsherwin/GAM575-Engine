@@ -39,6 +39,22 @@ struct Vert_color
     float a;
 };
 
+struct Vert_weight
+{
+    float wa;
+    float wb;
+    float wc;
+    float wd;
+};
+
+struct Vert_joint
+{
+    float ja;
+    float jb;
+    float jc;
+    float jd;
+};
+
 ProtoBuffMesh::ProtoBuffMesh(meshData &mB)
     : Mesh()
 {
@@ -79,6 +95,9 @@ void ProtoBuffMesh::privCreateMesh(meshData &mB)
 
     glGenBuffers(1, &this->vbo_index);
     assert(this->vbo_index != 0);
+
+    // Skin data
+    
 
     // General Stuff
     assert(mB.mode == meshData::RENDER_MODE::MODE_TRIANGLES);

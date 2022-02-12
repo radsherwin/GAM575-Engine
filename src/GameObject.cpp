@@ -101,7 +101,7 @@ namespace Azul
 		assert(pGraphicsObjHdr);
 		while(pGraphicsObjHdr != nullptr)
 		{
-			if(this->mDrawEnable)
+			if(!IsHidden())
 			{
 				pGraphicsObjHdr->poGraphicsObject->Render();
 			}

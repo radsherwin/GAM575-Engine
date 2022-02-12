@@ -196,35 +196,10 @@ void textureData::Deserialize(const textureData_proto &in)
 	
 }
 
-void textureData::Print(const char *const pName) const
-{
-	if (this != nullptr && this->enabled)
-	{
-		Trace::out("%s: \n", pName);
-		Trace::out("      dataSize: %d \n", this->dataSize);
-		if (poData != nullptr)
-		{
-			Trace::out("        poData: %2x %2x %2x %2x %2x \n",
-				this->poData[0],
-				this->poData[1],
-				this->poData[2],
-				this->poData[3],
-				this->poData[4]);
-		}
-		Trace::out("         pName: %s\n", this->pFileName);
-		Trace::out("         hash: %d\n", this->hash);
-		Trace::out("      textType: %d\n", this->textType);
-		Trace::out("     magFilter: %d \n", this->magFilter);
-		Trace::out("     minFilter: %d\n", this->minFilter);
-		Trace::out("         wrapS: %d \n", this->wrapS);
-		Trace::out("         wrapT: %d \n", this->wrapT);
-		Trace::out("         width: %d \n", this->width);
-		Trace::out("        height: %d \n", this->height);
-	}
-}
-
 void textureData::Print(const char* const pName, const int _count) const
 {
+    Trace::out("\n\n--------Texture Data: %s, %d-------- \n", this->pFileName, _count);
+    Trace::out("Parent Name: %s\n", pName);
 	if (this != nullptr && this->enabled)
 	{
 		Trace::out("%s: %d\n", pName, _count);

@@ -40,7 +40,7 @@ public:
     void Serialize(meshData_proto &out) const;
     void Deserialize(const meshData_proto &in);
 
-    void Print(const char *const pName) const;
+    void Print(const char *const pName, const int i) const;
 
 public:
     bool                enabled;
@@ -52,6 +52,10 @@ public:
     vboData             vbo_uv;
     vboData             vbo_index;
     vboData             vbo_color;
+
+    vboData             vbo_weights;
+    vboData             vbo_joints;
+    vboData             vbo_invBind;
 
     unsigned int        triCount;
     unsigned int        vertCount;

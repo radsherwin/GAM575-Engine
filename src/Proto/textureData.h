@@ -108,7 +108,6 @@ public:
 	void Serialize(textureData_proto &out) const;
 	void Deserialize(const textureData_proto &in);
 
-	void Print(const char *const pName) const;
 	void Print(const char* const pName, const int _count) const;
 
 public:

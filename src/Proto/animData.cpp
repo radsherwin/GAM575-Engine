@@ -91,7 +91,10 @@ void animData::Deserialize(const animData_proto &in)
 
 void animData::Print(const char *const pName, int count) const
 {
-    Trace::out("pName: %s %d\n", pName, count);
+    Trace::out("\n\n--------Anim Data: %s, %d-------- \n", this->animName, count);
+    Trace::out("Parent Name: %s\n", pName);
     Trace::out("Total Frames Count: %d\n", this->totalAnimFrames);
+    Trace::out("Joint Index: %d\n", this->jointIndex);
+    Trace::out("Parent Index: %d\n", this->parentIndex);
 
 }

@@ -4,7 +4,7 @@
 #include "meshData.h"
 
 meshData::meshData()
-    : enabled{false}, 
+    : enabled{ false },
     pName{ 0 },
     mode{ RENDER_MODE::DEFAULT },
     triCount(0),
@@ -17,25 +17,28 @@ meshData::meshData()
 }
 
 meshData::meshData(const meshData &r)
-    : enabled{r.enabled},
-      mode(r.mode),
-      vbo_vert(r.vbo_vert),
-      vbo_norm(r.vbo_norm),
-      vbo_uv(r.vbo_uv),
-      vbo_index(r.vbo_index),
-      vbo_color(r.vbo_color),
-      triCount(r.triCount),
-      vertCount(r.vertCount),
-      materialIndex(r.materialIndex),
-      jointIndex(r.jointIndex),
-      parentJointIndex(r.parentJointIndex)
+    : enabled{ r.enabled },
+    mode(r.mode),
+    vbo_vert(r.vbo_vert),
+    vbo_norm(r.vbo_norm),
+    vbo_uv(r.vbo_uv),
+    vbo_index(r.vbo_index),
+    vbo_color(r.vbo_color),
+    vbo_weights(r.vbo_weights),
+    vbo_joints(r.vbo_joints),
+    vbo_invBind(r.vbo_invBind),
+    triCount(r.triCount),
+    vertCount(r.vertCount),
+    materialIndex(r.materialIndex),
+    jointIndex(r.jointIndex),
+    parentJointIndex(r.parentJointIndex)
 {
     memcpy_s(this->pName, meshData::FILE_NAME_SIZE, r.pName, meshData::FILE_NAME_SIZE);
 }
 
-meshData & meshData::operator=(const meshData &r)
+meshData &meshData::operator=(const meshData &r)
 {
-    if(this != &r)
+    if (this != &r)
     {
         this->enabled = r.enabled;
         this->mode = r.mode;
@@ -44,6 +47,9 @@ meshData & meshData::operator=(const meshData &r)
         this->vbo_uv = r.vbo_uv;
         this->vbo_index = r.vbo_index;
         this->vbo_color = r.vbo_color;
+        this->vbo_weights = r.vbo_weights;
+        this->vbo_joints = r.vbo_joints;
+        this->vbo_invBind = r.vbo_invBind;
         this->triCount = r.triCount;
         this->vertCount = r.vertCount;
         this->materialIndex = r.materialIndex;
@@ -93,6 +99,19 @@ void meshData::Serialize(meshData_proto &out) const
     pVBO_proto = new vboData_proto();
     this->vbo_color.Serialize(*pVBO_proto);
     out.set_allocated_vbo_color(pVBO_proto);
+
+    // Skinning
+    pVBO_proto = new vboData_proto();
+    this->vbo_weights.Serialize(*pVBO_proto);
+    out.set_allocated_vbo_weights(pVBO_proto);
+
+    pVBO_proto = new vboData_proto();
+    this->vbo_joints.Serialize(*pVBO_proto);
+    out.set_allocated_vbo_joints(pVBO_proto);
+
+    pVBO_proto = new vboData_proto();
+    this->vbo_invBind.Serialize(*pVBO_proto);
+    out.set_allocated_vbo_invbind(pVBO_proto);
 }
 
 void meshData::Deserialize(const meshData_proto &in)
@@ -113,39 +132,29 @@ void meshData::Deserialize(const meshData_proto &in)
     this->vbo_uv.Deserialize(in.vbo_uv());
     this->vbo_index.Deserialize(in.vbo_index());
     this->vbo_color.Deserialize(in.vbo_color());
+
+    // Skinning
+    if (in.vbo_weights().enabled()) this->vbo_weights.Deserialize(in.vbo_weights());
+    if (in.vbo_joints().enabled()) this->vbo_joints.Deserialize(in.vbo_joints());
+    if (in.vbo_invbind().enabled()) this->vbo_invBind.Deserialize(in.vbo_invbind());
 }
 
-void meshData::Print(const char *const _pName) const
+void meshData::Print(const char *const _pName, const int i) const
 {
-    /*Trace::out("%s: \n", _pName);
+    Trace::out("\n\n--------Mesh Data: %s, %d-------- \n", this->pName, i);
+    Trace::out("Parent Name: %s\n", _pName);
 
-    for (int i = 0; i < (int)this->meshCount; i++)
-    {
-        Trace::out("version: %s \n", this->pVersion);
-        Trace::out("\n");
-        if (i < (int)this->nameCount) Trace::out("pName: %s \n", this->pName[i]);
-        this->vbo_vert[i].Print("vbo_vert", i);
-        Trace::out("\n");
-        this->vbo_norm[i].Print("vbo_norm", i);
-        Trace::out("\n");
-        this->vbo_uv[i].Print("vbo_uv", i);
-        Trace::out("\n");
-        this->vbo_index[i].Print("vbo_index", i);
-        Trace::out("\n");
-        this->vbo_color[i].Print("vbo_color", i);
-        Trace::out("\n");
-    }
-    for (int i = 0; i < (int)this->texCount; i++)
-    {
-        this->text_color[i].Print("text_color", i);
-        Trace::out("\n");
-    }
-
-    for(int i = 0; i < (int)this->animCount; i++)
-    {
-        this->anim_data[i].Print("anim_data", i);
-        Trace::out("\n");
-    }*/
+    Trace::out("\n");
+    this->vbo_vert.Print("vbo_vert");
+    Trace::out("\n");
+    this->vbo_norm.Print("vbo_norm");
+    Trace::out("\n");
+    this->vbo_uv.Print("vbo_uv");
+    Trace::out("\n");
+    this->vbo_index.Print("vbo_index");
+    Trace::out("\n");
+    this->vbo_color.Print("vbo_color");
+    Trace::out("\n");
 }
 
 // --- End of File ---

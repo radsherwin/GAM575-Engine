@@ -1,8 +1,8 @@
 #include "protoData.h"
 
 protoData::protoData()
-    : pVersion{ 0 }, pName{0}, meshCount(0), textureCount(0),
-    animCount(0), fontCount(0),pMeshData(nullptr), pAnimData(nullptr),
+    : pVersion{ 0 }, pName{ 0 }, meshCount(0), textureCount(0),
+    animCount(0), fontCount(0), pMeshData(nullptr), pAnimData(nullptr),
     pTextureData(nullptr), pFontData(nullptr)
 {
     strcpy_s(this->pVersion, protoData::VERSION_NUM_BYTES, PROTO_VERSION);
@@ -132,4 +132,19 @@ void protoData::Print(const char *const _pName) const
     Trace::out("animCount: %d \n", this->animCount);
     Trace::out("textureCount: %d \n", this->textureCount);
     Trace::out("fontCount: %d \n", this->fontCount);
+
+    for(int i = 0; i < this->meshCount; i++)
+    {
+        this->pMeshData[i].Print(this->pName, i);
+    }
+
+    for (int i = 0; i < this->textureCount; i++)
+    {
+        this->pTextureData[i].Print(this->pName, i);
+    }
+
+    for (int i = 0; i < this->animCount; i++)
+    {
+        this->pAnimData[i].Print(this->pName, i);
+    }
 }

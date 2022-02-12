@@ -229,13 +229,16 @@ class meshData_proto final :
     kVboUvFieldNumber = 6,
     kVboIndexFieldNumber = 7,
     kVboColorFieldNumber = 8,
+    kVboWeightsFieldNumber = 9,
+    kVboJointsFieldNumber = 10,
+    kVboInvBindFieldNumber = 11,
     kEnabledFieldNumber = 1,
     kModeFieldNumber = 3,
-    kTriCountFieldNumber = 9,
-    kVertCountFieldNumber = 10,
-    kMaterialIndexFieldNumber = 11,
-    kJointIndexFieldNumber = 12,
-    kParentJointIndexFieldNumber = 13,
+    kTriCountFieldNumber = 12,
+    kVertCountFieldNumber = 13,
+    kMaterialIndexFieldNumber = 14,
+    kJointIndexFieldNumber = 15,
+    kParentJointIndexFieldNumber = 16,
   };
   // bytes pName = 2;
   void clear_pname();
@@ -341,6 +344,60 @@ class meshData_proto final :
       ::vboData_proto* vbo_color);
   ::vboData_proto* unsafe_arena_release_vbo_color();
 
+  // .vboData_proto vbo_weights = 9;
+  bool has_vbo_weights() const;
+  private:
+  bool _internal_has_vbo_weights() const;
+  public:
+  void clear_vbo_weights();
+  const ::vboData_proto& vbo_weights() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_weights();
+  ::vboData_proto* mutable_vbo_weights();
+  void set_allocated_vbo_weights(::vboData_proto* vbo_weights);
+  private:
+  const ::vboData_proto& _internal_vbo_weights() const;
+  ::vboData_proto* _internal_mutable_vbo_weights();
+  public:
+  void unsafe_arena_set_allocated_vbo_weights(
+      ::vboData_proto* vbo_weights);
+  ::vboData_proto* unsafe_arena_release_vbo_weights();
+
+  // .vboData_proto vbo_joints = 10;
+  bool has_vbo_joints() const;
+  private:
+  bool _internal_has_vbo_joints() const;
+  public:
+  void clear_vbo_joints();
+  const ::vboData_proto& vbo_joints() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_joints();
+  ::vboData_proto* mutable_vbo_joints();
+  void set_allocated_vbo_joints(::vboData_proto* vbo_joints);
+  private:
+  const ::vboData_proto& _internal_vbo_joints() const;
+  ::vboData_proto* _internal_mutable_vbo_joints();
+  public:
+  void unsafe_arena_set_allocated_vbo_joints(
+      ::vboData_proto* vbo_joints);
+  ::vboData_proto* unsafe_arena_release_vbo_joints();
+
+  // .vboData_proto vbo_invBind = 11;
+  bool has_vbo_invbind() const;
+  private:
+  bool _internal_has_vbo_invbind() const;
+  public:
+  void clear_vbo_invbind();
+  const ::vboData_proto& vbo_invbind() const;
+  PROTOBUF_MUST_USE_RESULT ::vboData_proto* release_vbo_invbind();
+  ::vboData_proto* mutable_vbo_invbind();
+  void set_allocated_vbo_invbind(::vboData_proto* vbo_invbind);
+  private:
+  const ::vboData_proto& _internal_vbo_invbind() const;
+  ::vboData_proto* _internal_mutable_vbo_invbind();
+  public:
+  void unsafe_arena_set_allocated_vbo_invbind(
+      ::vboData_proto* vbo_invbind);
+  ::vboData_proto* unsafe_arena_release_vbo_invbind();
+
   // bool enabled = 1;
   void clear_enabled();
   bool enabled() const;
@@ -359,7 +416,7 @@ class meshData_proto final :
   void _internal_set_mode(::meshData_proto_RENDER_MODE value);
   public:
 
-  // uint32 triCount = 9;
+  // uint32 triCount = 12;
   void clear_tricount();
   ::PROTOBUF_NAMESPACE_ID::uint32 tricount() const;
   void set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -368,7 +425,7 @@ class meshData_proto final :
   void _internal_set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 vertCount = 10;
+  // uint32 vertCount = 13;
   void clear_vertcount();
   ::PROTOBUF_NAMESPACE_ID::uint32 vertcount() const;
   void set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -377,7 +434,7 @@ class meshData_proto final :
   void _internal_set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 materialIndex = 11;
+  // uint32 materialIndex = 14;
   void clear_materialindex();
   ::PROTOBUF_NAMESPACE_ID::uint32 materialindex() const;
   void set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -386,7 +443,7 @@ class meshData_proto final :
   void _internal_set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // sint32 jointIndex = 12;
+  // sint32 jointIndex = 15;
   void clear_jointindex();
   ::PROTOBUF_NAMESPACE_ID::int32 jointindex() const;
   void set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -395,7 +452,7 @@ class meshData_proto final :
   void _internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // sint32 parentJointIndex = 13;
+  // sint32 parentJointIndex = 16;
   void clear_parentjointindex();
   ::PROTOBUF_NAMESPACE_ID::int32 parentjointindex() const;
   void set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -417,6 +474,9 @@ class meshData_proto final :
   ::vboData_proto* vbo_uv_;
   ::vboData_proto* vbo_index_;
   ::vboData_proto* vbo_color_;
+  ::vboData_proto* vbo_weights_;
+  ::vboData_proto* vbo_joints_;
+  ::vboData_proto* vbo_invbind_;
   bool enabled_;
   int mode_;
   ::PROTOBUF_NAMESPACE_ID::uint32 tricount_;
@@ -954,7 +1014,265 @@ inline void meshData_proto::set_allocated_vbo_color(::vboData_proto* vbo_color) 
   // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_color)
 }
 
-// uint32 triCount = 9;
+// .vboData_proto vbo_weights = 9;
+inline bool meshData_proto::_internal_has_vbo_weights() const {
+  return this != internal_default_instance() && vbo_weights_ != nullptr;
+}
+inline bool meshData_proto::has_vbo_weights() const {
+  return _internal_has_vbo_weights();
+}
+inline const ::vboData_proto& meshData_proto::_internal_vbo_weights() const {
+  const ::vboData_proto* p = vbo_weights_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
+}
+inline const ::vboData_proto& meshData_proto::vbo_weights() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.vbo_weights)
+  return _internal_vbo_weights();
+}
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_weights(
+    ::vboData_proto* vbo_weights) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_weights_);
+  }
+  vbo_weights_ = vbo_weights;
+  if (vbo_weights) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_weights)
+}
+inline ::vboData_proto* meshData_proto::release_vbo_weights() {
+  
+  ::vboData_proto* temp = vbo_weights_;
+  vbo_weights_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_weights() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_weights)
+  
+  ::vboData_proto* temp = vbo_weights_;
+  vbo_weights_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_weights() {
+  
+  if (vbo_weights_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_weights_ = p;
+  }
+  return vbo_weights_;
+}
+inline ::vboData_proto* meshData_proto::mutable_vbo_weights() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_weights();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_weights)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_weights(::vboData_proto* vbo_weights) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_weights_);
+  }
+  if (vbo_weights) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_weights));
+    if (message_arena != submessage_arena) {
+      vbo_weights = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_weights, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_weights_ = vbo_weights;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_weights)
+}
+
+// .vboData_proto vbo_joints = 10;
+inline bool meshData_proto::_internal_has_vbo_joints() const {
+  return this != internal_default_instance() && vbo_joints_ != nullptr;
+}
+inline bool meshData_proto::has_vbo_joints() const {
+  return _internal_has_vbo_joints();
+}
+inline const ::vboData_proto& meshData_proto::_internal_vbo_joints() const {
+  const ::vboData_proto* p = vbo_joints_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
+}
+inline const ::vboData_proto& meshData_proto::vbo_joints() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.vbo_joints)
+  return _internal_vbo_joints();
+}
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_joints(
+    ::vboData_proto* vbo_joints) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_joints_);
+  }
+  vbo_joints_ = vbo_joints;
+  if (vbo_joints) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_joints)
+}
+inline ::vboData_proto* meshData_proto::release_vbo_joints() {
+  
+  ::vboData_proto* temp = vbo_joints_;
+  vbo_joints_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_joints() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_joints)
+  
+  ::vboData_proto* temp = vbo_joints_;
+  vbo_joints_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_joints() {
+  
+  if (vbo_joints_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_joints_ = p;
+  }
+  return vbo_joints_;
+}
+inline ::vboData_proto* meshData_proto::mutable_vbo_joints() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_joints();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_joints)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_joints(::vboData_proto* vbo_joints) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_joints_);
+  }
+  if (vbo_joints) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_joints));
+    if (message_arena != submessage_arena) {
+      vbo_joints = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_joints, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_joints_ = vbo_joints;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_joints)
+}
+
+// .vboData_proto vbo_invBind = 11;
+inline bool meshData_proto::_internal_has_vbo_invbind() const {
+  return this != internal_default_instance() && vbo_invbind_ != nullptr;
+}
+inline bool meshData_proto::has_vbo_invbind() const {
+  return _internal_has_vbo_invbind();
+}
+inline const ::vboData_proto& meshData_proto::_internal_vbo_invbind() const {
+  const ::vboData_proto* p = vbo_invbind_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vboData_proto&>(
+      ::_vboData_proto_default_instance_);
+}
+inline const ::vboData_proto& meshData_proto::vbo_invbind() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.vbo_invBind)
+  return _internal_vbo_invbind();
+}
+inline void meshData_proto::unsafe_arena_set_allocated_vbo_invbind(
+    ::vboData_proto* vbo_invbind) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_invbind_);
+  }
+  vbo_invbind_ = vbo_invbind;
+  if (vbo_invbind) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:meshData_proto.vbo_invBind)
+}
+inline ::vboData_proto* meshData_proto::release_vbo_invbind() {
+  
+  ::vboData_proto* temp = vbo_invbind_;
+  vbo_invbind_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::unsafe_arena_release_vbo_invbind() {
+  // @@protoc_insertion_point(field_release:meshData_proto.vbo_invBind)
+  
+  ::vboData_proto* temp = vbo_invbind_;
+  vbo_invbind_ = nullptr;
+  return temp;
+}
+inline ::vboData_proto* meshData_proto::_internal_mutable_vbo_invbind() {
+  
+  if (vbo_invbind_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vboData_proto>(GetArenaForAllocation());
+    vbo_invbind_ = p;
+  }
+  return vbo_invbind_;
+}
+inline ::vboData_proto* meshData_proto::mutable_vbo_invbind() {
+  ::vboData_proto* _msg = _internal_mutable_vbo_invbind();
+  // @@protoc_insertion_point(field_mutable:meshData_proto.vbo_invBind)
+  return _msg;
+}
+inline void meshData_proto::set_allocated_vbo_invbind(::vboData_proto* vbo_invbind) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete static_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_invbind_);
+  }
+  if (vbo_invbind) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                static_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(vbo_invbind));
+    if (message_arena != submessage_arena) {
+      vbo_invbind = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, vbo_invbind, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  vbo_invbind_ = vbo_invbind;
+  // @@protoc_insertion_point(field_set_allocated:meshData_proto.vbo_invBind)
+}
+
+// uint32 triCount = 12;
 inline void meshData_proto::clear_tricount() {
   tricount_ = 0u;
 }
@@ -974,7 +1292,7 @@ inline void meshData_proto::set_tricount(::PROTOBUF_NAMESPACE_ID::uint32 value) 
   // @@protoc_insertion_point(field_set:meshData_proto.triCount)
 }
 
-// uint32 vertCount = 10;
+// uint32 vertCount = 13;
 inline void meshData_proto::clear_vertcount() {
   vertcount_ = 0u;
 }
@@ -994,7 +1312,7 @@ inline void meshData_proto::set_vertcount(::PROTOBUF_NAMESPACE_ID::uint32 value)
   // @@protoc_insertion_point(field_set:meshData_proto.vertCount)
 }
 
-// uint32 materialIndex = 11;
+// uint32 materialIndex = 14;
 inline void meshData_proto::clear_materialindex() {
   materialindex_ = 0u;
 }
@@ -1014,7 +1332,7 @@ inline void meshData_proto::set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 va
   // @@protoc_insertion_point(field_set:meshData_proto.materialIndex)
 }
 
-// sint32 jointIndex = 12;
+// sint32 jointIndex = 15;
 inline void meshData_proto::clear_jointindex() {
   jointindex_ = 0;
 }
@@ -1034,7 +1352,7 @@ inline void meshData_proto::set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value)
   // @@protoc_insertion_point(field_set:meshData_proto.jointIndex)
 }
 
-// sint32 parentJointIndex = 13;
+// sint32 parentJointIndex = 16;
 inline void meshData_proto::clear_parentjointindex() {
   parentjointindex_ = 0;
 }

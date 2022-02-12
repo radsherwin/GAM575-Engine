@@ -63,7 +63,6 @@ public:
 	void Deserialize(const vboData_proto &in);
 
 	void Print(const char *const pName) const;
-	void Print(const char* const pName, int count) const;
 
 public:
 	bool		   enabled;

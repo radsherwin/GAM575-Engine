@@ -29,10 +29,13 @@ message meshData_proto
 	vboData_proto	vbo_uv				= 6;
 	vboData_proto	vbo_index			= 7;
 	vboData_proto	vbo_color			= 8;
-	uint32			triCount			= 9;
-	uint32			vertCount			= 10;
-	uint32			materialIndex		= 11;
-	sint32			jointIndex			= 12;
-	sint32			parentJointIndex	= 13;
+	vboData_proto	vbo_weights			= 9;
+	vboData_proto	vbo_joints			= 10;
+	vboData_proto	vbo_invBind			= 11;
+	uint32			triCount			= 12;
+	uint32			vertCount			= 13;
+	uint32			materialIndex		= 14;
+	sint32			jointIndex			= 15;
+	sint32			parentJointIndex	= 16;
 }													 
 // -- End of File ---

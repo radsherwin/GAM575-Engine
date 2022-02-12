@@ -12,7 +12,7 @@ class protoData
 public:
     static const unsigned int FILE_NAME_SIZE = 64;
 
-    static constexpr const char *PROTO_VERSION = "1.3.1"; // Major.Version.Rev
+    static constexpr const char *PROTO_VERSION = "1.4.1"; // Major.Version.Rev
     static const unsigned int VERSION_NUM_BYTES = 8;
 
 public:
