@@ -14,7 +14,7 @@ class ShaderManager : public ManBase
     // Static Methods
     //----------------------------------------------------------------------
 public:
-    static void Create(int reserveNum = 0, int reserveGrow = 1);
+    static void Create(int reserveNum = 3, int reserveGrow = 1);
     static void Destroy();
     static ShaderObject* Add(ShaderObject::Name name, const char* const pName);
     static ShaderObject* Find(ShaderObject::Name name);

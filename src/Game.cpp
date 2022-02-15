@@ -204,25 +204,28 @@ void Game::LoadContent()
     ShaderObject *pShaderObject_sprite = ShaderManager::Add(ShaderObject::Name::SPRITE, "../src/GLSL/spriteRender");
     assert(pShaderObject_sprite);
 
-    ShaderObject *pShaderObject_color = ShaderManager::Add(ShaderObject::Name::COLOR_POSITION, "../src/GLSL/colorRender");
-    assert(pShaderObject_color);
+    //ShaderObject *pShaderObject_color = ShaderManager::Add(ShaderObject::Name::COLOR_POSITION, "../src/GLSL/colorRender");
+    //assert(pShaderObject_color);
 
     ShaderObject *pShaderObject_Null = ShaderManager::Add(ShaderObject::Name::NULL_SHADER, "../src/GLSL/nullRender");
 
     ShaderObject *pShaderObject_texture = ShaderManager::Add(ShaderObject::Name::TEXTURE_SIMPLE, "../src/GLSL/textureRender");
     assert(pShaderObject_texture);
 
-    ShaderObject *pShaderObject_textureLight = ShaderManager::Add(ShaderObject::Name::TEXTURE_POINT_LIGHT, "../src/GLSL/texturePointLightDiff");
-    assert(pShaderObject_textureLight);
+    //ShaderObject *pShaderObject_textureLight = ShaderManager::Add(ShaderObject::Name::TEXTURE_POINT_LIGHT, "../src/GLSL/texturePointLightDiff");
+    //assert(pShaderObject_textureLight);
 
     ShaderObject *pShaderObject_constColor = ShaderManager::Add(ShaderObject::Name::CONST_COLOR, "../src/GLSL/constcolorRender");
     assert(pShaderObject_constColor);
 
-    ShaderObject *pShaderObject_specLighting = ShaderManager::Add(ShaderObject::Name::SPEC_LIGHTING, "../src/GLSL/specLighting");
-    assert(pShaderObject_specLighting);
+    //ShaderObject *pShaderObject_specLighting = ShaderManager::Add(ShaderObject::Name::SPEC_LIGHTING, "../src/GLSL/specLighting");
+    //assert(pShaderObject_specLighting);
 
     ShaderObject *pShaderObject_colorSingle = ShaderManager::Add(ShaderObject::Name::COLOR_SINGLE, "../src/GLSL/colorSingleRender");
     assert(pShaderObject_colorSingle);
+
+    ShaderObject *pShaderObject_skinTexture = ShaderManager::Add(ShaderObject::Name::SKIN_TEXTURE, "../src/GLSL/skinTextureRender");
+    assert(pShaderObject_skinTexture);
 
     ////-----------------------------------------------------------------------------
     ////	    Create Image
@@ -314,8 +317,8 @@ void Game::LoadContent()
     ////	    Create Animation
     ////-----------------------------------------------------------------------------
 
-    SkeletonManager::Add(Skeleton::Name::CHICKEN_BOT_1, chickenBotMesh, Vect(-1.3f, 0,0));
-    SkeletonManager::Add(Skeleton::Name::CHICKEN_BOT_2, chickenBotMesh, Vect(1.0f, 0,0));
+    SkeletonManager::Add(Skeleton::Name::CHICKEN_BOT_1, chickenBotMesh, Vect(-1.3f, 0, 0));
+    SkeletonManager::Add(Skeleton::Name::CHICKEN_BOT_2, chickenBotMesh, Vect(1.0f, 0, 0));
 
     AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT);
     AnimationManager::Add(Anim_Walk, Clip::Name::WALK);
@@ -400,18 +403,18 @@ void Game::Draw()
 //-----------------------------------------------------------------------------
 void Game::UnLoadContent()
 {
-    TextureManager::Destroy();
-    InputManager::Destroy();
-    GameObjectManager::Destroy();
-    MeshNodeManager::Destroy();
-    ShaderManager::Destroy();
-    CameraManager::Destroy();
-    ImageManager::Destroy();
-    CameraInput::Destroy();
-    AnimationManager::Destroy();
+    SkeletonManager::Destroy();
     GlyphManager::Destroy();
     FontManager::Destroy();
-    SkeletonManager::Destroy();
+    ImageManager::Destroy();
+    AnimationManager::Destroy();
+    CameraInput::Destroy();
+    CameraManager::Destroy();
+    ShaderManager::Destroy();
+    MeshNodeManager::Destroy();
+    GameObjectManager::Destroy();
+    TextureManager::Destroy();
+    InputManager::Destroy();
 }
 
 //------------------------------------------------------------------

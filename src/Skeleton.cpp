@@ -32,7 +32,7 @@ Skeleton::Skeleton()
 Skeleton::Skeleton(Mesh *pSkelMesh)
     : pFirstBone(nullptr),
     pPivot{nullptr},
-    poBoneResult(new Bone[(unsigned int)numBones]),
+    poBoneResult(new Bone[(unsigned int)12]),
     poAnimController(nullptr),
     numBones(pSkelMesh->jointCount)
 {
@@ -42,15 +42,16 @@ Skeleton::Skeleton(Mesh *pSkelMesh)
 
 Skeleton::~Skeleton()
 {
-    delete[] this->poBoneResult;
+    //delete[] this->poBoneResult;
     delete this->poAnimController;
 }
 
 void Skeleton::Set(Name _name, Mesh *pSkelMesh, Vect pos)
 {
+    assert(pSkelMesh != nullptr);
     this->pFirstBone = nullptr;
     this->numBones = pSkelMesh->jointCount;
-
+    this->name = _name;
     this->poBoneResult = new Bone[(unsigned int)numBones];
     this->privSetAnimationHierarchy(pSkelMesh, this->poBoneResult);
     assert(pFirstBone);
@@ -60,8 +61,7 @@ void Skeleton::Set(Name _name, Mesh *pSkelMesh, Vect pos)
 
 AnimController *Skeleton::GetController() const
 {
-    assert(poAnimController != nullptr);
-    
+  
     return this->poAnimController;
 }
 
@@ -133,7 +133,7 @@ void Skeleton::privSetAnimationHierarchy(Mesh *pSkeletonMesh, Bone *pBoneResult)
     ShaderObject *pShaderObject_skinTexture = ShaderManager::Find(ShaderObject::Name::SKIN_TEXTURE);
     assert(pShaderObject_skinTexture);
 
-    ShaderObject *pShaderObject_texture = ShaderManager::Find(ShaderObject::Name::TEXTURE_POINT_LIGHT);
+    ShaderObject *pShaderObject_texture = ShaderManager::Find(ShaderObject::Name::TEXTURE_SIMPLE);
     assert(pShaderObject_texture);
 
     ShaderObject *pShaderNull = ShaderManager::Find(ShaderObject::Name::NULL_SHADER);

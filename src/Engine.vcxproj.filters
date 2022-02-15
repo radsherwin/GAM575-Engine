@@ -235,6 +235,12 @@
     <None Include="Proto\jointData.proto">
       <Filter>Source Files\ProtoBuff\jointData</Filter>
     </None>
+    <None Include="GLSL\skinTextureRender.fs.glsl">
+      <Filter>Source Files\Shaders\GLSL</Filter>
+    </None>
+    <None Include="GLSL\skinTextureRender.vs.glsl">
+      <Filter>Source Files\Shaders\GLSL</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Framework\Framework.h">

@@ -32,6 +32,8 @@
     <None Include="GLSL\nullRender.vs.glsl" />
     <None Include="GLSL\render.fs.glsl" />
     <None Include="GLSL\render.vs.glsl" />
+    <None Include="GLSL\skinTextureRender.fs.glsl" />
+    <None Include="GLSL\skinTextureRender.vs.glsl" />
     <None Include="GLSL\specLighting.fs.glsl" />
     <None Include="GLSL\specLighting.vs.glsl" />
     <None Include="GLSL\spriteRender.fs.glsl" />

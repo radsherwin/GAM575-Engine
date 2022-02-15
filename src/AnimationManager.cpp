@@ -1,53 +1,113 @@
 #include "AnimationManager.h"
 
-#include <PCSTreeForwardIterator.h>
-
-#include "PCSTree.h"
-#include "Clip.h"
-#include "AnimController.h"
 #include "meshData.h"
-#include "ProtoMeshFactory.h"
 #include "SkeletonManager.h"
 
 using namespace Azul;
 
 AnimationManager *AnimationManager::posInstance = nullptr;
 
-AnimationManager::AnimationManager()
+AnimationManager::AnimationManager(int reserveNum, int reserveGrow)
+    : ManBase(reserveGrow)
 {
-    this->poClipTree = new PCSTree();
-    assert(this->poClipTree);
-
-    Clip *pNullClip = new Clip();
-    this->poClipTree->Insert(pNullClip, this->poClipTree->GetRoot());
-
-    this->poAnimTree = new PCSTree();
-    assert(this->poAnimTree);
-
-    Animation *pNullAnimation = new Animation();
-    this->poAnimTree->Insert(pNullAnimation, this->poAnimTree->GetRoot());
+    this->proFillReservedPool(reserveNum);
+    this->poNodeCompare = new Clip();
 }
 
 AnimationManager::~AnimationManager()
 {
-    delete this->poClipTree;
-    delete this->poAnimTree;
+    delete this->poNodeCompare;
+    this->poNodeCompare = nullptr;
+
+    // iterate through the list and delete
+    Iterator *pIt = this->baseGetActiveIterator();
+
+    DLink *pNode = pIt->First();
+
+    // Walk through the nodes
+    while (!pIt->IsDone())
+    {
+        Clip *pDeleteMe = (Clip *)pIt->Curr();
+        pNode = pIt->Next();
+        delete pDeleteMe;
+    }
+
+    pIt = this->baseGetReserveIterator();
+
+    pNode = pIt->First();
+
+    // Walk through the nodes
+    while (!pIt->IsDone())
+    {
+        Clip *pDeleteMe = (Clip *)pIt->Curr();
+        pNode = pIt->Next();
+        delete pDeleteMe;
+    }
+}
+
+void AnimationManager::Create(int reserveNum, int reserveGrow)
+{
+    assert(reserveNum > 0);
+    assert(reserveGrow > 0);
+
+    // initialize the singleton here
+    assert(posInstance == nullptr);
+
+    // Do the initialization
+    if (posInstance == nullptr)
+    {
+        posInstance = new AnimationManager(reserveNum, reserveGrow);
+    }
+}
+
+void AnimationManager::Destroy()
+{
+    AnimationManager *pMan = AnimationManager::privGetInstance();
+    assert(pMan != nullptr);
+    AZUL_UNUSED_VAR(pMan);
+
+    delete AnimationManager::posInstance;
+    AnimationManager::posInstance = nullptr;
 }
 
 void AnimationManager::Add(Animation *pAnimation, Clip::Name _clipName)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
-
-    Clip *pClip = new Clip(_clipName, pAnimation);
-    pMan->poClipTree->Insert(pClip, pMan->poClipTree->GetRoot());
+    
+    Clip *pClip = (Clip *)pMan->baseAddToFront();
+    pClip->Set(pAnimation, _clipName);
 }
 
-void AnimationManager::Add(Animation *anim)
+Clip *AnimationManager::Find(Clip::Name _clipName)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
-    pMan->poAnimTree->Insert(anim, pMan->poAnimTree->GetRoot());
+
+    pMan->poNodeCompare->name = _clipName;
+    Clip *pNode = (Clip *)pMan->baseFind(pMan->poNodeCompare);
+    assert(pNode);
+
+    return pNode;
+}
+
+void AnimationManager::Remove(Clip *pClip)
+{
+    AnimationManager *pMan = AnimationManager::privGetInstance();
+    assert(pMan);
+
+    assert(pClip);
+    pMan->baseRemove(pClip);
+}
+
+void AnimationManager::Remove(Clip::Name _name)
+{
+    AnimationManager *pMan = AnimationManager::privGetInstance();
+    assert(pMan);
+
+    Clip *pNode = Find(_name);
+
+    pMan->baseRemove(pNode);
 }
 
 void AnimationManager::SetClip(Clip::Name _clipName, Skeleton::Name _skelName)
@@ -55,12 +115,12 @@ void AnimationManager::SetClip(Clip::Name _clipName, Skeleton::Name _skelName)
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    Clip *pClip = pMan->privFind(_clipName);
+    Clip *pClip = pMan->Find(_clipName);
     assert(pClip);
 
     Skeleton *pSkel = SkeletonManager::Find(_skelName);
     assert(pSkel != nullptr);
-    
+
     pSkel->GetController()->SetClip(pClip);
 }
 
@@ -69,7 +129,7 @@ void AnimationManager::AddController(Skeleton::Name skelName, Clip::Name _clip)
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    Clip *pClip = pMan->privFind(_clip);
+    Clip *pClip = pMan->Find(_clip);
     assert(pClip);
 
     Skeleton *pSkel = SkeletonManager::Find(skelName);
@@ -134,6 +194,28 @@ void AnimationManager::PlayPause(Skeleton::Name _skelName)
     pSkel->GetController()->PlayPause();
 }
 
+//----------------------------------------------------------------------
+// Private methods
+//----------------------------------------------------------------------
+AnimationManager *AnimationManager::privGetInstance()
+{
+    // Safety - this forces users to call Create() first before using class
+    assert(posInstance != nullptr);
+
+    return posInstance;
+}
+
+//----------------------------------------------------------------------
+// Override Abstract methods
+//----------------------------------------------------------------------
+DLink *AnimationManager::derivedCreateNode()
+{
+    DLink *pNodeBase = new Clip();
+    assert(pNodeBase != nullptr);
+
+    return pNodeBase;
+}
+
 //void AnimationManager::Demo()
 //{
 //    AnimationManager *pMan = AnimationManager::privGetInstance();
@@ -174,130 +256,4 @@ void AnimationManager::PlayPause(Skeleton::Name _skelName)
 //    }
 //}
 
-void AnimationManager::Create()
-{
-    // initialize the singleton here
-    assert(posInstance == nullptr);
 
-    // Do the initialization
-    if (posInstance == nullptr)
-    {
-        posInstance = new AnimationManager();
-    }
-}
-
-void AnimationManager::Destroy()
-{
-    AnimationManager *pMan = AnimationManager::privGetInstance();
-    assert(pMan);
-
-    PCSTree *pTree = pMan->poClipTree;
-    PCSNode *pNode = nullptr;
-
-    PCSTree::Info info;
-    pTree->GetInfo(info);
-    if (info.currNumNodes <= 1)
-    {
-        delete pTree->GetRoot();
-    }
-    else
-    {
-        PCSTreeForwardIterator pForIter(pTree->GetRoot());
-        pNode = pForIter.First();
-        PCSNode *pTmp = nullptr;
-        while (!pForIter.IsDone())
-        {
-            pTmp = pForIter.CurrentItem();
-
-            pNode = pForIter.Next();
-            delete pTmp;
-        }
-    }
-
-    pTree = pMan->poAnimTree;
-    pNode = nullptr;
-
-    pTree->GetInfo(info);
-    if (info.currNumNodes <= 1)
-    {
-        delete pTree->GetRoot();
-    }
-    else
-    {
-        PCSTreeForwardIterator pForIter = pTree->GetRoot();
-        pNode = pForIter.First();
-        PCSNode *pTmp = nullptr;
-        while (!pForIter.IsDone())
-        {
-            pTmp = pForIter.CurrentItem();
-
-            pNode = pForIter.Next();
-            delete pTmp;
-        }
-    }
-
-
-    delete AnimationManager::posInstance;
-    AnimationManager::posInstance = nullptr;
-}
-
-AnimationManager *AnimationManager::privGetInstance()
-{
-    return posInstance;
-}
-
-Clip *AnimationManager::privFind(Clip::Name _clipName)
-{
-    AnimationManager *pMan = AnimationManager::privGetInstance();
-    assert(pMan);
-
-    PCSNode *pRootNode = pMan->poClipTree->GetRoot();
-    assert(pRootNode);
-
-    PCSTreeForwardIterator pForwardIter(pRootNode);
-    PCSNode *pNode = pForwardIter.First();
-
-    Clip *pClip = nullptr;
-
-    while (!pForwardIter.IsDone())
-    {
-        assert(pNode);
-        pClip = (Clip *)pNode;
-        if (pClip->GetClipName() == _clipName)
-        {
-            return pClip;
-        }
-
-        pNode = pForwardIter.Next();
-    }
-
-    return nullptr;
-}
-
-//AnimController *AnimationManager::privFind(Skeleton::Name _skelName)
-//{
-//    /*AnimationManager *pMan = AnimationManager::privGetInstance();
-//    assert(pMan);
-//
-//    PCSNode *pRootNode = pMan->poControllerTree->GetRoot();
-//    assert(pRootNode);
-//
-//    PCSTreeForwardIterator pForwardIter(pRootNode);
-//    PCSNode *pNode = pForwardIter.First();
-//
-//    AnimController *pController = nullptr;
-//
-//    while (!pForwardIter.IsDone())
-//    {
-//        assert(pNode);
-//        pController = (AnimController *)pNode;
-//        if (pController->name == _animName)
-//        {
-//            return pController;
-//        }
-//
-//        pNode = pForwardIter.Next();
-//    }*/
-//
-//    return nullptr;
-//}

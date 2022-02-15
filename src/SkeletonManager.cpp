@@ -85,7 +85,8 @@ void SkeletonManager::Update()
     // Walk through the nodes
     while (!pIt->IsDone())
     {
-        ((Skeleton *)pIt->Curr())->GetController()->Update();
+        Skeleton *pSkel = (Skeleton *)pIt->Curr();
+        if(pSkel->GetController() != nullptr) pSkel->GetController()->Update();
         pNode = pIt->Next();
     }
 

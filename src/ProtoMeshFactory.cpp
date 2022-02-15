@@ -111,7 +111,7 @@ void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation *
     ProtoMeshFactory::LoadProto(pMeshFileName, pB);
     pAnim = new Animation();
     pAnim->poAnimData = new Animation::AnimData[pB.animCount];
-    pAnim->totalBones = pB.totalBones;
+    pAnim->totalBones = 12;//pB.totalBones;
     pAnim->animatedJointCount = pB.animCount;
     for (unsigned int index = 0; index < pB.animCount; index++)
     {
@@ -138,6 +138,6 @@ void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation *
             animStruct->meshBone.push_back(tmpBone);
         }
         
-        AnimationManager::Add(pAnim);
+        //AnimationManager::Add(pAnim);
     }
 }

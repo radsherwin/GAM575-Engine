@@ -72,7 +72,7 @@ void ProtoBuffMesh::privCreateMesh(meshData &mB, const unsigned int &totalBones)
 
     this->textureIDInt = mB.materialIndex;
     this->meshName = mB.pName;
-    this->totalBones = totalBones;
+    this->totalBones = 12;//totalBones;
 
     if(mB.jointCount > 0)
     {

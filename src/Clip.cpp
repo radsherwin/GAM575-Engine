@@ -8,17 +8,6 @@
 
 namespace Azul
 {
-Clip::Clip(Clip::Name clipName, Animation *pAnimation)
-    : name(clipName),
-    numBones(pAnimation->totalBones),
-    numFrames(0),
-    TotalTime(AnimTime::Duration::ZERO),
-    poHead(nullptr)
-{
-    this->privSetAnimationData(pAnimation);
-    this->TotalTime = this->privFindMaxTime();
-}
-
 Clip::Clip()
     : name(Clip::Name::NULL_CLIP),
     numBones(0),
@@ -38,6 +27,17 @@ Clip::~Clip()
         pTmp = pTmp->nextBucket;
         delete pDeleteMe;
     }
+}
+
+void Clip::Set(Animation *pAnimation, Clip::Name _name)
+{
+    name = _name;
+    numBones = pAnimation->totalBones;
+    numFrames = 0;
+    TotalTime = AnimTime(AnimTime::Duration::ZERO);
+    poHead = nullptr;
+    this->privSetAnimationData(pAnimation);
+    this->TotalTime = this->privFindMaxTime();
 }
 
 Clip::Name Clip::GetClipName() const
@@ -161,6 +161,48 @@ void Clip::privSetAnimationData(Animation *pAnimation)
             }
         }
     }
+}
+
+bool Clip::Compare(DLink *pTarget)
+{
+    // This is used in ManBase.Find()
+    assert(pTarget != nullptr);
+
+    Clip *pDataB = (Clip *)pTarget;
+
+    bool status = false;
+
+    if (this->name == pDataB->name)
+    {
+        status = true;
+    }
+
+    return status;
+}
+
+void Clip::Dump()
+{
+    Trace::out("      Clip(%p)\n", this);
+
+    // Data:
+    //Trace::out("      Name: %s \n", STRING_ME(this->name));
+
+    //Trace::out("         x: %d \n", this->x);
+
+    DLink::Dump();
+}
+
+void Clip::Wash()
+{
+}
+
+char *Clip::GetName()
+{
+    // todo - Hack understand why is this needed for print and fix...
+    //static char pTmp[128];
+    //strcpy_s(pTmp, 128, STRING_ME(this->name));
+    //return pTmp;
+    return nullptr;
 }
 }
 
