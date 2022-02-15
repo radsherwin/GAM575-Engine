@@ -24,6 +24,7 @@
 #include "ImageManager.h"
 #include "FontManager.h"
 #include "GlyphManager.h"
+#include "SkeletonManager.h"
 
 #include "Camera.h"
 #include "CameraInput.h"
@@ -98,6 +99,7 @@ void Game::LoadContent()
     ImageManager::Create();
     FontManager::Create();
     GlyphManager::Create();
+    SkeletonManager::Create();
 
     //-----------------------------------------------------------------------------
     //	    Load Cameras
@@ -176,30 +178,23 @@ void Game::LoadContent()
     ProtoMeshFactory::CreateMeshSingle("DogHouse.mt.proto.azul", pDogHouseMesh, Texture::Name::DOG_HOUSE);
     MeshNodeManager::Add(Mesh::Name::DOG_HOUSE, pDogHouseMesh);
 
-    Mesh *chickenBotMesh[8];
-    ProtoMeshFactory::CreateMeshArray("walk_mesh.mat.proto.azul", chickenBotMesh, Texture::Name::CHICKEN_BOT);
-    MeshNodeManager::Add(Mesh::Name::BONE, chickenBotMesh[0]);
-    MeshNodeManager::Add(Mesh::Name::BONE_R, chickenBotMesh[1]);
-    MeshNodeManager::Add(Mesh::Name::BONE_R_001, chickenBotMesh[2]);
-    MeshNodeManager::Add(Mesh::Name::BONE_R_002, chickenBotMesh[3]);
-    MeshNodeManager::Add(Mesh::Name::BONE_L, chickenBotMesh[4]);
-    MeshNodeManager::Add(Mesh::Name::BONE_L_001, chickenBotMesh[5]);
-    MeshNodeManager::Add(Mesh::Name::BONE_L_002, chickenBotMesh[6]);
-    MeshNodeManager::Add(Mesh::Name::BONE_01, chickenBotMesh[7]);
+    Mesh *chickenBotMesh;
+    ProtoMeshFactory::CreateMeshSingle("walk_mesh.mat.proto.azul", chickenBotMesh, Texture::Name::CHICKEN_BOT);
+    MeshNodeManager::Add(Mesh::Name::CHICKEN_BOT, chickenBotMesh);
 
-    Animation *Anim_Die_Left[8];
+    Animation *Anim_Die_Left;
     ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
 
-    Animation *Anim_Walk[8];
+    Animation *Anim_Walk;
     ProtoMeshFactory::GetAnimation("walk_mesh.mat.proto.azul", Anim_Walk);
 
-    Animation *Anim_Shot_Down[8];
+    Animation *Anim_Shot_Down;
     ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
 
-    Animation *Anim_Hit_Right[8];
+    Animation *Anim_Hit_Right;
     ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
-    Animation *Anim_Run[8];
+    Animation *Anim_Run;
     ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
 
     //-----------------------------------------------------------------------------
@@ -319,20 +314,19 @@ void Game::LoadContent()
     ////	    Create Animation
     ////-----------------------------------------------------------------------------
 
-    Skeleton *pSkel = new Skeleton(chickenBotMesh, NUM_BONES);
-    pSkel->SetPos(-1.3f, 0, 0);
+    SkeletonManager::Add(Skeleton::Name::CHICKEN_BOT_1, chickenBotMesh, Vect(-1.3f, 0,0));
+    SkeletonManager::Add(Skeleton::Name::CHICKEN_BOT_2, chickenBotMesh, Vect(1.0f, 0,0));
 
-    Skeleton *pSkel2 = new Skeleton(chickenBotMesh, NUM_BONES);
-    pSkel2->SetPos(0, 0, 0);
+    AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT);
+    AnimationManager::Add(Anim_Walk, Clip::Name::WALK);
+    AnimationManager::Add(Anim_Shot_Down, Clip::Name::SHOT_DOWN);
+    AnimationManager::Add(Anim_Hit_Right, Clip::Name::HIT_RIGHT);
+    AnimationManager::Add(Anim_Run, Clip::Name::RUN);
 
-    AnimationManager::Add(Anim_Die_Left, Clip::Name::DIE_LEFT, NUM_BONES);
-    AnimationManager::Add(Anim_Walk, Clip::Name::WALK, NUM_BONES);
-    AnimationManager::Add(Anim_Shot_Down, Clip::Name::SHOT_DOWN, NUM_BONES);
-    AnimationManager::Add(Anim_Hit_Right, Clip::Name::HIT_RIGHT, NUM_BONES);
-    AnimationManager::Add(Anim_Run, Clip::Name::RUN, NUM_BONES);
+    //pSkel->AddController(AnimController::AnimName::MESH1, Clip::Name::WALK);
 
-    AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
-    AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
+    //AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
+    //AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
 
     AnimationManager::Demo();
 
@@ -415,6 +409,7 @@ void Game::UnLoadContent()
     AnimationManager::Destroy();
     GlyphManager::Destroy();
     FontManager::Destroy();
+    SkeletonManager::Destroy();
 }
 
 //------------------------------------------------------------------

@@ -48,6 +48,13 @@ public:
 		NOT_INITIALIZED
 	};
 
+	struct JointData
+	{
+		char name[32];
+		int jointIndex;
+		int parentIndex;
+	};
+
 public:
 	Mesh();
 	Mesh(Mesh& copyMesh) = delete;
@@ -77,8 +84,9 @@ public:
 	Name name;
 	std::string meshName;
 	unsigned int textureIDInt;
-	int jointIndex;
-	int parentJointIndex;
+	unsigned int totalBones;
+	unsigned int jointCount;
+	JointData *poJointData;
 };
 
 #endif

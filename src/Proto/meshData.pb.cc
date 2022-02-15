@@ -15,7 +15,8 @@
 PROTOBUF_PRAGMA_INIT_SEG
 constexpr meshData_proto::meshData_proto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : pname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : pjointdata_()
+  , pname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , vbo_vert_(nullptr)
   , vbo_norm_(nullptr)
   , vbo_uv_(nullptr)
@@ -30,8 +31,7 @@ constexpr meshData_proto::meshData_proto(
   , tricount_(0u)
   , vertcount_(0u)
   , materialindex_(0u)
-  , jointindex_(0)
-  , parentjointindex_(0){}
+  , jointcount_(0u){}
 struct meshData_protoDefaultTypeInternal {
   constexpr meshData_protoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -219,9 +219,13 @@ void meshData_proto::clear_vbo_invbind() {
   }
   vbo_invbind_ = nullptr;
 }
+void meshData_proto::clear_pjointdata() {
+  pjointdata_.Clear();
+}
 meshData_proto::meshData_proto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  pjointdata_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -229,7 +233,8 @@ meshData_proto::meshData_proto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:meshData_proto)
 }
 meshData_proto::meshData_proto(const meshData_proto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      pjointdata_(from.pjointdata_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   pname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_pname().empty()) {
@@ -277,8 +282,8 @@ meshData_proto::meshData_proto(const meshData_proto& from)
     vbo_invbind_ = nullptr;
   }
   ::memcpy(&enabled_, &from.enabled_,
-    static_cast<size_t>(reinterpret_cast<char*>(&parentjointindex_) -
-    reinterpret_cast<char*>(&enabled_)) + sizeof(parentjointindex_));
+    static_cast<size_t>(reinterpret_cast<char*>(&jointcount_) -
+    reinterpret_cast<char*>(&enabled_)) + sizeof(jointcount_));
   // @@protoc_insertion_point(copy_constructor:meshData_proto)
 }
 
@@ -286,8 +291,8 @@ inline void meshData_proto::SharedCtor() {
 pname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vbo_vert_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&parentjointindex_) -
-    reinterpret_cast<char*>(&vbo_vert_)) + sizeof(parentjointindex_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&jointcount_) -
+    reinterpret_cast<char*>(&vbo_vert_)) + sizeof(jointcount_));
 }
 
 meshData_proto::~meshData_proto() {
@@ -326,6 +331,7 @@ void meshData_proto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  pjointdata_.Clear();
   pname_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && vbo_vert_ != nullptr) {
     delete vbo_vert_;
@@ -360,8 +366,8 @@ void meshData_proto::Clear() {
   }
   vbo_invbind_ = nullptr;
   ::memset(&enabled_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&parentjointindex_) -
-      reinterpret_cast<char*>(&enabled_)) + sizeof(parentjointindex_));
+      reinterpret_cast<char*>(&jointcount_) -
+      reinterpret_cast<char*>(&enabled_)) + sizeof(jointcount_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -471,18 +477,23 @@ const char* meshData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // sint32 jointIndex = 15;
+      // uint32 jointCount = 15;
       case 15:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 120)) {
-          jointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+          jointcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // sint32 parentJointIndex = 16;
+      // repeated .jointData_proto pJointData = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 128)) {
-          parentjointindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
-          CHK_(ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_pjointdata(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<130>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -615,16 +626,18 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(14, this->_internal_materialindex(), target);
   }
 
-  // sint32 jointIndex = 15;
-  if (this->_internal_jointindex() != 0) {
+  // uint32 jointCount = 15;
+  if (this->_internal_jointcount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(15, this->_internal_jointindex(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(15, this->_internal_jointcount(), target);
   }
 
-  // sint32 parentJointIndex = 16;
-  if (this->_internal_parentjointindex() != 0) {
+  // repeated .jointData_proto pJointData = 16;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_pjointdata_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(16, this->_internal_parentjointindex(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(16, this->_internal_pjointdata(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -642,6 +655,13 @@ size_t meshData_proto::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .jointData_proto pJointData = 16;
+  total_size += 2UL * this->_internal_pjointdata_size();
+  for (const auto& msg : this->pjointdata_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
 
   // bytes pName = 2;
   if (!this->_internal_pname().empty()) {
@@ -738,18 +758,11 @@ size_t meshData_proto::ByteSizeLong() const {
         this->_internal_materialindex());
   }
 
-  // sint32 jointIndex = 15;
-  if (this->_internal_jointindex() != 0) {
+  // uint32 jointCount = 15;
+  if (this->_internal_jointcount() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
-        this->_internal_jointindex());
-  }
-
-  // sint32 parentJointIndex = 16;
-  if (this->_internal_parentjointindex() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32Size(
-        this->_internal_parentjointindex());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_jointcount());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -772,6 +785,7 @@ void meshData_proto::MergeFrom(const meshData_proto& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  pjointdata_.MergeFrom(from.pjointdata_);
   if (!from._internal_pname().empty()) {
     _internal_set_pname(from._internal_pname());
   }
@@ -814,11 +828,8 @@ void meshData_proto::MergeFrom(const meshData_proto& from) {
   if (from._internal_materialindex() != 0) {
     _internal_set_materialindex(from._internal_materialindex());
   }
-  if (from._internal_jointindex() != 0) {
-    _internal_set_jointindex(from._internal_jointindex());
-  }
-  if (from._internal_parentjointindex() != 0) {
-    _internal_set_parentjointindex(from._internal_parentjointindex());
+  if (from._internal_jointcount() != 0) {
+    _internal_set_jointcount(from._internal_jointcount());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -837,14 +848,15 @@ bool meshData_proto::IsInitialized() const {
 void meshData_proto::InternalSwap(meshData_proto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  pjointdata_.InternalSwap(&other->pjointdata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &pname_, GetArenaForAllocation(),
       &other->pname_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(meshData_proto, parentjointindex_)
-      + sizeof(meshData_proto::parentjointindex_)
+      PROTOBUF_FIELD_OFFSET(meshData_proto, jointcount_)
+      + sizeof(meshData_proto::jointcount_)
       - PROTOBUF_FIELD_OFFSET(meshData_proto, vbo_vert_)>(
           reinterpret_cast<char*>(&vbo_vert_),
           reinterpret_cast<char*>(&other->vbo_vert_));

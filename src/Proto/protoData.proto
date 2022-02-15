@@ -15,8 +15,9 @@ message protoData_proto
 			 uint32				animCount		= 4;
 			 uint32				textureCount	= 5;
 			 uint32				fontCount		= 6;
-	repeated meshData_proto		pMeshData		= 7;
-	repeated animData_proto		pAnimData		= 8;
-	repeated textureData_proto	pTextureData	= 9;
-	repeated fontData_proto		pFontData		= 10;
+			 uint32				totalBones		= 7;
+	repeated meshData_proto		pMeshData		= 8;
+	repeated animData_proto		pAnimData		= 9;
+	repeated textureData_proto	pTextureData	= 10;
+	repeated fontData_proto		pFontData		= 11;
 }

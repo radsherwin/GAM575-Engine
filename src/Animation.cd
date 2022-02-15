@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Azul::AnimationManager">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYIAAAAQKAAAACAACABAIAAAABCAEAAAAAmAAAJACI=</HashCode>
+      <FileName>AnimationManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::AnimController">
+    <Position X="5.5" Y="1.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Azul::AnimController::AnimName" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AnimController.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAAIgAAAAAEACAAAAAARAGAAAQAABiAAAAAAI=</HashCode>
+      <FileName>AnimController.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="poSkeleton" />
+      <Field Name="poAnim" />
+      <Field Name="poTimerControl" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Azul::AnimTime">
+    <Position X="12.75" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Azul::AnimTime::Duration" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>D:\Coding\Perforce\Winter2022\keenan2022winter_gam576\student\srad\MS2\Engine\dist\Time\include\AnimTime.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Typedef Name="Azul::AnimTime::Representation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>D:\Coding\Perforce\Winter2022\keenan2022winter_gam576\student\srad\MS2\Engine\dist\Time\include\AnimTime.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAQAAAAAAgAAAAAAgBQBAAAA=</HashCode>
+      <FileName>D:\Coding\Perforce\Winter2022\keenan2022winter_gam576\student\srad\MS2\Engine\dist\Time\include\AnimTime.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::Anim">
+    <Position X="3" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABABAAAQAIAAAAAAgAAAggAEAAAE=</HashCode>
+      <FileName>Anim.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::Skeleton">
+    <Position X="8.25" Y="7.5" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Azul::Skeleton::Data" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Skeleton.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BMAAAAAAgAAAAABIMCAABAAQAAAEAAAAAAAgAAAAAAE=</HashCode>
+      <FileName>Skeleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::TimerController">
+    <Position X="5.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQGAIABAEQAAQAAQAAAQAAAAAAABAAQAAAmAAAIAAI=</HashCode>
+      <FileName>TimerController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Azul::Clip">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Azul::Clip::Name" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Clip.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="Azul::Clip::FrameBucket" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Clip.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgAAIAAAAAADAAAAAAAAEAAAAAAMAAECAAAgMAAEAAk=</HashCode>
+      <FileName>Clip.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Animation">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Animation::AnimData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Animation.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAgAAAAAAAAAEAAAAAABAgAAAAAAE=</HashCode>
+      <FileName>Animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

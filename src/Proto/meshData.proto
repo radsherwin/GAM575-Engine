@@ -5,6 +5,7 @@
 syntax = "proto3";
 
 import "vboData.proto";
+import "jointData.proto";
 
 option optimize_for = LITE_RUNTIME;
 
@@ -21,21 +22,22 @@ message meshData_proto
 		MODE_TRIANGLE_FAN   = 6;
 	};
 
-	bool			enabled				= 1;
-	bytes			pName				= 2;
-	RENDER_MODE		mode				= 3;
-	vboData_proto	vbo_vert			= 4;
-	vboData_proto	vbo_norm			= 5;
-	vboData_proto	vbo_uv				= 6;
-	vboData_proto	vbo_index			= 7;
-	vboData_proto	vbo_color			= 8;
-	vboData_proto	vbo_weights			= 9;
-	vboData_proto	vbo_joints			= 10;
-	vboData_proto	vbo_invBind			= 11;
-	uint32			triCount			= 12;
-	uint32			vertCount			= 13;
-	uint32			materialIndex		= 14;
-	sint32			jointIndex			= 15;
-	sint32			parentJointIndex	= 16;
+	bool				enabled			= 1;
+	bytes				pName			= 2;
+	RENDER_MODE			mode			= 3;
+	vboData_proto		vbo_vert		= 4;
+	vboData_proto		vbo_norm		= 5;
+	vboData_proto		vbo_uv			= 6;
+	vboData_proto		vbo_index		= 7;
+	vboData_proto		vbo_color		= 8;
+	vboData_proto		vbo_weights		= 9;
+	vboData_proto		vbo_joints		= 10;
+	vboData_proto		vbo_invBind		= 11;
+	uint32				triCount		= 12;
+	uint32				vertCount		= 13;
+	uint32				materialIndex	= 14;
+	uint32				jointCount		= 15;
+	repeated jointData_proto		pJointData		= 16;
+
 }													 
 // -- End of File ---

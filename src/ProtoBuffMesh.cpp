@@ -55,10 +55,10 @@ struct Vert_joint
     float jd;
 };
 
-ProtoBuffMesh::ProtoBuffMesh(meshData &mB)
+ProtoBuffMesh::ProtoBuffMesh(meshData &mB, const unsigned int totalBones)
     : Mesh()
 {
-    this->privCreateMesh(mB);
+    this->privCreateMesh(mB, totalBones);
 }
 
 ProtoBuffMesh::~ProtoBuffMesh()
@@ -66,14 +66,29 @@ ProtoBuffMesh::~ProtoBuffMesh()
     // remove anything dynamic here
 }
 
-void ProtoBuffMesh::privCreateMesh(meshData &mB)
+void ProtoBuffMesh::privCreateMesh(meshData &mB, const unsigned int &totalBones)
 {
     Trace::out("Building mesh: %s\n", mB.pName);
 
     this->textureIDInt = mB.materialIndex;
-    this->jointIndex = mB.jointIndex;
-    this->parentJointIndex = mB.parentJointIndex;
     this->meshName = mB.pName;
+    this->totalBones = totalBones;
+
+    if(mB.jointCount > 0)
+    {
+        this->poJointData = new Mesh::JointData[mB.jointCount];
+        this->jointCount = mB.jointCount;
+        
+    }
+
+    jointData *pJD = nullptr;
+    for(int i = 0; i < mB.jointCount; i++)
+    {
+        pJD = &mB.pJointData[i];
+        memcpy_s(this->poJointData[i].name, 32, pJD->pName, 32);
+        this->poJointData[i].jointIndex = pJD->jointIndex;
+        this->poJointData[i].parentIndex = pJD->parentIndex;
+    }
 
     // Create a VAO
     glGenVertexArrays(1, &this->vao);

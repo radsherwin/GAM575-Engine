@@ -78,7 +78,7 @@ void ProtoMeshFactory::CreateMeshArray(const char *const pFileName, Mesh **meshA
     // LOAD MESH
     for (unsigned int i = 0; i < pB.meshCount; i++)
     {
-        meshArray[i] = new ProtoBuffMesh(pB.pMeshData[i]);
+        meshArray[i] = new ProtoBuffMesh(pB.pMeshData[i], pB.totalBones);
     }
 }
 
@@ -102,41 +102,42 @@ void ProtoMeshFactory::CreateMeshSingle(const char *const pFileName, Mesh *&mesh
     }
 
     // LOAD MESH
-    mesh = new ProtoBuffMesh(pB.pMeshData[0]);
+    mesh = new ProtoBuffMesh(pB.pMeshData[0], pB.totalBones);
 }
 
-void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation **AnimationArray)
+void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation *pAnim)
 {
     protoData pB;
     ProtoMeshFactory::LoadProto(pMeshFileName, pB);
-
+    
+    pAnim->poAnimData = new Animation::AnimData[pB.animCount];
+    pAnim->totalBones = pB.totalBones;
+    pAnim->animatedJointCount = pB.animCount;
     for (unsigned int index = 0; index < pB.animCount; index++)
     {
-        animData *pAnim = &pB.pAnimData[index];
-        Animation *tmpAnim = new Animation();
-
-        tmpAnim->parent = pAnim->parentIndex;
-        tmpAnim->joint = pAnim->jointIndex;
-        tmpAnim->frames = pAnim->totalAnimFrames;
-        tmpAnim->protoName = pAnim->animName;
+        animData *pAD = &pB.pAnimData[index];
+        Animation::AnimData *animStruct = &pAnim->poAnimData[index];
+        animStruct->parent = pAD->parentIndex;
+        animStruct->joint = pAD->jointIndex;
+        animStruct->frames = pAD->totalAnimFrames;
+        animStruct->protoName = pAD->animName;
 
         Bone tmpBone;
-        tmpAnim->meshBone.reserve(tmpAnim->frames);
-        for (int i = 0; i < tmpAnim->frames; i++)
+        animStruct->meshBone.reserve(animStruct->frames);
+        for (int i = 0; i < animStruct->frames; i++)
         {
-            float *pTrans = (float *)&pAnim->bone_data[i].pTranslation[0];
+            float *pTrans = (float *)&pAD->bone_data[i].pTranslation[0];
             tmpBone.T.set(*&pTrans[0], *&pTrans[1], *&pTrans[2]);
 
-            float *pQuat = (float *)&pAnim->bone_data[i].pRotation[0];
+            float *pQuat = (float *)&pAD->bone_data[i].pRotation[0];
             tmpBone.Q.set(*&pQuat[0], *&pQuat[1], *&pQuat[2], *&pQuat[3]);
 
-            float *pScale = (float *)&pAnim->bone_data[i].pScale[0];
+            float *pScale = (float *)&pAD->bone_data[i].pScale[0];
             tmpBone.S.set(*&pScale[0], *&pScale[1], *&pScale[2]);
 
-            tmpAnim->meshBone.push_back(tmpBone);
+            animStruct->meshBone.push_back(tmpBone);
         }
-
-        AnimationManager::Add(tmpAnim);
-        AnimationArray[index] = tmpAnim;
+        
+        AnimationManager::Add(pAnim);
     }
 }

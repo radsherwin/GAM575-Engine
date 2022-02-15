@@ -9,6 +9,7 @@
 #include "GraphicsObject_Wireframe.h"
 #include "GraphicsObject_WireframeConstantColor.h"
 #include "GraphicsObject_Sprite.h"
+#include "GraphicsObject_SkinTexture.h"
 
 GraphicsObjectHdr::GraphicsObjectHdr(GraphicsObject *_pGraphicsObj)
     : pNext(nullptr), poGraphicsObject(nullptr)
@@ -150,6 +151,11 @@ void GraphicsObjectHdr::Set_WireframeConstColor(const Mesh *const pMesh, const S
                                                 const Vect &wireColor)
 {
     this->poGraphicsObject = new GraphicsObject_WireframeConstantColor(pMesh, pShaderObj, wireColor);
+}
+
+void GraphicsObjectHdr::Set_SkinTexture(const Mesh *const pMesh, const ShaderObject *const pShaderObj, const Texture::Name _name)
+{
+    this->poGraphicsObject = new GraphicsObject_SkinTexture(pMesh, pShaderObj, _name);
 }
 
 //--------------------------------------------------------------------------------

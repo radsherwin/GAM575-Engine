@@ -10,8 +10,8 @@ meshData::meshData()
     triCount(0),
     vertCount(0),
     materialIndex(0),
-    jointIndex(0),
-    parentJointIndex(0)
+    jointCount(0),
+    pJointData{nullptr}
 
 {
 }
@@ -30,8 +30,8 @@ meshData::meshData(const meshData &r)
     triCount(r.triCount),
     vertCount(r.vertCount),
     materialIndex(r.materialIndex),
-    jointIndex(r.jointIndex),
-    parentJointIndex(r.parentJointIndex)
+    jointCount(r.jointCount),
+    pJointData(r.pJointData)
 {
     memcpy_s(this->pName, meshData::FILE_NAME_SIZE, r.pName, meshData::FILE_NAME_SIZE);
 }
@@ -53,8 +53,8 @@ meshData &meshData::operator=(const meshData &r)
         this->triCount = r.triCount;
         this->vertCount = r.vertCount;
         this->materialIndex = r.materialIndex;
-        this->jointIndex = r.jointIndex;
-        this->parentJointIndex = r.parentJointIndex;
+        this->jointCount = r.jointCount;
+        this->pJointData = r.pJointData;
         memcpy_s(this->pName, meshData::FILE_NAME_SIZE, r.pName, meshData::FILE_NAME_SIZE);
     }
 
@@ -63,6 +63,7 @@ meshData &meshData::operator=(const meshData &r)
 
 meshData::~meshData()
 {
+    delete[] this->pJointData;
 }
 
 void meshData::Serialize(meshData_proto &out) const
@@ -75,8 +76,7 @@ void meshData::Serialize(meshData_proto &out) const
     out.set_tricount(this->triCount);
     out.set_vertcount(this->vertCount);
     out.set_materialindex(this->materialIndex);
-    out.set_jointindex(this->jointIndex);
-    out.set_parentjointindex(this->parentJointIndex);
+    out.set_jointcount(this->jointCount);
 
     out.set_mode((meshData_proto_RENDER_MODE)(this->mode));
 
@@ -112,6 +112,18 @@ void meshData::Serialize(meshData_proto &out) const
     pVBO_proto = new vboData_proto();
     this->vbo_invBind.Serialize(*pVBO_proto);
     out.set_allocated_vbo_invbind(pVBO_proto);
+
+    jointData_proto *pJoint_proto;
+    for(int i = 0; i < jointCount; i++)
+    {
+        pJoint_proto = new jointData_proto();
+        this->pJointData[i].Serialize(*pJoint_proto);
+        out.mutable_pjointdata()->AddAllocated(pJoint_proto);
+    }
+
+    // Joint data
+    //
+    //this->pJointData->Serialize()
 }
 
 void meshData::Deserialize(const meshData_proto &in)
@@ -122,8 +134,7 @@ void meshData::Deserialize(const meshData_proto &in)
     this->triCount = in.tricount();
     this->vertCount = in.vertcount();
     this->materialIndex = in.materialindex();
-    this->jointIndex = in.jointindex();
-    this->parentJointIndex = in.parentjointindex();
+    this->jointCount = in.jointcount();
 
     this->mode = (RENDER_MODE)in.mode();
 
@@ -137,6 +148,19 @@ void meshData::Deserialize(const meshData_proto &in)
     if (in.vbo_weights().enabled()) this->vbo_weights.Deserialize(in.vbo_weights());
     if (in.vbo_joints().enabled()) this->vbo_joints.Deserialize(in.vbo_joints());
     if (in.vbo_invbind().enabled()) this->vbo_invBind.Deserialize(in.vbo_invbind());
+
+    if(this->jointCount == 0)
+    {
+        this->pJointData = nullptr;
+    }
+    else
+    {
+        this->pJointData = new jointData[this->jointCount];
+        for(int i = 0; i < this->jointCount; i++)
+        {
+            this->pJointData[i].Deserialize(in.pjointdata(i));
+        }
+    }
 }
 
 void meshData::Print(const char *const _pName, const int i) const

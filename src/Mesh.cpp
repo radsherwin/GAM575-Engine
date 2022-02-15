@@ -16,8 +16,9 @@ Mesh::Mesh()
 	vbo_index(0),
 	poRefSphere(new Sphere()),
 	textureIDInt(0),
-	jointIndex(-1),
-	parentJointIndex(-1)
+	jointCount(0),
+	totalBones(0),
+	poJointData{nullptr}
 	
 {
 }
@@ -25,6 +26,7 @@ Mesh::Mesh()
 Mesh::~Mesh()
 {
 	delete this->poRefSphere;
+	delete[] this->poJointData;
 }
 
 void Mesh::Wash()
@@ -37,6 +39,8 @@ void Mesh::Wash()
 	vbo_texts = 0;
 	vbo_color = 0;
 	vbo_index = 0;
+	this->jointCount = 0;
+	this->totalBones = 0;
 	
 }
 

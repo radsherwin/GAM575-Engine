@@ -7,46 +7,66 @@
 
 #include "GameObjectAnim.h"
 #include "GameObjectBasic.h"
+#include "DLink.h"
+#include "Vect.h"
 
 namespace Azul
 {
-	struct Bone;
+struct Bone;
 
-	class Skeleton
-	{
-	public:
-		struct Data
-		{
-			int index;
-			int parentIndex;
-			char name[64];
-		};
+class Skeleton : public DLink
+{
+public:
+    struct Data
+    {
+        int index;
+        int parentIndex;
+        char name[64];
+    };
 
-	public:
-		Skeleton(Mesh** SkeletonMesh, int numBones);
+    // HACK FOR DEMOS
+    enum class Name
+    {
+        CHICKEN_BOT_1,
+        CHICKEN_BOT_2,
+        CHICKEN_BOT_3,
+        UNINITIALIZED
+    };
 
-		Skeleton() = delete;
-		Skeleton(const Skeleton&) = delete;
-		Skeleton& operator = (const Skeleton&) = delete;
-		~Skeleton();
+public:
+    Skeleton(Mesh *SkeletonMesh);
 
-		GameObjectAnim* GetFirstBone();
-		Bone* BoneResult();
+    Skeleton();
+    Skeleton(const Skeleton &) = delete;
+    Skeleton &operator = (const Skeleton &) = delete;
+    ~Skeleton();
 
-		void Show();
-		void Hide();
-		void SetPos(float x, float y, float z) const;
+    void Set(Name _name, Mesh *pMesh, Vect pos);
 
-	private:
-		void privSetAnimationHierarchy(Mesh** SkeletonMesh, Bone* pBoneResult);
-		GameObjectAnim* privFindBoneByIndex(int index);
+    GameObjectAnim *GetFirstBone();
+    Bone *BoneResult();
 
-	private:
-		GameObjectAnim* pFirstBone;
-		GameObjectBasic* pPivot;
-		Bone*			poBoneResult;
-		int             numBones;
-	};
+    void Show();
+    void Hide();
+    void SetPos(float x, float y, float z) const;
+
+    virtual char *GetName() override;
+    virtual bool Compare(DLink *pTarget) override;
+    virtual void Dump() override;
+    virtual void Wash() override;
+
+private:
+    void privSetAnimationHierarchy(Mesh *SkeletonMesh, Bone *pBoneResult);
+    GameObjectAnim *privFindBoneByIndex(int index);
+
+public:
+    Name name;
+private:
+    GameObjectAnim *pFirstBone;
+    GameObjectBasic *pPivot;
+    Bone *poBoneResult;
+    int             numBones;
+};
 }
 
 #endif

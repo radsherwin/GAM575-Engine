@@ -2,7 +2,7 @@
 
 protoData::protoData()
     : pVersion{ 0 }, pName{ 0 }, meshCount(0), textureCount(0),
-    animCount(0), fontCount(0), pMeshData(nullptr), pAnimData(nullptr),
+    animCount(0), fontCount(0), totalBones(0),pMeshData(nullptr), pAnimData(nullptr),
     pTextureData(nullptr), pFontData(nullptr)
 {
     strcpy_s(this->pVersion, protoData::VERSION_NUM_BYTES, PROTO_VERSION);
@@ -29,6 +29,7 @@ void protoData::Serialize(protoData_proto &out) const
     out.set_animcount(this->animCount);
     out.set_texturecount(this->textureCount);
     out.set_fontcount(this->fontCount);
+    out.set_totalbones(this->totalBones);
 
     for (int i = 0; i < this->meshCount; i++)
     {
@@ -71,6 +72,7 @@ void protoData::Deserialize(const protoData_proto &in)
     this->animCount = in.animcount();
     this->textureCount = in.texturecount();
     this->fontCount = in.fontcount();
+    this->totalBones = in.totalbones();
 
     if (this->meshCount == 0)
     {
@@ -128,10 +130,12 @@ void protoData::Deserialize(const protoData_proto &in)
 void protoData::Print(const char *const _pName) const
 {
     Trace::out("protoData Print-- %s: \n", _pName);
+    Trace::out("Total bones: %d\n", this->totalBones);
     Trace::out("meshCount: %d \n", this->meshCount);
     Trace::out("animCount: %d \n", this->animCount);
     Trace::out("textureCount: %d \n", this->textureCount);
     Trace::out("fontCount: %d \n", this->fontCount);
+    
 
     for(int i = 0; i < this->meshCount; i++)
     {

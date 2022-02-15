@@ -24,7 +24,8 @@ constexpr protoData_proto::protoData_proto(
   , meshcount_(0u)
   , animcount_(0u)
   , texturecount_(0u)
-  , fontcount_(0u){}
+  , fontcount_(0u)
+  , totalbones_(0u){}
 struct protoData_protoDefaultTypeInternal {
   constexpr protoData_protoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -84,8 +85,8 @@ protoData_proto::protoData_proto(const protoData_proto& from)
       GetArenaForAllocation());
   }
   ::memcpy(&meshcount_, &from.meshcount_,
-    static_cast<size_t>(reinterpret_cast<char*>(&fontcount_) -
-    reinterpret_cast<char*>(&meshcount_)) + sizeof(fontcount_));
+    static_cast<size_t>(reinterpret_cast<char*>(&totalbones_) -
+    reinterpret_cast<char*>(&meshcount_)) + sizeof(totalbones_));
   // @@protoc_insertion_point(copy_constructor:protoData_proto)
 }
 
@@ -94,8 +95,8 @@ pversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlr
 pname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&meshcount_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&fontcount_) -
-    reinterpret_cast<char*>(&meshcount_)) + sizeof(fontcount_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&totalbones_) -
+    reinterpret_cast<char*>(&meshcount_)) + sizeof(totalbones_));
 }
 
 protoData_proto::~protoData_proto() {
@@ -134,8 +135,8 @@ void protoData_proto::Clear() {
   pversion_.ClearToEmpty();
   pname_.ClearToEmpty();
   ::memset(&meshcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&fontcount_) -
-      reinterpret_cast<char*>(&meshcount_)) + sizeof(fontcount_));
+      reinterpret_cast<char*>(&totalbones_) -
+      reinterpret_cast<char*>(&meshcount_)) + sizeof(totalbones_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -189,52 +190,59 @@ const char* protoData_proto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .meshData_proto pMeshData = 7;
+      // uint32 totalBones = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          totalbones_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated .meshData_proto pMeshData = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_pmeshdata(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
         } else goto handle_unusual;
         continue;
-      // repeated .animData_proto pAnimData = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
+      // repeated .animData_proto pAnimData = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_panimdata(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
         } else goto handle_unusual;
         continue;
-      // repeated .textureData_proto pTextureData = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
+      // repeated .textureData_proto pTextureData = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_ptexturedata(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
         } else goto handle_unusual;
         continue;
-      // repeated .fontData_proto pFontData = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+      // repeated .fontData_proto pFontData = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_pfontdata(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -302,36 +310,42 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(6, this->_internal_fontcount(), target);
   }
 
-  // repeated .meshData_proto pMeshData = 7;
+  // uint32 totalBones = 7;
+  if (this->_internal_totalbones() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(7, this->_internal_totalbones(), target);
+  }
+
+  // repeated .meshData_proto pMeshData = 8;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_pmeshdata_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, this->_internal_pmeshdata(i), target, stream);
+      InternalWriteMessage(8, this->_internal_pmeshdata(i), target, stream);
   }
 
-  // repeated .animData_proto pAnimData = 8;
+  // repeated .animData_proto pAnimData = 9;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_panimdata_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, this->_internal_panimdata(i), target, stream);
+      InternalWriteMessage(9, this->_internal_panimdata(i), target, stream);
   }
 
-  // repeated .textureData_proto pTextureData = 9;
+  // repeated .textureData_proto pTextureData = 10;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_ptexturedata_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(9, this->_internal_ptexturedata(i), target, stream);
+      InternalWriteMessage(10, this->_internal_ptexturedata(i), target, stream);
   }
 
-  // repeated .fontData_proto pFontData = 10;
+  // repeated .fontData_proto pFontData = 11;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_pfontdata_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(10, this->_internal_pfontdata(i), target, stream);
+      InternalWriteMessage(11, this->_internal_pfontdata(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -350,28 +364,28 @@ size_t protoData_proto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .meshData_proto pMeshData = 7;
+  // repeated .meshData_proto pMeshData = 8;
   total_size += 1UL * this->_internal_pmeshdata_size();
   for (const auto& msg : this->pmeshdata_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .animData_proto pAnimData = 8;
+  // repeated .animData_proto pAnimData = 9;
   total_size += 1UL * this->_internal_panimdata_size();
   for (const auto& msg : this->panimdata_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .textureData_proto pTextureData = 9;
+  // repeated .textureData_proto pTextureData = 10;
   total_size += 1UL * this->_internal_ptexturedata_size();
   for (const auto& msg : this->ptexturedata_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .fontData_proto pFontData = 10;
+  // repeated .fontData_proto pFontData = 11;
   total_size += 1UL * this->_internal_pfontdata_size();
   for (const auto& msg : this->pfontdata_) {
     total_size +=
@@ -420,6 +434,13 @@ size_t protoData_proto::ByteSizeLong() const {
         this->_internal_fontcount());
   }
 
+  // uint32 totalBones = 7;
+  if (this->_internal_totalbones() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_totalbones());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -462,6 +483,9 @@ void protoData_proto::MergeFrom(const protoData_proto& from) {
   if (from._internal_fontcount() != 0) {
     _internal_set_fontcount(from._internal_fontcount());
   }
+  if (from._internal_totalbones() != 0) {
+    _internal_set_totalbones(from._internal_totalbones());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -494,8 +518,8 @@ void protoData_proto::InternalSwap(protoData_proto* other) {
       &other->pname_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(protoData_proto, fontcount_)
-      + sizeof(protoData_proto::fontcount_)
+      PROTOBUF_FIELD_OFFSET(protoData_proto, totalbones_)
+      + sizeof(protoData_proto::totalbones_)
       - PROTOBUF_FIELD_OFFSET(protoData_proto, meshcount_)>(
           reinterpret_cast<char*>(&meshcount_),
           reinterpret_cast<char*>(&other->meshcount_));

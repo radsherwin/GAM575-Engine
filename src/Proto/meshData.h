@@ -8,6 +8,7 @@
 #include "vboData.h"
 #include "textureData.h"
 #include "animData.h"
+#include "jointData.h"
 
 class meshData
 {
@@ -31,10 +32,6 @@ public:
     meshData(const meshData &);
     meshData &operator = (const meshData &);
     ~meshData();
-
-    /*meshData( char *_pName,
-              RENDER_MODE _mode,
-              )*/
 
     // Serialization
     void Serialize(meshData_proto &out) const;
@@ -60,8 +57,8 @@ public:
     unsigned int        triCount;
     unsigned int        vertCount;
     unsigned int        materialIndex;
-    signed int          jointIndex;
-    signed int          parentJointIndex;
+    unsigned int        jointCount;
+    jointData           *pJointData;
    
 };
 

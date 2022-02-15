@@ -13,15 +13,15 @@ class textureData;
 class ProtoMeshFactory
 {
 public:
-	ProtoMeshFactory();
-	ProtoMeshFactory(const ProtoMeshFactory*) = delete;
-	ProtoMeshFactory& operator=(const ProtoMeshFactory*) = delete;
-	~ProtoMeshFactory() = default;
+    ProtoMeshFactory();
+    ProtoMeshFactory(const ProtoMeshFactory *) = delete;
+    ProtoMeshFactory &operator=(const ProtoMeshFactory *) = delete;
+    ~ProtoMeshFactory() = default;
 
-	static void LoadProto(const char *const pMeshFileName, protoData &mB);
-	static void CreateMeshArray(const char *const pFileName, Mesh** meshArray, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
-	static void CreateMeshSingle(const char *const pFileName, Mesh *&mesh, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
-	static void GetAnimation(const char* const pMeshFileName, Animation** AnimationArray);
+    static void LoadProto(const char *const pMeshFileName, protoData &mB);
+    static void CreateMeshArray(const char *const pFileName, Mesh **meshArray, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
+    static void CreateMeshSingle(const char *const pFileName, Mesh *&mesh, Texture::Name texName = Texture::Name::NOT_INITIALIZED);
+    static void GetAnimation(const char *const pMeshFileName, Animation *AnimationArray);
 };
 
 #endif

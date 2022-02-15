@@ -14,18 +14,24 @@ using namespace Azul;
 class Animation : public PCSNode
 {
 public:
-	Animation();
-	Animation(Animation& copyMesh) = delete;
-	Animation& operator = (Animation& copyMesh) = delete;
-	virtual ~Animation();
+    struct AnimData
+    {
+        std::vector<Bone> meshBone;
+        std::string protoName;
+        int frames;
+        int joint;
+        int parent;
+    };
+
+    Animation();
+    Animation(Animation &copyMesh) = delete;
+    Animation &operator = (Animation &copyMesh) = delete;
+    virtual ~Animation();
 
 public:
-	std::vector<Bone> meshBone;
-	std::string protoName;
-	int frames;
-	int joint;
-	int parent;
-
+    AnimData *poAnimData;
+    int animatedJointCount;
+    int totalBones;
 };
 #endif
 

@@ -116,6 +116,12 @@
     <Filter Include="Source Files\ProtoBuff\fontData">
       <UniqueIdentifier>{47ea9651-f2cd-4454-9836-48b67aa0fa34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Skeleton">
+      <UniqueIdentifier>{ca60bfce-2daa-4af1-9df9-3bd931ec6c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProtoBuff\jointData">
+      <UniqueIdentifier>{7d7cd09f-192f-4771-9d2a-0a1182ac73ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Framework\__DO NOT MODIFY__">
@@ -222,6 +228,12 @@
     </None>
     <None Include="Proto\fontData.proto">
       <Filter>Source Files\ProtoBuff\fontData</Filter>
+    </None>
+    <None Include="Animation.cd">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Proto\jointData.proto">
+      <Filter>Source Files\ProtoBuff\jointData</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -879,9 +891,6 @@
     <ClInclude Include="Clip.h">
       <Filter>Source Files\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Source Files\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationManager.h">
       <Filter>Source Files\Animation</Filter>
     </ClInclude>
@@ -950,6 +959,21 @@
     </ClInclude>
     <ClInclude Include="GameObjectFont.h">
       <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsObject_SkinTexture.h">
+      <Filter>Source Files\GraphicsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Source Files\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonManager.h">
+      <Filter>Source Files\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\jointData.h">
+      <Filter>Source Files\ProtoBuff\jointData</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\jointData.pb.h">
+      <Filter>Source Files\ProtoBuff\jointData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1133,9 +1157,6 @@
     <ClCompile Include="Clip.cpp">
       <Filter>Source Files\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationManager.cpp">
       <Filter>Source Files\Animation</Filter>
     </ClCompile>
@@ -1201,6 +1222,21 @@
     </ClCompile>
     <ClCompile Include="GameObjectFont.cpp">
       <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsObject_SkinTexture.cpp">
+      <Filter>Source Files\GraphicsObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonManager.cpp">
+      <Filter>Source Files\Skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\jointData.cpp">
+      <Filter>Source Files\ProtoBuff\jointData</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\jointData.pb.cc">
+      <Filter>Source Files\ProtoBuff\jointData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

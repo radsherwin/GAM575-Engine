@@ -31,6 +31,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
 #include "vboData.pb.h"
+#include "jointData.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_meshData_2eproto
@@ -223,6 +224,7 @@ class meshData_proto final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kPJointDataFieldNumber = 16,
     kPNameFieldNumber = 2,
     kVboVertFieldNumber = 4,
     kVboNormFieldNumber = 5,
@@ -237,9 +239,26 @@ class meshData_proto final :
     kTriCountFieldNumber = 12,
     kVertCountFieldNumber = 13,
     kMaterialIndexFieldNumber = 14,
-    kJointIndexFieldNumber = 15,
-    kParentJointIndexFieldNumber = 16,
+    kJointCountFieldNumber = 15,
   };
+  // repeated .jointData_proto pJointData = 16;
+  int pjointdata_size() const;
+  private:
+  int _internal_pjointdata_size() const;
+  public:
+  void clear_pjointdata();
+  ::jointData_proto* mutable_pjointdata(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::jointData_proto >*
+      mutable_pjointdata();
+  private:
+  const ::jointData_proto& _internal_pjointdata(int index) const;
+  ::jointData_proto* _internal_add_pjointdata();
+  public:
+  const ::jointData_proto& pjointdata(int index) const;
+  ::jointData_proto* add_pjointdata();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::jointData_proto >&
+      pjointdata() const;
+
   // bytes pName = 2;
   void clear_pname();
   const std::string& pname() const;
@@ -443,22 +462,13 @@ class meshData_proto final :
   void _internal_set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // sint32 jointIndex = 15;
-  void clear_jointindex();
-  ::PROTOBUF_NAMESPACE_ID::int32 jointindex() const;
-  void set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // uint32 jointCount = 15;
+  void clear_jointcount();
+  ::PROTOBUF_NAMESPACE_ID::uint32 jointcount() const;
+  void set_jointcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_jointindex() const;
-  void _internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // sint32 parentJointIndex = 16;
-  void clear_parentjointindex();
-  ::PROTOBUF_NAMESPACE_ID::int32 parentjointindex() const;
-  void set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_parentjointindex() const;
-  void _internal_set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_jointcount() const;
+  void _internal_set_jointcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:meshData_proto)
@@ -468,6 +478,7 @@ class meshData_proto final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::jointData_proto > pjointdata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pname_;
   ::vboData_proto* vbo_vert_;
   ::vboData_proto* vbo_norm_;
@@ -482,8 +493,7 @@ class meshData_proto final :
   ::PROTOBUF_NAMESPACE_ID::uint32 tricount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 vertcount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 materialindex_;
-  ::PROTOBUF_NAMESPACE_ID::int32 jointindex_;
-  ::PROTOBUF_NAMESPACE_ID::int32 parentjointindex_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 jointcount_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_meshData_2eproto;
 };
@@ -1332,44 +1342,61 @@ inline void meshData_proto::set_materialindex(::PROTOBUF_NAMESPACE_ID::uint32 va
   // @@protoc_insertion_point(field_set:meshData_proto.materialIndex)
 }
 
-// sint32 jointIndex = 15;
-inline void meshData_proto::clear_jointindex() {
-  jointindex_ = 0;
+// uint32 jointCount = 15;
+inline void meshData_proto::clear_jointcount() {
+  jointcount_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::_internal_jointindex() const {
-  return jointindex_;
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::_internal_jointcount() const {
+  return jointcount_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::jointindex() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.jointIndex)
-  return _internal_jointindex();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 meshData_proto::jointcount() const {
+  // @@protoc_insertion_point(field_get:meshData_proto.jointCount)
+  return _internal_jointcount();
 }
-inline void meshData_proto::_internal_set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void meshData_proto::_internal_set_jointcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
-  jointindex_ = value;
+  jointcount_ = value;
 }
-inline void meshData_proto::set_jointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_jointindex(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.jointIndex)
+inline void meshData_proto::set_jointcount(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_jointcount(value);
+  // @@protoc_insertion_point(field_set:meshData_proto.jointCount)
 }
 
-// sint32 parentJointIndex = 16;
-inline void meshData_proto::clear_parentjointindex() {
-  parentjointindex_ = 0;
+// repeated .jointData_proto pJointData = 16;
+inline int meshData_proto::_internal_pjointdata_size() const {
+  return pjointdata_.size();
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::_internal_parentjointindex() const {
-  return parentjointindex_;
+inline int meshData_proto::pjointdata_size() const {
+  return _internal_pjointdata_size();
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 meshData_proto::parentjointindex() const {
-  // @@protoc_insertion_point(field_get:meshData_proto.parentJointIndex)
-  return _internal_parentjointindex();
+inline ::jointData_proto* meshData_proto::mutable_pjointdata(int index) {
+  // @@protoc_insertion_point(field_mutable:meshData_proto.pJointData)
+  return pjointdata_.Mutable(index);
 }
-inline void meshData_proto::_internal_set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  parentjointindex_ = value;
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::jointData_proto >*
+meshData_proto::mutable_pjointdata() {
+  // @@protoc_insertion_point(field_mutable_list:meshData_proto.pJointData)
+  return &pjointdata_;
 }
-inline void meshData_proto::set_parentjointindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_parentjointindex(value);
-  // @@protoc_insertion_point(field_set:meshData_proto.parentJointIndex)
+inline const ::jointData_proto& meshData_proto::_internal_pjointdata(int index) const {
+  return pjointdata_.Get(index);
+}
+inline const ::jointData_proto& meshData_proto::pjointdata(int index) const {
+  // @@protoc_insertion_point(field_get:meshData_proto.pJointData)
+  return _internal_pjointdata(index);
+}
+inline ::jointData_proto* meshData_proto::_internal_add_pjointdata() {
+  return pjointdata_.Add();
+}
+inline ::jointData_proto* meshData_proto::add_pjointdata() {
+  ::jointData_proto* _add = _internal_add_pjointdata();
+  // @@protoc_insertion_point(field_add:meshData_proto.pJointData)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::jointData_proto >&
+meshData_proto::pjointdata() const {
+  // @@protoc_insertion_point(field_list:meshData_proto.pJointData)
+  return pjointdata_;
 }
 
 #ifdef __GNUC__

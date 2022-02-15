@@ -20,6 +20,7 @@
     <None Include="..\Proto\google\protobuf\port_undef.inc" />
     <None Include="..\Proto\google\protobuf\proto3_lite_unittest.inc" />
     <None Include="..\Proto\google\protobuf\test_util.inc" />
+    <None Include="Animation.cd" />
     <None Include="CameraDiagram.cd" />
     <None Include="GLSL\colorRender.fs.glsl" />
     <None Include="GLSL\colorRender.vs.glsl" />
@@ -42,6 +43,7 @@
     <None Include="Proto\animData.proto" />
     <None Include="Proto\boneData.proto" />
     <None Include="Proto\fontData.proto" />
+    <None Include="Proto\jointData.proto" />
     <None Include="Proto\meshData.proto" />
     <None Include="Proto\protoData.proto" />
     <None Include="Proto\textureData.proto" />
@@ -245,6 +247,7 @@
     <ClInclude Include="GraphicsObject_FlatTexture.h" />
     <ClInclude Include="GraphicsObject_Font.h" />
     <ClInclude Include="GraphicsObject_Null.h" />
+    <ClInclude Include="GraphicsObject_SkinTexture.h" />
     <ClInclude Include="GraphicsObject_Sprite.h" />
     <ClInclude Include="GraphicsObject_TextureLight.h" />
     <ClInclude Include="GraphicsObject_Wireframe.h" />
@@ -268,6 +271,8 @@
     <ClInclude Include="Proto\boneData.pb.h" />
     <ClInclude Include="Proto\fontData.h" />
     <ClInclude Include="Proto\fontData.pb.h" />
+    <ClInclude Include="Proto\jointData.h" />
+    <ClInclude Include="Proto\jointData.pb.h" />
     <ClInclude Include="Proto\meshData.h" />
     <ClInclude Include="Proto\meshData.pb.h" />
     <ClInclude Include="Proto\protoData.h" />
@@ -281,6 +286,7 @@
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SkeletonManager.h" />
     <ClInclude Include="SphereMesh.h" />
     <ClInclude Include="SpriteMesh.h" />
     <ClInclude Include="SpriteVBO.h" />
@@ -352,6 +358,7 @@
     <ClCompile Include="GraphicsObject_FlatTexture.cpp" />
     <ClCompile Include="GraphicsObject_Font.cpp" />
     <ClCompile Include="GraphicsObject_Null.cpp" />
+    <ClCompile Include="GraphicsObject_SkinTexture.cpp" />
     <ClCompile Include="GraphicsObject_Sprite.cpp" />
     <ClCompile Include="GraphicsObject_TextureLight.cpp" />
     <ClCompile Include="GraphicsObject_Wireframe.cpp" />
@@ -376,6 +383,8 @@
     <ClCompile Include="Proto\boneData.pb.cc" />
     <ClCompile Include="Proto\fontData.cpp" />
     <ClCompile Include="Proto\fontData.pb.cc" />
+    <ClCompile Include="Proto\jointData.cpp" />
+    <ClCompile Include="Proto\jointData.pb.cc" />
     <ClCompile Include="Proto\meshData.cpp" />
     <ClCompile Include="Proto\meshData.pb.cc" />
     <ClCompile Include="Proto\protoData.cpp" />
@@ -388,6 +397,7 @@
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="SkeletonManager.cpp" />
     <ClCompile Include="SphereMesh.cpp" />
     <ClCompile Include="SpriteMesh.cpp" />
     <ClCompile Include="StringThis.cpp" />

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option optimize_for = LITE_RUNTIME;
+
+message jointData_proto
+{
+    bool    enabled          = 1;
+    bytes   pName            = 2;
+    sint32  jointIndex       = 3;
+    sint32  parentJointIndex = 4;
+}

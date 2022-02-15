@@ -8,6 +8,8 @@
 #include "GameObjectAnim.h"
 #include "MathEngine.h"
 #include "AnimTime.h"
+#include "Texture.h"
+#include "Mesh.h"
 
 namespace Azul
 {
@@ -16,7 +18,7 @@ namespace Azul
 	class GameObjectAnimSkin : public GameObjectAnim
 	{
 	public:
-		GameObjectAnimSkin(GraphicsObjectHdr* pGraphicsObjectHdr, Bone* pBoneResult);
+		GameObjectAnimSkin(GraphicsObjectHdr* pGraphicsObjectHdr, Mesh *pMesh);
 
 		// Big four
 		GameObjectAnimSkin() = delete;
@@ -26,29 +28,14 @@ namespace Azul
 
 		virtual void Update(AnimTime currTime);
 
-		void SetScale(float sx, float sy, float sz);
-		void SetQuat(float qx, float qy, float qz, float qw);
-		void SetTrans(float x, float y, float z);
-
-		void SetScale(Vect& r);
-		void SetQuat(Quat& r);
-		void SetTrans(Vect& r);
-
 		virtual void SetIndex(int i) override;
 
-		Matrix GetBoneOrientation(void) const;
-		void SetBoneOrientation(const Matrix&);
-
 	private:
-		void privUpdate(AnimTime currTime);
+		void privUpdateBoneWorldArray();
 
-	public:   // add accessors later
-		Vect* poScale;
-		Quat* poQuat;
-		Vect* poTrans;
-		Matrix* poLocal;
-		Bone* pBoneResult;
-		Matrix* poBoneOrientation;
+	public:   
+		Matrix* poBoneWorld;
+		Mesh *pMesh;
 	};
 }
 

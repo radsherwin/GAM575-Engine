@@ -7,54 +7,52 @@
 
 namespace Azul
 {
-	class AnimTime;
-	class PCSTree;
-	class AnimController;
-	class AnimationManager
+class AnimTime;
+class PCSTree;
+class AnimController;
+class AnimationManager
 
-	{
-	public:
-		
-		AnimationManager();
-		AnimationManager(const AnimationManager&) = delete;
-		AnimationManager& operator=(const AnimationManager&) = delete;
-		~AnimationManager();
+{
+public:
 
-		//static void Add(Mesh** pMesh, Clip::Name _clipName, int _numBones);
-		static void Add(Animation** pAnimation, Clip::Name _clipName, int _numBones);
-		static void Add(Animation* anim);
+    AnimationManager();
+    AnimationManager(const AnimationManager &) = delete;
+    AnimationManager &operator=(const AnimationManager &) = delete;
+    ~AnimationManager();
 
-		static void SetClip(Clip::Name _clipName, AnimController::AnimName _animName);
-		static void AddController(AnimController::AnimName _animName, Skeleton* pSkel, Clip::Name _clip);
+    //static void Add(Mesh** pMesh, Clip::Name _clipName, int _numBones);
+    static void Add(Animation *pAnimation, Clip::Name _clipName);
+    static void Add(Animation *anim);
 
-		static void IncreaseSpeed(float speed);
-		static void DecreaseSpeed(float speed);
-		static void Forward();
-		static void Reverse();
-		static void PlayPause();
+    static void SetClip(Clip::Name _clipName, AnimController::AnimName _animName);
+    static void AddController(AnimController::AnimName _animName, Skeleton *pSkel, Clip::Name _clip);
 
-		static void Demo();
-		static void Demo2();
+    static void IncreaseSpeed(float speed);
+    static void DecreaseSpeed(float speed);
+    static void Forward();
+    static void Reverse();
+    static void PlayPause();
 
-		static void Update();
-		static void Create();
-		static void Destroy();
+    static void Demo();
+    static void Demo2();
 
-	private:
-		static AnimationManager* privGetInstance();
-		static Clip* privFind(Clip::Name _clipName);
-		static AnimController* privFind(AnimController::AnimName _animName);
+    static void Update();
+    static void Create();
+    static void Destroy();
 
-	public:
-		PCSTree* poClipTree;
-		PCSTree* poAnimTree;
-		PCSTree* poControllerTree;
+private:
+    static AnimationManager *privGetInstance();
+    static Clip *privFind(Clip::Name _clipName);
+    static AnimController *privFind(AnimController::AnimName _animName);
 
-	private:
-		static AnimationManager* posInstance;
+public:
+    PCSTree *poClipTree;
+    PCSTree *poAnimTree;
+    PCSTree *poControllerTree;
 
-
-	};
+private:
+    static AnimationManager *posInstance;
+};
 }
 
 #endif

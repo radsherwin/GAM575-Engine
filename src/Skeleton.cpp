@@ -13,22 +13,45 @@
 #include "MeshNodeManager.h"
 #include "GameObjectAnimSkeleton.h"
 #include "GameObjectAnimSkin.h"
+#include "GraphicsObject_SkinTexture.h"
 #include "Bone.h"
 
 namespace Azul
 {
-Skeleton::Skeleton(Mesh **SkeletonMesh, int _numBones)
-    : pFirstBone(nullptr),
-    numBones(_numBones)
+Skeleton::Skeleton()
+    : name(Name::UNINITIALIZED),
+    pFirstBone{ nullptr },
+    pPivot{ nullptr },
+    poBoneResult{ nullptr },
+    numBones(0)
+
 {
-    this->poBoneResult = new Bone[(unsigned int)_numBones];
-    this->privSetAnimationHierarchy(SkeletonMesh, this->poBoneResult);
+}
+
+Skeleton::Skeleton(Mesh *pSkelMesh)
+    : pFirstBone(nullptr),
+    numBones(pSkelMesh->jointCount)
+{
+    this->poBoneResult = new Bone[(unsigned int)numBones];
+    this->privSetAnimationHierarchy(pSkelMesh, this->poBoneResult);
     assert(pFirstBone);
 }
 
 Skeleton::~Skeleton()
 {
     delete[] this->poBoneResult;
+}
+
+void Skeleton::Set(Name _name, Mesh *pSkelMesh, Vect pos)
+{
+    this->pFirstBone = nullptr;
+    this->numBones = pSkelMesh->jointCount;
+
+    this->poBoneResult = new Bone[(unsigned int)numBones];
+    this->privSetAnimationHierarchy(pSkelMesh, this->poBoneResult);
+    assert(pFirstBone);
+
+    this->pPivot->SetTrans(pos);
 }
 
 GameObjectAnim *Skeleton::GetFirstBone()
@@ -85,14 +108,14 @@ void Skeleton::SetPos(float x, float y, float z) const
     this->pPivot->SetTrans(x, y, z);
 }
 
-void Skeleton::privSetAnimationHierarchy(Mesh **SkeletonMesh, Bone *pBoneResult)
+void Skeleton::privSetAnimationHierarchy(Mesh *pSkeletonMesh, Bone *pBoneResult)
 {
     Vect pos(1, 1, 1);
     Vect color(1.0f, 1.0f, 1.0f, 1.0f);
     GraphicsObjectHdr *pGraphicsHdr;
 
-    ShaderObject *pShaderObject_textureLight = ShaderManager::Find(ShaderObject::Name::TEXTURE_POINT_LIGHT);
-    assert(pShaderObject_textureLight);
+    ShaderObject *pShaderObject_skinTexture = ShaderManager::Find(ShaderObject::Name::SKIN_TEXTURE);
+    assert(pShaderObject_skinTexture);
 
     ShaderObject *pShaderObject_texture = ShaderManager::Find(ShaderObject::Name::TEXTURE_POINT_LIGHT);
     assert(pShaderObject_texture);
@@ -116,27 +139,37 @@ void Skeleton::privSetAnimationHierarchy(Mesh **SkeletonMesh, Bone *pBoneResult)
 
     GameObjectManager::Add(pPivot, GameObjectManager::GetRoot());
 
-    GameObjectAnim *pGameObj;
-
     //Root animation is treated differently
 
-    //color.set(1.50f, 0.50f, 0.50f, 1.0f);
     pGraphicsHdr = new GraphicsObjectHdr();
-    pGraphicsHdr->Set_TextureLight(SkeletonMesh[0], pShaderObject_textureLight, color, pos, Texture::Name::CHICKEN_BOT);
-    pGameObj = new GameObjectAnimSkin(pGraphicsHdr, pBoneResult);
-    pGameObj->SetIndex(SkeletonMesh[0]->jointIndex); //Change to SkeletonMesh[0]->jointIndex
-    pGameObj->SetName(SkeletonMesh[0]->meshName.c_str());
-    GameObjectManager::Add(pGameObj, pPivot);
-    this->pFirstBone = pGameObj;
+    pGraphicsHdr->Set_SkinTexture(pSkeletonMesh, pShaderObject_skinTexture, Texture::Name::CHICKEN_BOT);
+    GameObjectAnimSkin *pGameSkin = new GameObjectAnimSkin(pGraphicsHdr, pSkeletonMesh);
+    pGameSkin->SetName("ChickenSkin");
+    GameObjectManager::Add(pGameSkin, pPivot);
+
+    GameObjectAnim *pGameObj;
+    // Root animation is treated differently
+    for (int i = 0; i < 1; i++)
+    {
+        pGraphicsHdr = new GraphicsObjectHdr();
+        pGraphicsHdr->Set_Null(pMeshNull, pShaderNull);
+        pGameObj = new GameObjectAnimSkeleton(pGraphicsHdr, pBoneResult);
+        pGameObj->SetIndex(pSkeletonMesh->poJointData[i].jointIndex);
+        pGameObj->SetName(pSkeletonMesh->poJointData[i].name);
+        GameObjectManager::Add(pGameObj, pPivot);
+        this->pFirstBone = pGameObj;
+    }
 
     for (int i = 1; i < this->numBones - 4; i++)
     {
         pGraphicsHdr = new GraphicsObjectHdr();
-        pGraphicsHdr->Set_TextureLight(SkeletonMesh[i], pShaderObject_textureLight, color, pos, Texture::Name::CHICKEN_BOT);
-        pGameObj = new GameObjectAnimSkin(pGraphicsHdr, pBoneResult);
-        pGameObj->SetIndex(SkeletonMesh[i]->jointIndex);
-        pGameObj->SetName(SkeletonMesh[i]->meshName.c_str());
-        GameObjectAnim *pParent = this->privFindBoneByIndex(SkeletonMesh[i]->parentJointIndex);
+        pGraphicsHdr->Set_Null(pMeshNull, pShaderNull);
+        pGameObj = new GameObjectAnimSkeleton(pGraphicsHdr, pBoneResult);
+        pGameObj->SetIndex(pSkeletonMesh->poJointData[i].jointIndex);
+        pGameObj->SetName(pSkeletonMesh->poJointData[i].name);
+
+        GameObjectAnim *pParent = this->privFindBoneByIndex(pSkeletonMesh->poJointData[i].parentIndex);
+        assert(pParent);
         GameObjectManager::Add(pGameObj, pParent);
     }
 }
@@ -174,6 +207,46 @@ GameObjectAnim *Skeleton::privFindBoneByIndex(int index)
     }
 
     return pFound;
+}
+
+bool Skeleton::Compare(DLink *pTarget)
+{
+    // This is used in ManBase.Find()
+    assert(pTarget != nullptr);
+
+    Skeleton *pDataB = (Skeleton *)pTarget;
+
+    bool status = false;
+
+    if (this->name == pDataB->name)
+    {
+        status = true;
+    }
+
+    return status;
+}
+
+void Skeleton::Dump()
+{
+    Trace::out("      Skeleton(%p)\n", this);
+
+    // Data:
+
+    //Trace::out("         x: %d \n", this->x);
+
+    DLink::Dump();
+}
+
+void Skeleton::Wash()
+{
+}
+
+char *Skeleton::GetName()
+{
+    // todo - Hack understand why is this needed for print and fix...
+    static char pTmp[128];
+    strcpy_s(pTmp, 128, STRING_ME(this->name));
+    return pTmp;
 }
 }
 

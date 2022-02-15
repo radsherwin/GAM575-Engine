@@ -11,22 +11,21 @@
 class GraphicsObject_FlatTexture :public GraphicsObject
 {
 public:
-	GraphicsObject_FlatTexture(const Mesh* pMesh, const ShaderObject* pShaderObj, Texture::Name _name);
-	GraphicsObject_FlatTexture() = delete;
-	GraphicsObject_FlatTexture(const GraphicsObject_FlatTexture&) = delete;
-	GraphicsObject_FlatTexture& operator=(const GraphicsObject_FlatTexture&) = delete;
-	virtual ~GraphicsObject_FlatTexture() = default;
+    GraphicsObject_FlatTexture(const Mesh *pMesh, const ShaderObject *pShaderObj, Texture::Name _name);
+    GraphicsObject_FlatTexture() = delete;
+    GraphicsObject_FlatTexture(const GraphicsObject_FlatTexture &) = delete;
+    GraphicsObject_FlatTexture &operator=(const GraphicsObject_FlatTexture &) = delete;
+    virtual ~GraphicsObject_FlatTexture() = default;
 
-	// Rendermaterial contract
-	virtual void SetState() override;
-	virtual void SetDataGPU() override;
-	virtual void Draw() override;
-	virtual void RestoreState() override;
+    // Rendermaterial contract
+    virtual void SetState() override;
+    virtual void SetDataGPU() override;
+    virtual void Draw() override;
+    virtual void RestoreState() override;
 
-	// data:  place uniform instancing here
+    // data:  place uniform instancing here
 
-	Texture::Name textName;
-
+    Texture::Name textName;
 };
 #endif
 

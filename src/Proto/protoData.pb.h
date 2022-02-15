@@ -163,18 +163,19 @@ class protoData_proto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPMeshDataFieldNumber = 7,
-    kPAnimDataFieldNumber = 8,
-    kPTextureDataFieldNumber = 9,
-    kPFontDataFieldNumber = 10,
+    kPMeshDataFieldNumber = 8,
+    kPAnimDataFieldNumber = 9,
+    kPTextureDataFieldNumber = 10,
+    kPFontDataFieldNumber = 11,
     kPVersionFieldNumber = 1,
     kPNameFieldNumber = 2,
     kMeshCountFieldNumber = 3,
     kAnimCountFieldNumber = 4,
     kTextureCountFieldNumber = 5,
     kFontCountFieldNumber = 6,
+    kTotalBonesFieldNumber = 7,
   };
-  // repeated .meshData_proto pMeshData = 7;
+  // repeated .meshData_proto pMeshData = 8;
   int pmeshdata_size() const;
   private:
   int _internal_pmeshdata_size() const;
@@ -192,7 +193,7 @@ class protoData_proto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::meshData_proto >&
       pmeshdata() const;
 
-  // repeated .animData_proto pAnimData = 8;
+  // repeated .animData_proto pAnimData = 9;
   int panimdata_size() const;
   private:
   int _internal_panimdata_size() const;
@@ -210,7 +211,7 @@ class protoData_proto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::animData_proto >&
       panimdata() const;
 
-  // repeated .textureData_proto pTextureData = 9;
+  // repeated .textureData_proto pTextureData = 10;
   int ptexturedata_size() const;
   private:
   int _internal_ptexturedata_size() const;
@@ -228,7 +229,7 @@ class protoData_proto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::textureData_proto >&
       ptexturedata() const;
 
-  // repeated .fontData_proto pFontData = 10;
+  // repeated .fontData_proto pFontData = 11;
   int pfontdata_size() const;
   private:
   int _internal_pfontdata_size() const;
@@ -310,6 +311,15 @@ class protoData_proto final :
   void _internal_set_fontcount(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
+  // uint32 totalBones = 7;
+  void clear_totalbones();
+  ::PROTOBUF_NAMESPACE_ID::uint32 totalbones() const;
+  void set_totalbones(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_totalbones() const;
+  void _internal_set_totalbones(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:protoData_proto)
  private:
   class _Internal;
@@ -327,6 +337,7 @@ class protoData_proto final :
   ::PROTOBUF_NAMESPACE_ID::uint32 animcount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 texturecount_;
   ::PROTOBUF_NAMESPACE_ID::uint32 fontcount_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 totalbones_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_protoData_2eproto;
 };
@@ -513,7 +524,27 @@ inline void protoData_proto::set_fontcount(::PROTOBUF_NAMESPACE_ID::uint32 value
   // @@protoc_insertion_point(field_set:protoData_proto.fontCount)
 }
 
-// repeated .meshData_proto pMeshData = 7;
+// uint32 totalBones = 7;
+inline void protoData_proto::clear_totalbones() {
+  totalbones_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 protoData_proto::_internal_totalbones() const {
+  return totalbones_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 protoData_proto::totalbones() const {
+  // @@protoc_insertion_point(field_get:protoData_proto.totalBones)
+  return _internal_totalbones();
+}
+inline void protoData_proto::_internal_set_totalbones(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  totalbones_ = value;
+}
+inline void protoData_proto::set_totalbones(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_totalbones(value);
+  // @@protoc_insertion_point(field_set:protoData_proto.totalBones)
+}
+
+// repeated .meshData_proto pMeshData = 8;
 inline int protoData_proto::_internal_pmeshdata_size() const {
   return pmeshdata_.size();
 }
@@ -550,7 +581,7 @@ protoData_proto::pmeshdata() const {
   return pmeshdata_;
 }
 
-// repeated .animData_proto pAnimData = 8;
+// repeated .animData_proto pAnimData = 9;
 inline int protoData_proto::_internal_panimdata_size() const {
   return panimdata_.size();
 }
@@ -587,7 +618,7 @@ protoData_proto::panimdata() const {
   return panimdata_;
 }
 
-// repeated .textureData_proto pTextureData = 9;
+// repeated .textureData_proto pTextureData = 10;
 inline int protoData_proto::_internal_ptexturedata_size() const {
   return ptexturedata_.size();
 }
@@ -624,7 +655,7 @@ protoData_proto::ptexturedata() const {
   return ptexturedata_;
 }
 
-// repeated .fontData_proto pFontData = 10;
+// repeated .fontData_proto pFontData = 11;
 inline int protoData_proto::_internal_pfontdata_size() const {
   return pfontdata_.size();
 }
