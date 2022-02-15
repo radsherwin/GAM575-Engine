@@ -8,22 +8,14 @@
 #include "Anim.h"
 #include "TimerController.h"
 #include "GameObjectAnim.h"
-#include "Skeleton.h"
 
 namespace Azul
 {
+	class Skeleton;
 	class AnimController : public PCSNode
 	{
 	public:
-		enum class AnimName
-		{
-			MESH1 = 0,
-			MESH2,
-			MESH3,
-			MESH4,
-			DEFAULT
-		};
-		AnimController(AnimTime delta, Clip* _pClip, Skeleton* pSkel, AnimName _animName);
+		AnimController(AnimTime delta, Clip* _pClip, Skeleton* pSkel);
 		AnimController();
 		AnimController(const AnimController&) = delete;
 		AnimController& operator = (const AnimController&) = delete;
@@ -36,17 +28,13 @@ namespace Azul
 		void Reverse() const;
 
 		void PlayPause();
-		void Show();
-		void Hide();
 
 		void Update() const;
-
-		AnimName name;
 	private:
 		
 		TimerController* poTimerControl;
 		Anim* poAnim;
-		Skeleton* poSkeleton;
+		Skeleton* pSkeleton;
 		bool bPause;
 
 	};

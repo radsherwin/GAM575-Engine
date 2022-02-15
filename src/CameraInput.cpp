@@ -24,46 +24,46 @@ KeyPress runKey(Keyboard::KEY_5);
 
 void CameraInput::PlayDemo(Keyboard *pKey)
 {
-    //------------
-    //	Walk
-    //------------
-    if (walkKey)
-    {
-        Trace::out("Walking!");
-        AnimationManager::SetClip(Clip::Name::WALK, AnimController::AnimName::MESH1);
-    }
+    ////------------
+    ////	Walk
+    ////------------
+    //if (walkKey)
+    //{
+    //    Trace::out("Walking!");
+    //    AnimationManager::SetClip(Clip::Name::WALK, AnimController::AnimName::MESH1);
+    //}
 
-    //------------
-    //	Die_Left
-    //------------
-    if (dieLeftKey)
-    {
-        AnimationManager::SetClip(Clip::Name::DIE_LEFT, AnimController::AnimName::MESH1);
-    }
+    ////------------
+    ////	Die_Left
+    ////------------
+    //if (dieLeftKey)
+    //{
+    //    AnimationManager::SetClip(Clip::Name::DIE_LEFT, AnimController::AnimName::MESH1);
+    //}
 
-    //------------
-    //	Shot_Down
-    //------------
-    if (shotDownKey)
-    {
-        AnimationManager::SetClip(Clip::Name::SHOT_DOWN, AnimController::AnimName::MESH1);
-    }
+    ////------------
+    ////	Shot_Down
+    ////------------
+    //if (shotDownKey)
+    //{
+    //    AnimationManager::SetClip(Clip::Name::SHOT_DOWN, AnimController::AnimName::MESH1);
+    //}
 
-    //------------
-    //	Hit_Right
-    //------------
-    if (hitRightKey)
-    {
-        AnimationManager::SetClip(Clip::Name::HIT_RIGHT, AnimController::AnimName::MESH1);
-    }
+    ////------------
+    ////	Hit_Right
+    ////------------
+    //if (hitRightKey)
+    //{
+    //    AnimationManager::SetClip(Clip::Name::HIT_RIGHT, AnimController::AnimName::MESH1);
+    //}
 
-    //------------
-    //	Run
-    //------------
-    if (runKey)
-    {
-        AnimationManager::SetClip(Clip::Name::RUN, AnimController::AnimName::MESH1);
-    }
+    ////------------
+    ////	Run
+    ////------------
+    //if (runKey)
+    //{
+    //    AnimationManager::SetClip(Clip::Name::RUN, AnimController::AnimName::MESH1);
+    //}
 }
 
 KeyPress speedUPKey(Keyboard::KEY_EQUAL);
@@ -74,43 +74,43 @@ KeyPress ppKey(Keyboard::KEY_SPACE);
 
 void CameraInput::DemoChangeSpeed(Keyboard *pKey)
 {
-    if (speedUPKey)
-    {
-        AnimationManager::IncreaseSpeed(1.25f);
-    }
+    //if (speedUPKey)
+    //{
+    //    AnimationManager::IncreaseSpeed(1.25f);
+    //}
 
-    if (slowDownKey)
-    {
-        AnimationManager::DecreaseSpeed(1.25f);
-    }
+    //if (slowDownKey)
+    //{
+    //    AnimationManager::DecreaseSpeed(1.25f);
+    //}
 
-    if (revKey)
-    {
-        AnimationManager::Reverse();
-    }
+    //if (revKey)
+    //{
+    //    AnimationManager::Reverse();
+    //}
 
-    if (fwdKey)
-    {
-        AnimationManager::Forward();
-    }
+    //if (fwdKey)
+    //{
+    //    AnimationManager::Forward();
+    //}
 
-    if (ppKey)
-    {
-        AnimationManager::PlayPause();
-    }
+    //if (ppKey)
+    //{
+    //    AnimationManager::PlayPause();
+    //}
 
-    //Demo 2
-    static bool keyState6 = false;
-    if (pKey->GetKeyState(Keyboard::KEY_E) && !keyState6)
-    {
-        keyState6 = true;
-    }
+    ////Demo 2
+    //static bool keyState6 = false;
+    //if (pKey->GetKeyState(Keyboard::KEY_E) && !keyState6)
+    //{
+    //    keyState6 = true;
+    //}
 
-    if (pKey->GetKeyReleaseState(Keyboard::KEY_E) && keyState6)
-    {
-        AnimationManager::Demo2();
-        keyState6 = false;
-    }
+    //if (pKey->GetKeyReleaseState(Keyboard::KEY_E) && keyState6)
+    //{
+    //    AnimationManager::Demo2();
+    //    keyState6 = false;
+    //}
 }
 
 void CameraInput::Create(GLFWwindow *_window)

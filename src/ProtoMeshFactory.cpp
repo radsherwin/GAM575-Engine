@@ -105,11 +105,11 @@ void ProtoMeshFactory::CreateMeshSingle(const char *const pFileName, Mesh *&mesh
     mesh = new ProtoBuffMesh(pB.pMeshData[0], pB.totalBones);
 }
 
-void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation *pAnim)
+void ProtoMeshFactory::GetAnimation(const char *const pMeshFileName, Animation *&pAnim)
 {
     protoData pB;
     ProtoMeshFactory::LoadProto(pMeshFileName, pB);
-    
+    pAnim = new Animation();
     pAnim->poAnimData = new Animation::AnimData[pB.animCount];
     pAnim->totalBones = pB.totalBones;
     pAnim->animatedJointCount = pB.animCount;

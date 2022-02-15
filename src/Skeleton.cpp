@@ -23,6 +23,7 @@ Skeleton::Skeleton()
     pFirstBone{ nullptr },
     pPivot{ nullptr },
     poBoneResult{ nullptr },
+    poAnimController{nullptr},
     numBones(0)
 
 {
@@ -30,9 +31,11 @@ Skeleton::Skeleton()
 
 Skeleton::Skeleton(Mesh *pSkelMesh)
     : pFirstBone(nullptr),
+    pPivot{nullptr},
+    poBoneResult(new Bone[(unsigned int)numBones]),
+    poAnimController(nullptr),
     numBones(pSkelMesh->jointCount)
 {
-    this->poBoneResult = new Bone[(unsigned int)numBones];
     this->privSetAnimationHierarchy(pSkelMesh, this->poBoneResult);
     assert(pFirstBone);
 }
@@ -40,6 +43,7 @@ Skeleton::Skeleton(Mesh *pSkelMesh)
 Skeleton::~Skeleton()
 {
     delete[] this->poBoneResult;
+    delete this->poAnimController;
 }
 
 void Skeleton::Set(Name _name, Mesh *pSkelMesh, Vect pos)
@@ -52,6 +56,18 @@ void Skeleton::Set(Name _name, Mesh *pSkelMesh, Vect pos)
     assert(pFirstBone);
 
     this->pPivot->SetTrans(pos);
+}
+
+AnimController *Skeleton::GetController() const
+{
+    assert(poAnimController != nullptr);
+    
+    return this->poAnimController;
+}
+
+void Skeleton::AddController(AnimController *pController)
+{
+    this->poAnimController = pController;
 }
 
 GameObjectAnim *Skeleton::GetFirstBone()

@@ -9,6 +9,7 @@
 #include "GameObjectBasic.h"
 #include "DLink.h"
 #include "Vect.h"
+#include "AnimController.h"
 
 namespace Azul
 {
@@ -43,6 +44,10 @@ public:
 
     void Set(Name _name, Mesh *pMesh, Vect pos);
 
+    // AnimController
+    void AddController(AnimController *pController);
+    AnimController *GetController() const;
+
     GameObjectAnim *GetFirstBone();
     Bone *BoneResult();
 
@@ -65,6 +70,7 @@ private:
     GameObjectAnim *pFirstBone;
     GameObjectBasic *pPivot;
     Bone *poBoneResult;
+    AnimController *poAnimController;
     int             numBones;
 };
 }

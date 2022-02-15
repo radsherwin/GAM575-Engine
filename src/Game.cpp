@@ -164,7 +164,7 @@ void Game::LoadContent()
     MeshNodeManager::Add(Mesh::Name::SPRITE, pSpriteMesh);
 
     // Corset
-    Mesh *pCorsetMesh;
+    Mesh *pCorsetMesh = nullptr;
     ProtoMeshFactory::CreateMeshSingle("Corset.mt.proto.azul", pCorsetMesh, Texture::Name::CORSET);
     MeshNodeManager::Add(Mesh::Name::CORSET, pCorsetMesh);
 
@@ -174,7 +174,7 @@ void Game::LoadContent()
     MeshNodeManager::Add(Mesh::Name::ANTIQUE_CAMERA, pAntigueCamera, 2);
 
     // DogHouse
-    Mesh *pDogHouseMesh;
+    Mesh *pDogHouseMesh = nullptr;
     ProtoMeshFactory::CreateMeshSingle("DogHouse.mt.proto.azul", pDogHouseMesh, Texture::Name::DOG_HOUSE);
     MeshNodeManager::Add(Mesh::Name::DOG_HOUSE, pDogHouseMesh);
 
@@ -182,19 +182,19 @@ void Game::LoadContent()
     ProtoMeshFactory::CreateMeshSingle("walk_mesh.mat.proto.azul", chickenBotMesh, Texture::Name::CHICKEN_BOT);
     MeshNodeManager::Add(Mesh::Name::CHICKEN_BOT, chickenBotMesh);
 
-    Animation *Anim_Die_Left;
+    Animation *Anim_Die_Left = nullptr;
     ProtoMeshFactory::GetAnimation("die_left_mesh.a.proto.azul", Anim_Die_Left);
 
-    Animation *Anim_Walk;
+    Animation *Anim_Walk = nullptr;
     ProtoMeshFactory::GetAnimation("walk_mesh.mat.proto.azul", Anim_Walk);
 
-    Animation *Anim_Shot_Down;
+    Animation *Anim_Shot_Down = nullptr;
     ProtoMeshFactory::GetAnimation("shot_down_mesh.a.proto.azul", Anim_Shot_Down);
 
-    Animation *Anim_Hit_Right;
+    Animation *Anim_Hit_Right = nullptr;
     ProtoMeshFactory::GetAnimation("hit_right_mesh.a.proto.azul", Anim_Hit_Right);
 
-    Animation *Anim_Run;
+    Animation *Anim_Run = nullptr;
     ProtoMeshFactory::GetAnimation("run_RM_mesh.a.proto.azul", Anim_Run);
 
     //-----------------------------------------------------------------------------
@@ -323,12 +323,14 @@ void Game::LoadContent()
     AnimationManager::Add(Anim_Hit_Right, Clip::Name::HIT_RIGHT);
     AnimationManager::Add(Anim_Run, Clip::Name::RUN);
 
+    AnimationManager::AddController(Skeleton::Name::CHICKEN_BOT_1, Clip::Name::WALK);
+
     //pSkel->AddController(AnimController::AnimName::MESH1, Clip::Name::WALK);
 
     //AnimationManager::AddController(AnimController::AnimName::MESH1, pSkel, Clip::Name::WALK);
     //AnimationManager::AddController(AnimController::AnimName::MESH2, pSkel2, Clip::Name::DIE_LEFT);
 
-    AnimationManager::Demo();
+    //AnimationManager::Demo();
 
     CameraManager::Update(Camera::Type::PERSPECTIVE_3D);
     CameraManager::Update(Camera::Type::ORTHOGRAPHIC_2D);
@@ -371,7 +373,7 @@ void Game::Update(float currentTime)
     // ------------------------------------
     // Animate Me
     // ------------------------------------
-    AnimationManager::Update();
+    SkeletonManager::Update();
 
     // ------------------------------------
     // GameObject update

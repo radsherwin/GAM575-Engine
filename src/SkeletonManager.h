@@ -23,10 +23,10 @@ private:
 public:
     static void Create(int reserveNum = 5, int reserveGrow = 2);
     static void Destroy();
-
+    static void Update();
     static void Add(Skeleton::Name skelName, Mesh *pMesh, Vect pos);
     static Skeleton *Find(Skeleton::Name skelName);
-    
+
     static void Remove(Skeleton *pSkel);
     static void Remove(Skeleton::Name skelName);
     static void Dump();

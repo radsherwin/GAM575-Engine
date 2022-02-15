@@ -4,11 +4,12 @@
 
 #include "AnimController.h"
 #include "Anim.h"
+#include "Skeleton.h"
 
 namespace Azul
 {
-	AnimController::AnimController(AnimTime delta, Clip* _pClip, Skeleton* pSkel, AnimName _animName)
-		: name(_animName), poSkeleton(pSkel), bPause(false)
+	AnimController::AnimController(AnimTime delta, Clip* _pClip, Skeleton* pSkel)
+		: pSkeleton(pSkel), bPause(false)
 	{
 		// Animatio n object
 		this->poAnim = new Anim(_pClip, pSkel); //new Anim(_pClip, _pSkel);
@@ -22,7 +23,7 @@ namespace Azul
 	}
 
 	AnimController::AnimController()
-		: name(AnimName::DEFAULT), poTimerControl(nullptr), poAnim(nullptr), poSkeleton(nullptr), bPause(false)
+		: poTimerControl(nullptr), poAnim(nullptr), pSkeleton(nullptr), bPause(false)
 	{
 	}
 
@@ -30,7 +31,6 @@ namespace Azul
 	{
 		delete poAnim;
 		delete poTimerControl;
-		delete this->poSkeleton;
 	}
 
 	void AnimController::SetClip(Clip* pClip) const
@@ -66,16 +66,6 @@ namespace Azul
 	void AnimController::PlayPause()
 	{
 		this->bPause = !this->bPause;
-	}
-
-	void AnimController::Show()
-	{
-		this->poSkeleton->Show();
-	}
-
-	void AnimController::Hide()
-	{
-		this->poSkeleton->Hide();
 	}
 
 	void AnimController::Update() const

@@ -72,6 +72,25 @@ void SkeletonManager::Destroy()
     SkeletonManager::posInstance = nullptr;
 }
 
+void SkeletonManager::Update()
+{
+    SkeletonManager *pMan = SkeletonManager::privGetInstance();
+    assert(pMan != nullptr);
+
+    // iterate through the list and delete
+    Iterator *pIt = pMan->baseGetActiveIterator();
+
+    DLink *pNode = pIt->First();
+
+    // Walk through the nodes
+    while (!pIt->IsDone())
+    {
+        ((Skeleton *)pIt->Curr())->GetController()->Update();
+        pNode = pIt->Next();
+    }
+
+}
+
 void SkeletonManager::Add(Skeleton::Name _name, Mesh *pMesh, Vect pos)
 {
     SkeletonManager *pMan = SkeletonManager::privGetInstance();

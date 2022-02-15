@@ -7,6 +7,7 @@
 #include "AnimController.h"
 #include "meshData.h"
 #include "ProtoMeshFactory.h"
+#include "SkeletonManager.h"
 
 using namespace Azul;
 
@@ -25,19 +26,12 @@ AnimationManager::AnimationManager()
 
     Animation *pNullAnimation = new Animation();
     this->poAnimTree->Insert(pNullAnimation, this->poAnimTree->GetRoot());
-
-    this->poControllerTree = new PCSTree();
-    assert(this->poControllerTree);
-
-    AnimController *pNullController = new AnimController();
-    this->poControllerTree->Insert(pNullController, this->poControllerTree->GetRoot());
 }
 
 AnimationManager::~AnimationManager()
 {
     delete this->poClipTree;
     delete this->poAnimTree;
-    delete this->poControllerTree;
 }
 
 void AnimationManager::Add(Animation *pAnimation, Clip::Name _clipName)
@@ -56,7 +50,7 @@ void AnimationManager::Add(Animation *anim)
     pMan->poAnimTree->Insert(anim, pMan->poAnimTree->GetRoot());
 }
 
-void AnimationManager::SetClip(Clip::Name _clipName, AnimController::AnimName _animName)
+void AnimationManager::SetClip(Clip::Name _clipName, Skeleton::Name _skelName)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
@@ -64,12 +58,13 @@ void AnimationManager::SetClip(Clip::Name _clipName, AnimController::AnimName _a
     Clip *pClip = pMan->privFind(_clipName);
     assert(pClip);
 
-    AnimController *pController = pMan->privFind(_animName);
-
-    if (pController != nullptr) pController->SetClip(pClip);
+    Skeleton *pSkel = SkeletonManager::Find(_skelName);
+    assert(pSkel != nullptr);
+    
+    pSkel->GetController()->SetClip(pClip);
 }
 
-void AnimationManager::AddController(AnimController::AnimName _animName, Skeleton *pSkel, Clip::Name _clip)
+void AnimationManager::AddController(Skeleton::Name skelName, Clip::Name _clip)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
@@ -77,169 +72,107 @@ void AnimationManager::AddController(AnimController::AnimName _animName, Skeleto
     Clip *pClip = pMan->privFind(_clip);
     assert(pClip);
 
+    Skeleton *pSkel = SkeletonManager::Find(skelName);
+    assert(pSkel != nullptr);
+
     AnimTime delta = 0.1f * AnimTime(AnimTime::Duration::FILM_24_FRAME);
-    AnimController *pAnimController = new AnimController(delta, pClip, pSkel, _animName); //, pSkel);
-    pMan->poControllerTree->Insert(pAnimController, pMan->poControllerTree->GetRoot());
+    pSkel->AddController(new AnimController(delta, pClip, pSkel));
 }
 
-void AnimationManager::IncreaseSpeed(float speed)
+void AnimationManager::IncreaseSpeed(Skeleton::Name _skelName, float speed)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
+    Skeleton *pSkel = SkeletonManager::Find(_skelName);
+    assert(pSkel != nullptr);
 
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT) pTmp->IncreaseSpeed(speed);
-        pNode = pForIter.Next();
-    }
+    pSkel->GetController()->IncreaseSpeed(speed);
 }
 
-void AnimationManager::DecreaseSpeed(float speed)
+void AnimationManager::DecreaseSpeed(Skeleton::Name _skelName, float speed)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
+    Skeleton *pSkel = SkeletonManager::Find(_skelName);
+    assert(pSkel != nullptr);
 
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT) pTmp->DecreaseSpeed(speed);
-        pNode = pForIter.Next();
-    }
+    pSkel->GetController()->DecreaseSpeed(speed);
 }
 
-void AnimationManager::Forward()
+void AnimationManager::Forward(Skeleton::Name _skelName)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
+    Skeleton *pSkel = SkeletonManager::Find(_skelName);
+    assert(pSkel != nullptr);
 
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT) pTmp->Forward();
-        pNode = pForIter.Next();
-    }
+    pSkel->GetController()->Forward();
 }
 
-void AnimationManager::Reverse()
+void AnimationManager::Reverse(Skeleton::Name _skelName)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
+    Skeleton *pSkel = SkeletonManager::Find(_skelName);
+    assert(pSkel != nullptr);
 
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT) pTmp->Reverse();
-        pNode = pForIter.Next();
-    }
+    pSkel->GetController()->Reverse();
 }
 
-void AnimationManager::PlayPause()
+void AnimationManager::PlayPause(Skeleton::Name _skelName)
 {
     AnimationManager *pMan = AnimationManager::privGetInstance();
     assert(pMan);
 
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
+    Skeleton *pSkel = SkeletonManager::Find(_skelName);
+    assert(pSkel != nullptr);
 
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT) pTmp->PlayPause();
-        pNode = pForIter.Next();
-    }
+    pSkel->GetController()->PlayPause();
 }
 
-void AnimationManager::Demo()
-{
-    AnimationManager *pMan = AnimationManager::privGetInstance();
-    assert(pMan);
-
-    //Update all controllers
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
-
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT && pTmp->name != AnimController::AnimName::MESH1) pTmp->Hide();
-        pNode = pForIter.Next();
-    }
-}
-
-void AnimationManager::Demo2()
-{
-    AnimationManager *pMan = AnimationManager::privGetInstance();
-    assert(pMan);
-
-    //Update all controllers
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
-
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT && pTmp->name != AnimController::AnimName::MESH1) pTmp->Show();
-        pNode = pForIter.Next();
-    }
-}
-
-void AnimationManager::Update()
-{
-    AnimationManager *pMan = AnimationManager::privGetInstance();
-    assert(pMan);
-
-    //Update all controllers
-    PCSTree *pTree = pMan->poControllerTree;
-    PCSNode *pNode = nullptr;
-
-    PCSTree::Info info;
-    pTree->GetInfo(info);
-    if (info.currNumNodes <= 1) return; //for cases where the tree only has a null
-
-    PCSTreeForwardIterator pForIter(pTree->GetRoot());
-    pNode = pForIter.First();
-    AnimController *pTmp = nullptr;
-    while (!pForIter.IsDone())
-    {
-        pTmp = (AnimController *)pForIter.CurrentItem();
-        if (pTmp->name != AnimController::AnimName::DEFAULT) pTmp->Update();
-        pNode = pForIter.Next();
-    }
-}
+//void AnimationManager::Demo()
+//{
+//    AnimationManager *pMan = AnimationManager::privGetInstance();
+//    assert(pMan);
+//
+//    //Update all controllers
+//    PCSTree *pTree = pMan->poControllerTree;
+//    PCSNode *pNode = nullptr;
+//
+//    PCSTreeForwardIterator pForIter(pTree->GetRoot());
+//    pNode = pForIter.First();
+//    AnimController *pTmp = nullptr;
+//    while (!pForIter.IsDone())
+//    {
+//        pTmp = (AnimController *)pForIter.CurrentItem();
+//        if (pTmp->name != AnimController::AnimName::DEFAULT && pTmp->name != AnimController::AnimName::MESH1) pTmp->Hide();
+//        pNode = pForIter.Next();
+//    }
+//}
+//
+//void AnimationManager::Demo2()
+//{
+//    AnimationManager *pMan = AnimationManager::privGetInstance();
+//    assert(pMan);
+//
+//    //Update all controllers
+//    PCSTree *pTree = pMan->poControllerTree;
+//    PCSNode *pNode = nullptr;
+//
+//    PCSTreeForwardIterator pForIter(pTree->GetRoot());
+//    pNode = pForIter.First();
+//    AnimController *pTmp = nullptr;
+//    while (!pForIter.IsDone())
+//    {
+//        pTmp = (AnimController *)pForIter.CurrentItem();
+//        if (pTmp->name != AnimController::AnimName::DEFAULT && pTmp->name != AnimController::AnimName::MESH1) pTmp->Show();
+//        pNode = pForIter.Next();
+//    }
+//}
 
 void AnimationManager::Create()
 {
@@ -303,27 +236,6 @@ void AnimationManager::Destroy()
         }
     }
 
-    pTree = pMan->poControllerTree;
-    pNode = nullptr;
-
-    pTree->GetInfo(info);
-    if (info.currNumNodes <= 1)
-    {
-        delete pTree->GetRoot();
-    }
-    else
-    {
-        PCSTreeForwardIterator pForIter = pTree->GetRoot();
-        pNode = pForIter.First();
-        PCSNode *pTmp = nullptr;
-        while (!pForIter.IsDone())
-        {
-            pTmp = pForIter.CurrentItem();
-
-            pNode = pForIter.Next();
-            delete pTmp;
-        }
-    }
 
     delete AnimationManager::posInstance;
     AnimationManager::posInstance = nullptr;
@@ -362,30 +274,30 @@ Clip *AnimationManager::privFind(Clip::Name _clipName)
     return nullptr;
 }
 
-AnimController *AnimationManager::privFind(AnimController::AnimName _animName)
-{
-    AnimationManager *pMan = AnimationManager::privGetInstance();
-    assert(pMan);
-
-    PCSNode *pRootNode = pMan->poControllerTree->GetRoot();
-    assert(pRootNode);
-
-    PCSTreeForwardIterator pForwardIter(pRootNode);
-    PCSNode *pNode = pForwardIter.First();
-
-    AnimController *pController = nullptr;
-
-    while (!pForwardIter.IsDone())
-    {
-        assert(pNode);
-        pController = (AnimController *)pNode;
-        if (pController->name == _animName)
-        {
-            return pController;
-        }
-
-        pNode = pForwardIter.Next();
-    }
-
-    return nullptr;
-}
+//AnimController *AnimationManager::privFind(Skeleton::Name _skelName)
+//{
+//    /*AnimationManager *pMan = AnimationManager::privGetInstance();
+//    assert(pMan);
+//
+//    PCSNode *pRootNode = pMan->poControllerTree->GetRoot();
+//    assert(pRootNode);
+//
+//    PCSTreeForwardIterator pForwardIter(pRootNode);
+//    PCSNode *pNode = pForwardIter.First();
+//
+//    AnimController *pController = nullptr;
+//
+//    while (!pForwardIter.IsDone())
+//    {
+//        assert(pNode);
+//        pController = (AnimController *)pNode;
+//        if (pController->name == _animName)
+//        {
+//            return pController;
+//        }
+//
+//        pNode = pForwardIter.Next();
+//    }*/
+//
+//    return nullptr;
+//}
