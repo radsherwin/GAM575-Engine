@@ -71,6 +71,8 @@ public:
 	GLuint vbo_texts;	//u v
 	GLuint vbo_color;
 	GLuint vbo_index;	//trilist
+	GLuint vbo_weight;
+	GLuint vbo_joint;
 
 	void Wash();
 	bool Compare(DLink* pTarget);
@@ -87,6 +89,10 @@ public:
 	unsigned int totalBones;
 	unsigned int jointCount;
 	JointData *poJointData;
+
+	//Inv Bind
+	Matrix *poInverseBind;
+	unsigned int numInverseBind;
 };
 
 #endif

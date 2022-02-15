@@ -32,7 +32,7 @@ Skeleton::Skeleton()
 Skeleton::Skeleton(Mesh *pSkelMesh)
     : pFirstBone(nullptr),
     pPivot{nullptr},
-    poBoneResult(new Bone[(unsigned int)12]),
+    poBoneResult(new Bone[12]),
     poAnimController(nullptr),
     numBones(pSkelMesh->jointCount)
 {
@@ -260,9 +260,7 @@ void Skeleton::Wash()
 char *Skeleton::GetName()
 {
     // todo - Hack understand why is this needed for print and fix...
-    static char pTmp[128];
-    strcpy_s(pTmp, 128, STRING_ME(this->name));
-    return pTmp;
+    return nullptr;
 }
 }
 

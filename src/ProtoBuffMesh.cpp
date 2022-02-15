@@ -74,15 +74,14 @@ void ProtoBuffMesh::privCreateMesh(meshData &mB, const unsigned int &totalBones)
     this->meshName = mB.pName;
     this->totalBones = 12;//totalBones;
 
-    if(mB.jointCount > 0)
+    if (mB.jointCount > 0)
     {
         this->poJointData = new Mesh::JointData[mB.jointCount];
         this->jointCount = mB.jointCount;
-        
     }
 
     jointData *pJD = nullptr;
-    for(int i = 0; i < mB.jointCount; i++)
+    for (int i = 0; i < mB.jointCount; i++)
     {
         pJD = &mB.pJointData[i];
         memcpy_s(this->poJointData[i].name, 32, pJD->pName, 32);
@@ -112,7 +111,6 @@ void ProtoBuffMesh::privCreateMesh(meshData &mB, const unsigned int &totalBones)
     assert(this->vbo_index != 0);
 
     // Skin data
-    
 
     // General Stuff
     assert(mB.mode == meshData::RENDER_MODE::MODE_TRIANGLES);
@@ -237,6 +235,70 @@ void ProtoBuffMesh::privCreateMesh(meshData &mB, const unsigned int &totalBones)
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)(mB.vbo_index.dataSize), mB.vbo_index.poData, GL_STATIC_DRAW);
     }
 
+    // Load the weight data: ---------------------------------------------------------
+    if (mB.vbo_weights.enabled)
+    {
+        assert(mB.vbo_weights.targetType == vboData::VBO_TARGET::ARRAY_BUFFER);
+        glBindBuffer(GL_ARRAY_BUFFER, this->vbo_weight);
+
+        // load the data to the GPU
+        assert(mB.vbo_weights.poData);
+        assert(mB.vbo_weights.dataSize > 0);
+        glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(mB.vbo_weights.dataSize), mB.vbo_weights.poData, GL_STATIC_DRAW);
+
+        // Weight data is location: 5  (used in vertex shader)
+        assert(5 == mB.vbo_weights.attribIndex);
+        assert(mB.vbo_weights.vboType == vboData::VBO_TYPE::VEC4);
+        assert(mB.vbo_weights.componentType == vboData::VBO_COMPONENT::FLOAT);
+        glVertexAttribPointer(mB.vbo_weights.attribIndex, 4, GL_FLOAT, GL_FALSE, sizeof(Vert_weight), 0);
+        glEnableVertexAttribArray(mB.vbo_weights.attribIndex);
+    }
+
+    // Load the Joint data: ---------------------------------------------------------
+    if (mB.vbo_joints.enabled)
+    {
+        assert(mB.vbo_joints.targetType == vboData::VBO_TARGET::ARRAY_BUFFER);
+        glBindBuffer(GL_ARRAY_BUFFER, this->vbo_joint);
+
+        // load the data to the GPU
+        assert(mB.vbo_joints.poData);
+        assert(mB.vbo_joints.dataSize > 0);
+        glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(mB.vbo_joints.dataSize), mB.vbo_joints.poData, GL_STATIC_DRAW);
+
+        // Joint data is location: 6  (used in vertex shader)
+        assert(6 == mB.vbo_joints.attribIndex);
+        assert(mB.vbo_joints.vboType == vboData::VBO_TYPE::VEC4);
+        assert(mB.vbo_joints.componentType == vboData::VBO_COMPONENT::UNSIGNED_INT);
+
+        glVertexAttribIPointer(mB.vbo_joints.attribIndex, 4, GL_UNSIGNED_INT, sizeof(Vert_joint), 0);
+        glEnableVertexAttribArray(mB.vbo_joints.attribIndex);
+    }
+
+    // Load the InverseBind Matrices data: ---------------------------------------------------------
+    if (mB.vbo_invBind.enabled)
+    {
+        assert(mB.vbo_joints.targetType == vboData::VBO_TARGET::ARRAY_BUFFER);
+        //glBindBuffer(GL_ARRAY_BUFFER, this->vbo_invBind);
+
+        // load the data to the GPU
+        assert(mB.vbo_invBind.poData);
+        assert(mB.vbo_invBind.dataSize > 0);
+        //glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(mB.vbo_invBind.dataSize), mB.vbo_invBind.poData, GL_STATIC_DRAW);
+
+        // Inverse Bind data is location: 7  (used in vertex shader)
+        assert(7 == mB.vbo_invBind.attribIndex);
+        assert(mB.vbo_invBind.vboType == vboData::VBO_TYPE::MAT4);
+        assert(mB.vbo_invBind.componentType == vboData::VBO_COMPONENT::FLOAT);
+        //glVertexAttribPointer(mB.vbo_invBind.attribIndex, 4, GL_FLOAT, GL_FALSE, mB.vbo_invBind.count*sizeof(Matrix), 0);
+        //glEnableVertexAttribArray(mB.vbo_invBind.attribIndex);
+        //
+        // copy data into buffer
+        this->numInverseBind = mB.vbo_invBind.count;
+        assert(this->numInverseBind > 0);
+        this->poInverseBind = new Matrix[this->numInverseBind]();
+        assert(this->poInverseBind);
+        memcpy_s(this->poInverseBind, this->numInverseBind * sizeof(Matrix), mB.vbo_invBind.poData, mB.vbo_invBind.dataSize);
+    }
 }
 
 // --- End of File ---

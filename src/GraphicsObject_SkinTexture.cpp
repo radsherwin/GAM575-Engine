@@ -54,7 +54,7 @@ void GraphicsObject_SkinTexture::SetDataGPU()
 	//glUniformMatrix4fv(this->pShaderObj->GetLocation("world_matrix"), 1, GL_FALSE, (float *) &world);
 
 	assert(this->pBoneWorld);
-	//glUniformMatrix4fv(this->pShaderObj->GetLocation("invBind"), 8, GL_FALSE, (float *)pMesh->poInverseBind);
+	glUniformMatrix4fv(this->pShaderObj->GetLocation("invBind"), 8, GL_FALSE, (float *)pMesh->poInverseBind);
 	glUniformMatrix4fv(this->pShaderObj->GetLocation("boneWorld"), 8, GL_FALSE, (float *)this->pBoneWorld);
 
 	//uniform mat4 view_matrix;

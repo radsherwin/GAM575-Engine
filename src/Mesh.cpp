@@ -18,7 +18,9 @@ Mesh::Mesh()
 	textureIDInt(0),
 	jointCount(0),
 	totalBones(0),
-	poJointData{nullptr}
+	poJointData{nullptr},
+	poInverseBind{nullptr},
+	numInverseBind(0)
 	
 {
 }
@@ -27,6 +29,7 @@ Mesh::~Mesh()
 {
 	delete this->poRefSphere;
 	delete[] this->poJointData;
+	delete[] this->poInverseBind;
 }
 
 void Mesh::Wash()
@@ -41,6 +44,7 @@ void Mesh::Wash()
 	vbo_index = 0;
 	this->jointCount = 0;
 	this->totalBones = 0;
+	this->numInverseBind = 0;
 	
 }
 
