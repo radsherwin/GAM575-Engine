@@ -70,6 +70,41 @@ void Skeleton::AddController(AnimController *pController)
     this->poAnimController = pController;
 }
 
+GameObjectAnim *Skeleton::FindBoneByIndex(int index)
+{
+    GameObjectAnim *pFound = nullptr;
+
+    GameObjectAnim *pObj = this->GetFirstBone();
+
+    // TODO - add test bed for an interator of a tree with only one node
+    if (pObj->index == index)
+    {
+        pFound = pObj;
+    }
+    else
+    {
+        PCSTreeForwardIterator pIter(pObj);
+        PCSNode *pNode = pIter.First();
+        GameObjectAnim *pGameObj = nullptr;
+
+        // walks the anim node does the pose for everything that
+        while (pNode != nullptr)
+        {
+            assert(pNode);
+            // Update the game object
+            pGameObj = (GameObjectAnim *)pNode;
+            if (pGameObj->index == index)
+            {
+                pFound = pGameObj;
+                break;
+            }
+            pNode = pIter.Next();
+        }
+    }
+
+    return pFound;
+}
+
 GameObjectAnim *Skeleton::GetFirstBone()
 {
     assert(pFirstBone);
@@ -159,7 +194,7 @@ void Skeleton::privSetAnimationHierarchy(Mesh *pSkeletonMesh, Bone *pBoneResult)
 
     pGraphicsHdr = new GraphicsObjectHdr();
     pGraphicsHdr->Set_SkinTexture(pSkeletonMesh, pShaderObject_skinTexture, Texture::Name::CHICKEN_BOT);
-    GameObjectAnimSkin *pGameSkin = new GameObjectAnimSkin(pGraphicsHdr, pSkeletonMesh);
+    GameObjectAnimSkin *pGameSkin = new GameObjectAnimSkin(pGraphicsHdr, pSkeletonMesh, this);
     pGameSkin->SetName("ChickenSkin");
     GameObjectManager::Add(pGameSkin, pPivot);
 
@@ -176,7 +211,7 @@ void Skeleton::privSetAnimationHierarchy(Mesh *pSkeletonMesh, Bone *pBoneResult)
         this->pFirstBone = pGameObj;
     }
 
-    for (int i = 1; i < this->numBones - 4; i++)
+    for (int i = 1; i < this->numBones; i++)
     {
         pGraphicsHdr = new GraphicsObjectHdr();
         pGraphicsHdr->Set_Null(pMeshNull, pShaderNull);
@@ -184,45 +219,10 @@ void Skeleton::privSetAnimationHierarchy(Mesh *pSkeletonMesh, Bone *pBoneResult)
         pGameObj->SetIndex(pSkeletonMesh->poJointData[i].jointIndex);
         pGameObj->SetName(pSkeletonMesh->poJointData[i].name);
 
-        GameObjectAnim *pParent = this->privFindBoneByIndex(pSkeletonMesh->poJointData[i].parentIndex);
+        GameObjectAnim *pParent = this->FindBoneByIndex(pSkeletonMesh->poJointData[i].parentIndex);
         assert(pParent);
         GameObjectManager::Add(pGameObj, pParent);
     }
-}
-
-GameObjectAnim *Skeleton::privFindBoneByIndex(int index)
-{
-    GameObjectAnim *pFound = nullptr;
-
-    GameObjectAnim *pObj = this->GetFirstBone();
-
-    // TODO - add test bed for an interator of a tree with only one node
-    if (pObj->index == index)
-    {
-        pFound = pObj;
-    }
-    else
-    {
-        PCSTreeForwardIterator pIter(pObj);
-        PCSNode *pNode = pIter.First();
-        GameObjectAnim *pGameObj = nullptr;
-
-        // walks the anim node does the pose for everything that
-        while (pNode != nullptr)
-        {
-            assert(pNode);
-            // Update the game object
-            pGameObj = (GameObjectAnim *)pNode;
-            if (pGameObj->index == index)
-            {
-                pFound = pGameObj;
-                break;
-            }
-            pNode = pIter.Next();
-        }
-    }
-
-    return pFound;
 }
 
 bool Skeleton::Compare(DLink *pTarget)

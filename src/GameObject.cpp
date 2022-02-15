@@ -34,7 +34,7 @@ namespace Azul
 
 	Matrix* GameObject::GetWorld()
 	{
-		return this->poWorld;
+ 		return this->poWorld;
 	}
 
 	GraphicsObjectHdr* GameObject::GetGraphicsObjectHdr()

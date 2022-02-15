@@ -14,6 +14,8 @@ Mesh::Mesh()
 	vbo_texts(0),
 	vbo_color(0),
 	vbo_index(0),
+	vbo_weight(0),
+	vbo_joint(0),
 	poRefSphere(new Sphere()),
 	textureIDInt(0),
 	jointCount(0),
@@ -42,6 +44,8 @@ void Mesh::Wash()
 	vbo_texts = 0;
 	vbo_color = 0;
 	vbo_index = 0;
+	vbo_weight = 0;
+	vbo_joint = 0;
 	this->jointCount = 0;
 	this->totalBones = 0;
 	this->numInverseBind = 0;

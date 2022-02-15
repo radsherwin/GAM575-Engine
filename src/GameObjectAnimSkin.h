@@ -13,12 +13,13 @@
 
 namespace Azul
 {
+	class Skeleton;
 	struct Bone;
 
 	class GameObjectAnimSkin : public GameObjectAnim
 	{
 	public:
-		GameObjectAnimSkin(GraphicsObjectHdr* pGraphicsObjectHdr, Mesh *pMesh);
+		GameObjectAnimSkin(GraphicsObjectHdr* pGraphicsObjectHdr, Mesh *pMesh, Skeleton *pSkel);
 
 		// Big four
 		GameObjectAnimSkin() = delete;
@@ -36,6 +37,7 @@ namespace Azul
 	public:   
 		Matrix* poBoneWorld;
 		Mesh *pMesh;
+		Skeleton *pSkel;
 	};
 }
 

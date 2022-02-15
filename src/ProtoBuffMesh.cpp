@@ -110,6 +110,12 @@ void ProtoBuffMesh::privCreateMesh(meshData &mB, const unsigned int &totalBones)
     glGenBuffers(1, &this->vbo_index);
     assert(this->vbo_index != 0);
 
+    glGenBuffers(1, &this->vbo_weight);
+    assert(this->vbo_weight != 0);
+
+    glGenBuffers(1, &this->vbo_joint);
+    assert(this->vbo_joint != 0);
+
     // Skin data
 
     // General Stuff

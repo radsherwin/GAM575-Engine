@@ -47,7 +47,7 @@ public:
     // AnimController
     void AddController(AnimController *pController);
     AnimController *GetController() const;
-
+    GameObjectAnim *FindBoneByIndex(int index);
     GameObjectAnim *GetFirstBone();
     Bone *BoneResult();
 
@@ -62,7 +62,7 @@ public:
 
 private:
     void privSetAnimationHierarchy(Mesh *SkeletonMesh, Bone *pBoneResult);
-    GameObjectAnim *privFindBoneByIndex(int index);
+    
 
 public:
     Name name;

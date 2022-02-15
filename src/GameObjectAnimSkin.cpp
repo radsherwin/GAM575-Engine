@@ -5,17 +5,21 @@
 #include "GameObjectAnimSkin.h"
 #include "Anim.h"
 #include "GraphicsObject_SkinTexture.h"
+#include "Skeleton.h"
 
 
 namespace Azul
 {
-	GameObjectAnimSkin::GameObjectAnimSkin(GraphicsObjectHdr* pGraphicsObjectHdr, Mesh *pMesh)
+	GameObjectAnimSkin::GameObjectAnimSkin(GraphicsObjectHdr* pGraphicsObjectHdr, Mesh *pMesh, Skeleton *pSkel)
 		: GameObjectAnim(pGraphicsObjectHdr)
 	{
 		assert(pGraphicsObjectHdr);
 		this->pMesh = pMesh;
+		assert(pMesh);
 		this->poBoneWorld = new Matrix[pMesh->jointCount]();
 		((GraphicsObject_SkinTexture *)this->poGraphicsObjHdr->poGraphicsObject)->SetBoneWorld(poBoneWorld);
+		this->pSkel = pSkel;
+		assert(pSkel);
 		
 	}
 
@@ -27,13 +31,13 @@ namespace Azul
 	void GameObjectAnimSkin::privUpdateBoneWorldArray()
 	{
 		/*Anim *pAnim = pAnimController->GetAnim();
-		Skeleton *pSkel = pAnim->GetSkeleton();
+		Skeleton *pSkel = pAnim->GetSkeleton();*/
 
 		for (int i = 0; i < 8; i++)
 		{
 			GameObjectAnim *pGameObject = pSkel->FindBoneByIndex(i+4);
 			this->poBoneWorld[i] = *pGameObject->GetWorld();
-		}*/
+		}
 
 	}
 
